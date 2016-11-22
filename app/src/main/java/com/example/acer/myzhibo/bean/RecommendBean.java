@@ -1,11 +1,12 @@
 package com.example.acer.myzhibo.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by acer on 2016/11/22.
  */
 
 public class RecommendBean {
-
 
     /**
      * id : 1
@@ -20,15 +21,25 @@ public class RecommendBean {
      * screen : 0
      */
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("slug")
     private String slug;
-    private String first_letter;
+    @SerializedName("first_letter")
+    private String firstLetter;
+    @SerializedName("status")
     private int status;
+    @SerializedName("prompt")
     private int prompt;
+    @SerializedName("image")
     private String image;
+    @SerializedName("thumb")
     private String thumb;
+    @SerializedName("priority")
     private int priority;
+    @SerializedName("screen")
     private int screen;
 
     public int getId() {
@@ -55,12 +66,12 @@ public class RecommendBean {
         this.slug = slug;
     }
 
-    public String getFirst_letter() {
-        return first_letter;
+    public String getFirstLetter() {
+        return firstLetter;
     }
 
-    public void setFirst_letter(String first_letter) {
-        this.first_letter = first_letter;
+    public void setFirstLetter(String firstLetter) {
+        this.firstLetter = firstLetter;
     }
 
     public int getStatus() {
