@@ -10,7 +10,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import mdzz.com.first_of_mdzz.R;
+import com.example.acer.myzhibo.R;
+
 
 /**
  * Created by StevenWang on 16/10/28.

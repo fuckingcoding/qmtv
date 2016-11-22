@@ -23,4 +23,6 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray">#77999999</color>
     <color name="thinGray">#33ffffff</color>
+    <color name="notouchcolor">#ee9fb5</color>
+    <color name="touchcolor">#f15646</color>
 </resources>

@@ -1,17 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/relativelayout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.example.acer.myzhibo.ui.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <com.example.acer.myzhibo.widget.NoScrollViewPager
+        android:id="@+id/noscrollviewPager_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </com.example.acer.myzhibo.widget.NoScrollViewPager>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/devider_line" >
+    </View>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <RadioButton
+            android:id="@+id/btn_main_tuijian"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:drawablePadding="3dp"
+            android:drawableTop="@mipmap/ic_main_tuijian"
+            android:gravity="center_horizontal"
+            android:text="推荐"
+            android:textColor="@color/notouchcolor" />
+
+        <RadioButton
+            android:id="@+id/btn_main_lanmu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:drawablePadding="3dp"
+            android:drawableTop="@mipmap/ic_main_lanmu"
+            android:gravity="center_horizontal"
+            android:text="栏目"
+            android:textColor="@color/notouchcolor" />
+
+        <RadioButton
+            android:id="@+id/btn_main_live"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:drawablePadding="3dp"
+            android:drawableTop="@mipmap/ic_main_live"
+            android:gravity="center_horizontal"
+            android:text="直播"
+            android:textColor="@color/notouchcolor" />
+
+        <RadioButton
+            android:id="@+id/btn_main_me"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:drawablePadding="3dp"
+            android:drawableTop="@mipmap/ic_mian_my"
+            android:gravity="center_horizontal"
+            android:text="我的"
+            android:textColor="@color/notouchcolor" />
+    </RadioGroup>
+
+</LinearLayout>

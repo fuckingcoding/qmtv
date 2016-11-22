@@ -8,7 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
-import mdzz.com.first_of_mdzz.base.MyApplication;
+import com.example.acer.myzhibo.base.MyApplication;
 
 
 /**
