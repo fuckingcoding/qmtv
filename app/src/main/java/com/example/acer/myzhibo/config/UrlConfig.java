@@ -5,6 +5,6 @@ package com.example.acer.myzhibo.config;
  */
 
 public class UrlConfig {
-    public static  final  String BASE_URL ="";
+    public static  final  String BASE_URL ="http://www.quanmin.tv/";
 
 }
