@@ -13,7 +13,7 @@ import com.example.acer.myzhibo.adapter.Mainadapter;
 import com.example.acer.myzhibo.ui.fragment.ColumnFragment;
 import com.example.acer.myzhibo.ui.fragment.LiveFragment;
 import com.example.acer.myzhibo.ui.fragment.MyFragment;
-import com.example.acer.myzhibo.ui.fragment.recommend.RecommendFragment;
+import com.example.acer.myzhibo.ui.fragment.RecommendFragment;
 import com.example.acer.myzhibo.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         mViewPager = (NoScrollViewPager) findViewById(R.id.noscrollviewPager_main);
         mRadioGroup.setOnCheckedChangeListener(this);
+
         mViewPager.setOnPageChangeListener(this);
     }
     //初始化fragment
@@ -64,8 +65,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         fragmentList.add(liveFragment);
         fragmentList.add(myFragment);
 
-        mainadapter = new Mainadapter(getSupportFragmentManager(), fragmentList);
+        mainadapter = new Mainadapter(getSupportFragmentManager(),fragmentList);
         mViewPager = (NoScrollViewPager) findViewById(R.id.noscrollviewPager_main);
+
         mViewPager.setAdapter(mainadapter);
 
     }

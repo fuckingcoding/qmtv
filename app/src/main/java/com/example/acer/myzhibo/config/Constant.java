@@ -5,6 +5,7 @@ package com.example.acer.myzhibo.config;
  */
 
 public class Constant {
+public  final static  String KEY_RECOMMEND_URL_KEY="KEY_RECOMMEND_URL_KEY";
 
 
 }
