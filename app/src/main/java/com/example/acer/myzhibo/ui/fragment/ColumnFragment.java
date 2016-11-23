@@ -105,6 +105,7 @@ public class ColumnFragment extends Fragment {
         GridLayoutManager gridlayout = new GridLayoutManager(mContent,3, LinearLayoutManager.VERTICAL,false);
         recyclerView.addItemDecoration(new DividerGridItemDecoration(mContent));
         recyclerView.setLayoutManager(gridlayout);
+
         recyclerView.setAdapter(mycolumnadapter);
     }
 

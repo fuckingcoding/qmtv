@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_reused"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.acer.myzhibo.ui.fragment.ColumnFragment">
+    tools:context="com.example.acer.myzhibo.ui.zbactivity.ReusedActivity">
     <android.support.v7.widget.Toolbar
         android:id="@+id/community_toolbar"
         android:layout_width="match_parent"
@@ -13,24 +15,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
+                android:id="@+id/tv_toolbar_title"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="栏目"
                 android:textSize="20sp"/>
             <ImageView
+                android:id="@+id/iv_toolbar_back"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="8dp"
-                android:layout_alignParentRight="true"
+                android:layout_marginLeft="8dp"
+                android:layout_alignParentLeft="true"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:src="@mipmap/find"/>
+                android:src="@mipmap/sobot_webview_toolsbar_back_disable"/>
 
         </RelativeLayout>
-
     </android.support.v7.widget.Toolbar>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_column_recyclerview"
+        android:id="@+id/rv_reused"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
