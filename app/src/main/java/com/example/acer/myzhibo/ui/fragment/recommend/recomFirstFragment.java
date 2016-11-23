@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.MyVpInfiniteAdapter;
@@ -34,7 +33,7 @@ public class RecomFirstFragment extends Fragment {
     private MyVpInfiniteAdapter adAdapter;
     private ViewPager mAdViewpager;
     private LinearLayout adlayout;
-    private RelativeLayout mrelativeLayout;
+
 
     private Handler adHandler = new Handler();
    // private ADRunnable adRunnable;
@@ -54,7 +53,7 @@ public class RecomFirstFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_recom_first, container, false);
-       // initView(view);
+       //initView(view);
         return view;
     }
 
@@ -62,8 +61,9 @@ public class RecomFirstFragment extends Fragment {
 
     private void initView(View view) {
         mxRecyclerView=(XRecyclerView)view.findViewById(R.id.xRecycleview_first_fragment_ad);
-        mrelativeLayout=(RelativeLayout)view.findViewById(R.id.relativelayout_header_ad);
-        mxRecyclerView.addHeaderView(mrelativeLayout);
+        View header = LayoutInflater.from(mContext).inflate(R.layout.ad_viewpager_recommed, (ViewGroup)view.findViewById(android.R.id.content), false);
+
+        mxRecyclerView.addHeaderView(header);
         mAdViewpager=(ViewPager)view.findViewById(R.id.recom_first_fragment_viewpager_ad);
         initRecycle(view);
         initAd(view);
@@ -75,7 +75,7 @@ public class RecomFirstFragment extends Fragment {
 
     private void initAd(View view) {
         initAdItemView();
-        initViewPager();
+        initViewPager(view);
         initDot(view);
 //        adRunnable = new ADRunnable();
     }
@@ -109,7 +109,7 @@ public class RecomFirstFragment extends Fragment {
 
 
 
-    private void initViewPager() {
+    private void initViewPager(View view) {
 
         adAdapter = new MyVpInfiniteAdapter(adViews);
         //mAdViewpager.setOffscreenPageLimit(6);
@@ -164,7 +164,7 @@ public class RecomFirstFragment extends Fragment {
 
     private void initAdItemView() {
         adViews = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             ImageView iv = new ImageView(mContext);
             iv.setLayoutParams(new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
