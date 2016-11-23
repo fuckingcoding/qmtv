@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backgroundcolor"
+    tools:context="com.example.acer.myzhibo.ui.fragment.recommend.RecomFirstFragment">
+<com.jcodecraeer.xrecyclerview.XRecyclerView
+    android:id="@+id/xRecycleview_first_fragment_ad"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+</com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+
+</LinearLayout>

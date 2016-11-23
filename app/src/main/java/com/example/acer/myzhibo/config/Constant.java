@@ -5,6 +5,8 @@ package com.example.acer.myzhibo.config;
  */
 
 public class Constant {
+public  final static  String KEY_RECOMMEND_URL_KEY="KEY_RECOMMEND_URL_KEY";
+
      public  static  final  String PLAYERURL = "http://flv.quanmin.tv/live/%s.flv";
      public  static  final  String UID ="Uid";
      public  static  final  String AVATAR ="Avatar";

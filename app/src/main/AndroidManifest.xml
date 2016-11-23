@@ -24,6 +24,11 @@
         </activity>
         <activity android:name=".ui.zbactivity.ReusedActivity" />
         <activity android:name=".ui.PlayActivity"></activity>
+
+        <activity android:name=".ui.zbactivity.ReusedActivity"></activity>
+
+        <activity android:name=".ui.fragment.recommend.demochannel.ChannelActivity"/>
+
     </application>
 
 </manifest>
