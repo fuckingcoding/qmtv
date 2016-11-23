@@ -19,7 +19,7 @@ import com.example.acer.myzhibo.adapter.recommend.Mainadapter2;
 import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.config.UrlConfig;
 import com.example.acer.myzhibo.ui.fragment.recommend.RecomFirstFragment;
-import com.example.acer.myzhibo.ui.fragment.recommend.RecommendFragmentList;
+import com.example.acer.myzhibo.ui.fragment.recommend.recomMVP.RecommendFragmentList;
 import com.example.acer.myzhibo.ui.fragment.recommend.demochannel.ChannelActivity;
 
 import java.util.ArrayList;

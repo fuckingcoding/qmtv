@@ -1,4 +1,4 @@
-package com.example.acer.myzhibo.ui.fragment.recommend;
+package com.example.acer.myzhibo.ui.fragment.recommend.recomMVP;
 
 
 import android.content.Context;
@@ -18,8 +18,6 @@ import com.example.acer.myzhibo.bean.DataBean;
 import com.example.acer.myzhibo.bean.QMBean;
 import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.config.UrlConfig;
-import com.example.acer.myzhibo.ui.fragment.recommend.recomMVP.RecommendContract;
-import com.example.acer.myzhibo.ui.fragment.recommend.recomMVP.RecommendPresenter;
 
 import java.util.ArrayList;
 import java.util.Collections;
