@@ -37,6 +37,9 @@ public class UrlConfig {
             "颜值控","英雄联盟","全民星秀","炉石传说","守望先锋","二次元区"
     };
 
+    //推荐页
+    public static final String RECOMMEND="http://www.quanmin.tv/json/app/index/recommend/list-android.json?11232149&v=2.2.4&os=1&ver=4";
 
-
+    //推荐页广告轮播
+    public static final String ADURL="http://www.quanmin.tv/json/page/app-data/info.json?v=2.2.4&os=1&ver=4";
 }
