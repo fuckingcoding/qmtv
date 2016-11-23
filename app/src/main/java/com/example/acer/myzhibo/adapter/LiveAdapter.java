@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.bean.LiveBean;
+import com.example.acer.myzhibo.utils.BitmapCircleTransformation;
 import com.example.acer.myzhibo.utils.RecyclerViewAdapterHelper;
 
 import java.util.List;
@@ -17,26 +19,47 @@ import java.util.List;
  * Created by acer on 2016/11/23.
  */
 
-public class LiveAdapter extends RecyclerViewAdapterHelper<LiveBean> {
+public class LiveAdapter extends RecyclerViewAdapterHelper<LiveBean.DataBeanX> {
    private LiveOnClickListener listener;
 
-    public LiveAdapter(Context context, List<LiveBean> list, LiveOnClickListener listener) {
+    public LiveAdapter(Context context, List<LiveBean.DataBeanX> list, LiveOnClickListener listener) {
         super(context, list);
         this.listener = listener;
     }
 
-    interface LiveOnClickListener{
+    public  interface LiveOnClickListener{
         void onClick(int position);
     }
 
 
     @Override
     public RecyclerView.ViewHolder onCreateMyViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View view = mInflater.inflate(R.layout.layout_item_live,parent,false);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindMyViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindMyViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        ((MyViewHolder)holder).tv_title.setText(mList.get(position).getNick());
+        ((MyViewHolder)holder).tv_content.setText(mList.get(position).getTitle());
+        ((MyViewHolder)holder).tv_view.setText(mList.get(position).getView());
+
+        String avatar = mList.get(position).getAvatar();
+        String thumb = mList.get(position).getThumb();
+        Glide.with(mContext).load(avatar).asBitmap().placeholder(R.mipmap.ic_launcher)
+                 .error(R.mipmap.ic_launcher) .transform(new BitmapCircleTransformation(mContext))
+                .into(((MyViewHolder)holder).iv_head);
+        Glide.with(mContext).load(thumb).asBitmap().placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher) .into(((MyViewHolder)holder).iv_cover);
+
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onClick(position);
+                }
+            });
 
     }
 
@@ -48,6 +71,10 @@ public class LiveAdapter extends RecyclerViewAdapterHelper<LiveBean> {
             super(itemView);
 
             tv_title = (TextView) itemView.findViewById(R.id.tv_item_title);
+            tv_content = (TextView) itemView.findViewById(R.id.tv_item_content);
+            tv_view = (TextView) itemView.findViewById(R.id.tv_item_cover);
+            iv_cover = (ImageView) itemView .findViewById(R.id.iv_item_cover);
+            iv_head = (ImageView) itemView.findViewById(R.id.iv_item_head);
         }
     }
 }
