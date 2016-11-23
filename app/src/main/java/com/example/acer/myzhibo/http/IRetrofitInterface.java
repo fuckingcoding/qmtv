@@ -1,11 +1,15 @@
 package com.example.acer.myzhibo.http;
 
 import com.example.acer.myzhibo.bean.QMBean;
-import com.example.acer.myzhibo.config.Constant;
-import com.example.acer.myzhibo.config.UrlConfig;
+import com.example.acer.myzhibo.bean.LiveBean;
+import com.example.acer.myzhibo.bean.LanmuBean;
+
+import java.util.List;
+
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 import rx.Observable;
 
 
@@ -21,4 +25,14 @@ public interface IRetrofitInterface {
 
     @GET("{path}")
     Observable<QMBean> getMoreQMbean(@Path("path")String path);
+
+    @GET
+    Observable<LiveBean> getZhiBoBean(@Url String url);
+
+    @GET
+    Observable<List<LanmuBean>> getaaa(@Url String url);
+
+
+    @GET
+    Observable<List<LanmuBean>> getColumn(@Url String url);
 }
