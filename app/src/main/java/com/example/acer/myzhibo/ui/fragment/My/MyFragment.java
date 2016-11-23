@@ -2,6 +2,7 @@ package com.example.acer.myzhibo.ui.fragment.My;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -71,13 +72,11 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
         iv_left = (ImageView) view.findViewById(R.id.iv_mine_left);
         iv_right = (ImageView) view.findViewById(R.id.iv_mine_right);
 
-
-
-
     }
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent();
         switch (view.getId()){
             case R.id.linear1_mine:
                 break;
