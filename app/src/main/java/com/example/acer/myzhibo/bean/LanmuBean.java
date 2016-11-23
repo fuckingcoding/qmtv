@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by acer on 2016/11/22.
  */
 
-public class RecommendBean {
+public class LanmuBean {
 
     /**
      * id : 1

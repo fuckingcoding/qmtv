@@ -1,6 +1,10 @@
 package com.example.acer.myzhibo.http;
 
 import com.example.acer.myzhibo.bean.QMBean;
+import com.example.acer.myzhibo.bean.LiveBean;
+import com.example.acer.myzhibo.bean.LanmuBean;
+
+import java.util.List;
 import com.example.acer.myzhibo.bean.RecommendBean;
 
 import java.util.List;
@@ -23,6 +27,13 @@ public interface IRetrofitInterface {
 
     @GET("{path}")
     Observable<QMBean> getMoreQMbean(@Path("path")String path);
+
+    @GET
+    Observable<LiveBean> getZhiBoBean(@Url String url);
+
+    @GET
+    Observable<List<LanmuBean>> getaaa(@Url String url);
+
 
     @GET
     Observable<List<RecommendBean>> getColumn(@Url String url);

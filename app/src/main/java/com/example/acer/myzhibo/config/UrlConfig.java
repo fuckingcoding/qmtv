@@ -9,7 +9,8 @@ public class UrlConfig {
     public static final String COLUMN_URL="http://www.quanmin.tv/json/categories/list.json?11212119&v=2.2.4&os=1&ver=4";
     public static final  String PATH1= "json/categories/";
     public  static  final  String PATH2 ="/list.json?11212123&v=2.2.4&os=1&ver=4";
-    public  static  final String  MOREQMBEANSTRING ="json/categories/%s/list_%c.json?11212128&v=2.2.4&os=1&ver=4";
+    public  static  final String  MOREQMBEANSTRING ="json/categories/%s/list_%d.json?11212128&v=2.2.4&os=1&ver=4";
+    public  static final String TOTALURL ="http://www.quanmin.tv/json/play/list.json?11212157&v=2.2.4&os=1&ver=4";
     public static  final String [] URLSTRING = new String[] {
             "lol","beauty","heartstone","huwai","overwatch","love",
             "wangzhe","qqfeiche", "yys","tvgame", "cfpc","mobilegame",

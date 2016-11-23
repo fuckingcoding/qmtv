@@ -11,7 +11,7 @@ import android.widget.RadioGroup;
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.Mainadapter;
 import com.example.acer.myzhibo.ui.fragment.ColumnFragment;
-import com.example.acer.myzhibo.ui.fragment.LiveFragment;
+import com.example.acer.myzhibo.ui.fragment.live.LiveFragment;
 import com.example.acer.myzhibo.ui.fragment.MyFragment;
 import com.example.acer.myzhibo.ui.fragment.recommend.RecommendFragment;
 import com.example.acer.myzhibo.widget.NoScrollViewPager;
