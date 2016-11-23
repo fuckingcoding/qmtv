@@ -20,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.zbactivity.ReusedActivity"></activity>
+        <activity android:name=".ui.zbactivity.ReusedActivity" />
+        <activity android:name=".ui.Search.SearchActivity"></activity>
     </application>
 
 </manifest>

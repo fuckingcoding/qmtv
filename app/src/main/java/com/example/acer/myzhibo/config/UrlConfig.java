@@ -24,7 +24,8 @@ public class UrlConfig {
             "传奇专区","魔兽争霸3","FIFA","NBA2K"
     };
 
-
+  public static final String SEARCH_URL ="site/search?p=1&refer=search&device=AknYJ6H1svk5AhUoGvUAuBZRAkPW56PHz_AMlFX7FGHN&ch=baiduzhushou&uid=-1&rid=-1&rcat=-\n" +
+          "1&net=0&screen=2&sw=720&sh=1280";
 
 
 }

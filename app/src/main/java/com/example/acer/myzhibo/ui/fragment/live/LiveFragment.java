@@ -2,12 +2,12 @@ package com.example.acer.myzhibo.ui.fragment.live;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,7 @@ import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.LiveAdapter;
 import com.example.acer.myzhibo.bean.LiveBean;
 import com.example.acer.myzhibo.config.UrlConfig;
-import com.example.acer.myzhibo.utils.ToastHelper;
+import com.example.acer.myzhibo.ui.Search.SearchActivity;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -74,7 +74,8 @@ public class LiveFragment extends Fragment  implements LiveContract.ILiveView,Li
         iv_searvh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(mContext, SearchActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -89,11 +90,11 @@ public class LiveFragment extends Fragment  implements LiveContract.ILiveView,Li
     //直播BEAN的回调
     @Override
     public void getZhiBoData(LiveBean bean) {
-         list = bean.getData();
+         list.addAll(bean.getData()) ;
         adapter.notifyDataSetChanged();
-        int follow = bean.getData().get(0).getFollow();
+
         String view = bean.getData().get(0).getView();
-        Log.e("TAG", "getZhiBoData: "+follow);
+
     }
 
 
