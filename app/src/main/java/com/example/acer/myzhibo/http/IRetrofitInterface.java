@@ -5,9 +5,7 @@ import com.example.acer.myzhibo.bean.LiveBean;
 import com.example.acer.myzhibo.bean.LanmuBean;
 
 import java.util.List;
-import com.example.acer.myzhibo.bean.RecommendBean;
 
-import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -36,5 +34,5 @@ public interface IRetrofitInterface {
 
 
     @GET
-    Observable<List<RecommendBean>> getColumn(@Url String url);
+    Observable<List<LanmuBean>> getColumn(@Url String url);
 }

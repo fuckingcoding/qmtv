@@ -1,52 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
    <RelativeLayout
+       android:layout_margin="5dp"
        android:layout_width="match_parent"
-       android:layout_height="200dp">
+       android:layout_height="120dp">
     <ImageView
         android:id="@+id/iv_item_cover"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
        <TextView
            android:id="@+id/tv_item_cover"
            android:layout_alignParentBottom="true"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:textColor="@color/colorWhite"
-           android:background="@color/black_overlay"
+           android:background="@color/colorGray"
            android:layout_margin="5dp"
-           android:paddingBottom="5dp"
-           android:text="sjkkkkksl"/>
+           android:paddingBottom="5dp" />
    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp">
         <ImageView
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
             android:id="@+id/iv_item_head"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
           <LinearLayout
+              android:layout_marginLeft="5dp"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:gravity="center_vertical"
               android:orientation="vertical">
               <TextView
-                  android:background="@color/red"
                   android:id="@+id/tv_item_title"
                   android:textSize="15dp"
-                  android:text="asdfdasfafdasfa"
-                  android:textColor="@android:color/black"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content" />
 
               <TextView
-                  android:background="@color/colorPrimary"
                   android:textSize="10dp"
-                  android:text="23333"
                   android:id="@+id/tv_item_content"
                   android:textColor="@color/colorGray"
                   android:layout_width="wrap_content"

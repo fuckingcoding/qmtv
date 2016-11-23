@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.bean.DataBean;
+import com.example.acer.myzhibo.utils.BitmapCircleTransformation;
 
 import java.util.List;
 
@@ -38,6 +40,11 @@ public class MyReusedAdapter extends RecyclerView.Adapter<MyReusedAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        Glide.with(mContext).load(data.get(position).getThumb()).into(holder.iv_cover);
+        Glide.with(mContext).load(data.get(position).getAvatar()).transform(new BitmapCircleTransformation(mContext)).into(holder.iv_head);
+        holder.tv_view.setText(data.get(position).getView());
+        holder.tv_title.setText(data.get(position).getTitle());
+        holder.tv_name.setText(data.get(position).getNick());
 
     }
 
@@ -51,6 +58,11 @@ public class MyReusedAdapter extends RecyclerView.Adapter<MyReusedAdapter.MyView
         TextView tv_view,tv_name,tv_title;
         public MyViewHolder(View itemView) {
             super(itemView);
+            iv_cover = (ImageView) itemView.findViewById(R.id.iv_item_cover);
+            iv_head = (ImageView) itemView.findViewById(R.id.iv_item_head);
+            tv_view = (TextView) itemView.findViewById(R.id.tv_item_cover);
+            tv_name = (TextView) itemView.findViewById(R.id.tv_item_title);
+            tv_title = (TextView) itemView.findViewById(R.id.tv_item_content);
         }
     }
 
