@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.bean.DataBean;
+import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.ui.PlayActivity;
 import com.example.acer.myzhibo.utils.BitmapCircleTransformation;
 
@@ -51,7 +52,11 @@ public class MyReusedAdapter extends RecyclerView.Adapter<MyReusedAdapter.MyView
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, PlayActivity.class);
-                intent.putExtra("1",data.get(position).getUid());
+                intent.putExtra(Constant.UID,data.get(position).getUid());
+                intent.putExtra(Constant.AVATAR,data.get(position).getAvatar());
+                intent.putExtra(Constant.VIEW,data.get(position).getView());
+                intent.putExtra(Constant.TITLE,data.get(position).getTitle());
+                intent.putExtra(Constant.NICK,data.get(position).getNick());
                 mContext.startActivity(intent);
             }
         });
