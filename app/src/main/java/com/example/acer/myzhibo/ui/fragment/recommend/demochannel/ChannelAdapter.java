@@ -7,6 +7,7 @@ import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,9 +19,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.acer.myzhibo.R;
+import com.example.acer.myzhibo.config.UrlConfig;
 import com.example.acer.myzhibo.ui.fragment.recommend.helper.OnDragVHListener;
 import com.example.acer.myzhibo.ui.fragment.recommend.helper.OnItemMoveListener;
+import com.example.acer.myzhibo.utils.ToastHelper;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -30,6 +35,13 @@ import java.util.List;
  * Created by YoKeyword on 15/12/28.
  */
 public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnItemMoveListener {
+    private static final String TAG = "ChannelAdapter";
+    public static final String []OtherName= UrlConfig.OtherName;
+    private List<String> allList;
+    public static final String []DefultName=UrlConfig.DefultName;
+    private List<String> defultlist;
+
+
     // 我的频道 标题部分
     public static final int TYPE_MY_CHANNEL_HEADER = 0;
     // 我的频道
@@ -62,11 +74,13 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     // 我的频道点击事件
     private OnMyChannelItemClickListener mChannelItemClickListener;
 
+    private Context mContext;
     public ChannelAdapter(Context context, ItemTouchHelper helper, List<ChannelEntity> mMyChannelItems, List<ChannelEntity> mOtherChannelItems) {
         this.mInflater = LayoutInflater.from(context);
         this.mItemTouchHelper = helper;
         this.mMyChannelItems = mMyChannelItems;
         this.mOtherChannelItems = mOtherChannelItems;
+        mContext=context;
     }
 
     @Override
@@ -84,6 +98,13 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        //全部频道转成list
+        allList=new ArrayList<>();
+        Collections.addAll(allList,OtherName);
+        //默认频道转成list
+        defultlist=new ArrayList<>();
+        Collections.addAll(defultlist,DefultName);
+
         final View view;
         switch (viewType) {
             case TYPE_MY_CHANNEL_HEADER:
@@ -355,7 +376,17 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ChannelEntity item = mMyChannelItems.get(startPosition);
         mMyChannelItems.remove(startPosition);
         mOtherChannelItems.add(0, item);
+        ToastHelper.showToast(mContext,position+"");
+        Log.i("TAG", "moveMyToOther: "+"1111111111");
+//        if(position>=0&&position<=5){
+//            //ToastHelper.showToast(mContext,"前六为默认栏目，无法删除");
+//        }else{
+//            mOtherChannelItems.add(0,mMyChannelItems.get(position));
+//
+//
+//        }
 
+        notifyDataSetChanged();
         notifyItemMoved(position, mMyChannelItems.size() + COUNT_PRE_OTHER_HEADER);
     }
 
@@ -366,10 +397,17 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      */
     private void moveOtherToMy(OtherViewHolder otherHolder) {
         int position = processItemRemoveAdd(otherHolder);
+
         if (position == -1) {
             return;
         }
+        Log.i(TAG, "moveOtherToMy: "+"222222222222222");
+//        mMyChannelItems.add(mMyChannelItems.size()+1,mOtherChannelItems.get(position));
+//        notifyDataSetChanged();
         notifyItemMoved(position, mMyChannelItems.size() - 1 + COUNT_PRE_MY_HEADER);
+
+        Log.i(TAG, "moveOtherToMy: "+mMyChannelItems.size());
+
     }
 
     /**
@@ -386,6 +424,8 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             @Override
             public void run() {
                 notifyItemMoved(position, mMyChannelItems.size() - 1 + COUNT_PRE_MY_HEADER);
+                Log.e("www", "run: "+allList.get(position) );
+                ToastHelper.showToast(mContext,""+allList.get(position));
             }
         }, ANIM_TIME);
     }

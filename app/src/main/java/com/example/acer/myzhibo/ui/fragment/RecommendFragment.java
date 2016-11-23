@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class RecommendFragment extends Fragment {
     //全部频道的拼音
     public static final String [] ALL_CHALLEL_PY=UrlConfig.URLSTRING;
     private List<String> allpyList;
-    private Map<String,String> allmap=new HashMap<>();
+    public Map<String,String> allmap=new HashMap<>();
 
     private  RecommendFragmentList recommendFragmentList;
     //tablayout上按钮
@@ -102,6 +103,7 @@ public class RecommendFragment extends Fragment {
             allmap.put(allList.get(i),allpyList.get(i));
         }
 
+
     }
 
     private void initView(View view) {
@@ -132,6 +134,7 @@ public class RecommendFragment extends Fragment {
                  //refragmentList.clear();
                Bundle bundle=new Bundle();
                bundle.putString(Constant.KEY_RECOMMEND_URL_KEY,tabList.get(i));
+            Log.e(TAG, "initFragment: "+tabList.get(i) );
                 recommendFragmentList.setArguments(bundle);
                 refragmentList.add(recommendFragmentList);
             }

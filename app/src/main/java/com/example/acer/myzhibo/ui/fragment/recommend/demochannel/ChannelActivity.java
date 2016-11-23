@@ -29,7 +29,7 @@ public class ChannelActivity extends AppCompatActivity {
     private List<String> allList;
     public static final String []DefultName=UrlConfig.DefultName;
     private List<String> defultlist;
-    private Boolean isChanened;
+
 
 
     @Override
@@ -76,6 +76,7 @@ public class ChannelActivity extends AppCompatActivity {
             }
         });
         mRecy.setAdapter(adapter);
+
 
         adapter.setOnMyChannelItemClickListener(new ChannelAdapter.OnMyChannelItemClickListener() {
             @Override
