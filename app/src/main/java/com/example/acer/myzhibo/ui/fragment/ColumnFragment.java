@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.zycadapter.MyColumnAdapter;
-import com.example.acer.myzhibo.bean.RecommendBean;
+import com.example.acer.myzhibo.bean.LanmuBean;
 import com.example.acer.myzhibo.config.UrlConfig;
 import com.example.acer.myzhibo.http.HttpUtils;
 import com.example.acer.myzhibo.http.IRetrofitInterface;
@@ -38,7 +38,7 @@ import rx.schedulers.Schedulers;
 public class ColumnFragment extends Fragment {
     private Context mContent ;
     private RecyclerView recyclerView;
-    private List<RecommendBean> list = new ArrayList<>();
+    private List<LanmuBean> list = new ArrayList<>();
     private MyColumnAdapter mycolumnadapter;
 
 
@@ -75,10 +75,10 @@ public class ColumnFragment extends Fragment {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         IRetrofitInterface iRetrofitInterface = retrofit.create(IRetrofitInterface.class);
-        Observable<List<RecommendBean>> column = iRetrofitInterface.getColumn(UrlConfig.COLUMN_URL);
+        Observable<List<LanmuBean>> column = iRetrofitInterface.getColumn(UrlConfig.COLUMN_URL);
         column.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<RecommendBean>>() {
+                .subscribe(new Subscriber<List<LanmuBean>>() {
                     @Override
                     public void onCompleted() {
 
@@ -90,7 +90,7 @@ public class ColumnFragment extends Fragment {
                     }
 
                     @Override
-                    public void onNext(List<RecommendBean> recommendBeen) {
+                    public void onNext(List<LanmuBean> recommendBeen) {
                         list.addAll(recommendBeen);
                         mycolumnadapter.notifyDataSetChanged();
 
@@ -105,6 +105,7 @@ public class ColumnFragment extends Fragment {
         GridLayoutManager gridlayout = new GridLayoutManager(mContent,3, LinearLayoutManager.VERTICAL,false);
         recyclerView.addItemDecoration(new DividerGridItemDecoration(mContent));
         recyclerView.setLayoutManager(gridlayout);
+
         recyclerView.setAdapter(mycolumnadapter);
     }
 
