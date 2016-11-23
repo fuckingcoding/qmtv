@@ -20,11 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< Updated upstream
+
         <activity android:name=".ui.zbactivity.ReusedActivity"></activity>
-=======
+
         <activity android:name=".ui.fragment.recommend.demochannel.ChannelActivity"/>
->>>>>>> Stashed changes
+
     </application>
 
 </manifest>
