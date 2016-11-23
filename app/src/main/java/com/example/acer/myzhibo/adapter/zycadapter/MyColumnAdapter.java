@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.acer.myzhibo.R;
-import com.example.acer.myzhibo.bean.RecommendBean;
+import com.example.acer.myzhibo.bean.LanmuBean;
 
 import java.util.List;
 
@@ -20,10 +20,10 @@ import java.util.List;
 
 public class MyColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<RecommendBean> list ;
+    private List<LanmuBean> list ;
     private LayoutInflater mLayoutInflater;
 
-    public MyColumnAdapter(Context mContext, List<RecommendBean> list) {
+    public MyColumnAdapter(Context mContext, List<LanmuBean> list) {
         this.mContext = mContext;
         this.list = list;
         mLayoutInflater = LayoutInflater.from(mContext);

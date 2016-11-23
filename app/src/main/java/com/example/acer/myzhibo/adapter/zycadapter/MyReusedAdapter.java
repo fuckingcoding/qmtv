@@ -5,7 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+
+import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.bean.DataBean;
 
 import java.util.List;
@@ -27,7 +31,9 @@ public class MyReusedAdapter extends RecyclerView.Adapter<MyReusedAdapter.MyView
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View view = mLayoutInflater.inflate(R.layout.layout_item_live,parent,false);
+        MyViewHolder vh = new MyViewHolder(view);
+        return vh;
     }
 
     @Override
@@ -41,7 +47,8 @@ public class MyReusedAdapter extends RecyclerView.Adapter<MyReusedAdapter.MyView
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-
+        ImageView iv_cover,iv_head;
+        TextView tv_view,tv_name,tv_title;
         public MyViewHolder(View itemView) {
             super(itemView);
         }
