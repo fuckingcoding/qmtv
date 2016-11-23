@@ -1,6 +1,7 @@
 package com.example.acer.myzhibo.adapter.zycadapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.bean.DataBean;
+import com.example.acer.myzhibo.ui.PlayActivity;
 import com.example.acer.myzhibo.utils.BitmapCircleTransformation;
 
 import java.util.List;
@@ -39,12 +41,20 @@ public class MyReusedAdapter extends RecyclerView.Adapter<MyReusedAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         Glide.with(mContext).load(data.get(position).getThumb()).into(holder.iv_cover);
         Glide.with(mContext).load(data.get(position).getAvatar()).transform(new BitmapCircleTransformation(mContext)).into(holder.iv_head);
         holder.tv_view.setText(data.get(position).getView());
         holder.tv_title.setText(data.get(position).getTitle());
         holder.tv_name.setText(data.get(position).getNick());
+        holder.iv_cover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, PlayActivity.class);
+                intent.putExtra("1",data.get(position).getUid());
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
