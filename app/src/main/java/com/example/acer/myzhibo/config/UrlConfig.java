@@ -18,12 +18,25 @@ public class UrlConfig {
             "dnf","qiuqiu","webgame","chuanqi","war3","fifa","nba2k"
     };
     public  static  final  String []  ColumnName = new String[]{
+<<<<<<< Updated upstream
             "英雄联盟","全民星秀","炉石传说","全民户外","守望先锋","颜值控","王者荣耀","QQ飞车",
+=======
+
+      "英雄联盟","全民星秀","炉石传说","全民户外","守望先锋","颜值控","王者荣耀","QQ飞车",
+>>>>>>> Stashed changes
             "阴阳师","单机主机","穿越火线","手游专区","街篮专区","劲舞团",
             "暴雪经典","二次元区","DOTA2","装甲风暴","DNF","球球大作战","网络游戏",
             "传奇专区","魔兽争霸3","FIFA","NBA2K"
     };
-
+    public  static  final  String []  OtherName = new String[]{
+            "全民户外","王者荣耀","QQ飞车",
+            "阴阳师","单机主机","穿越火线","手游专区","街篮专区","劲舞团",
+            "暴雪经典","DOTA2","装甲风暴","DNF","球球大作战","网络游戏",
+            "传奇专区","魔兽争霸3","FIFA","NBA2K"
+    };
+    public  static  final  String []  DefultName = new String[]{
+            "颜值控","英雄联盟","全民星秀","炉石传说","守望先锋","二次元区"
+    };
 
 
 

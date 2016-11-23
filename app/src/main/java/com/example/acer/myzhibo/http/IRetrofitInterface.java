@@ -1,10 +1,13 @@
 package com.example.acer.myzhibo.http;
 
 import com.example.acer.myzhibo.bean.QMBean;
+<<<<<<< Updated upstream
 import com.example.acer.myzhibo.bean.LiveBean;
 import com.example.acer.myzhibo.bean.LanmuBean;
 
 import java.util.List;
+=======
+>>>>>>> Stashed changes
 
 
 import retrofit2.http.GET;
