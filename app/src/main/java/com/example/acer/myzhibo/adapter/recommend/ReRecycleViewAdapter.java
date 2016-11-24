@@ -43,13 +43,13 @@ public class ReRecycleViewAdapter extends RecyclerViewAdapterHelper<DataBean> {
 
     @Override
     public void onBindMyViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof MyViewHolder) {
+
             Glide.with(mContext).load(mList.get(position).getThumb()).into(((MyViewHolder) holder).iv_cover);
             Glide.with(mContext).load(mList.get(position).getAvatar()).transform(new BitmapCircleTransformation(mContext)).into(((MyViewHolder) holder).iv_head);
             ((MyViewHolder) holder).tv_view.setText(mList.get(position).getView());
             ((MyViewHolder) holder).tv_title.setText(mList.get(position).getTitle());
             ((MyViewHolder) holder).tv_name.setText(mList.get(position).getNick());
-        }
+
 
     }
     class MyViewHolder extends RecyclerView.ViewHolder{

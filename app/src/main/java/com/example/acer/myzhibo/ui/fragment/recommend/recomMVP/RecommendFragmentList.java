@@ -53,14 +53,6 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
         super.onAttach(context);
         mContext=context;
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_recommend_fragment_list, container, false);
-
         //全部频道转成list
         allList=new ArrayList<>();
         Collections.addAll(allList,AllCHALLEL);
@@ -71,15 +63,27 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
             allmap.put(allList.get(i),allpyList.get(i));
         }
 
+    }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         title = arguments.getString(Constant.KEY_RECOMMEND_URL_KEY);
-
         pinyin = allmap.get(title);
-        Log.i(TAG, "onCreateView: "+pinyin);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view=inflater.inflate(R.layout.fragment_recommend_fragment_list, container, false);
+
+        initRecycleView(view);
+
         presenter=new RecommendPresenter(this);
         presenter.getQMBean(pinyin);
-        initRecycleView(view);
+
         return view;
     }
 
@@ -97,15 +101,19 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
 
     }
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onResume() {
+        super.onResume();
+
+
 
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
     }
 
     @Override
