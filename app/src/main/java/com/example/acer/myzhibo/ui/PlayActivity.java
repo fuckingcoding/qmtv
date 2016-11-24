@@ -2,11 +2,12 @@ package com.example.acer.myzhibo.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
@@ -46,7 +48,6 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     private List<String> list_title;
     private Fragment chatFragment,rankFragment,protectFragment;
     private MyPlayTablayoutAdapter mptAdapter;
-//    private String path = "http://flv.quanmin.tv/live/3043295.flv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +57,14 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
 //            return;
 
         setContentView(R.layout.activity_play);
+        Vitamio.isInitialized(PlayActivity.this);
         initURL();
         initTabLayout();
         initTabData();
         initView();
         initData();
+
+
     }
 
     private void initTabData() {
@@ -133,6 +137,24 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
                 }
             }
         });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+                videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
+            }
+        });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+//        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//            videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_ZOOM,0);
+//        }
     }
 
     private void initURL() {
@@ -158,12 +180,12 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         videoView.setVideoPath(playurl);
         mMediaController = new MediaController(this);
         mMediaController.show(5000);
-        videoView.setMediaController(mMediaController);
         videoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_MEDIUM);
         videoView.requestFocus();
         videoView.start();
 
     }
+
 
     @Override
     public void run() {

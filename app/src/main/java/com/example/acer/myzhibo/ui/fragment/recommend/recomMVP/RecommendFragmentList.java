@@ -18,6 +18,7 @@ import com.example.acer.myzhibo.bean.DataBean;
 import com.example.acer.myzhibo.bean.QMBean;
 import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.config.UrlConfig;
+import com.example.acer.myzhibo.utils.ToastHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -81,8 +82,10 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
 
         initRecycleView(view);
 
-        presenter=new RecommendPresenter(this);
-        presenter.getQMBean(pinyin);
+
+            presenter = new RecommendPresenter(this);
+            presenter.getQMBean(pinyin);
+
 
         return view;
     }
@@ -118,12 +121,13 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
 
     @Override
     public void getQMData(QMBean bean) {
-        data = bean.getData();
+        data.addAll(bean.getData());
         Log.i(TAG, "getQMData: "+data.size());
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onclick(int position) {
-
+        ToastHelper.showToast(mContext,"点击的是"+data.get(position).getTitle());
     }
 }
