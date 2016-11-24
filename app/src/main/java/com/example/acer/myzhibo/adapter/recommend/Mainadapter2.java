@@ -36,6 +36,8 @@ public class Mainadapter2 extends FragmentPagerAdapter {
         return fragmentList.size();
     }
 
+
+
     @Override
     public CharSequence getPageTitle(int position) {
         return list.get(position);

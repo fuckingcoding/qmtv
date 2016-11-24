@@ -60,11 +60,14 @@ public class RecommendFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext=context;
+       // initUrl();
+        initTabData();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -72,10 +75,10 @@ public class RecommendFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_recommend, container, false);
-        initTabData();
+
        initView(view);
 
-        initUrl();
+
         return view;
     }
 
@@ -91,17 +94,17 @@ public class RecommendFragment extends Fragment {
 
 
 
-
-
-        //全部频道转成list
-        allList=new ArrayList<>();
-        Collections.addAll(allList,AllCHALLEL);
-        //全部频道转换为拼音
-        allpyList=new ArrayList<>();
-        Collections.addAll(allpyList,ALL_CHALLEL_PY);
-        for (int i = 0; i < allList.size(); i++) {
-            allmap.put(allList.get(i),allpyList.get(i));
-        }
+//
+//
+//        //全部频道转成list
+//        allList=new ArrayList<>();
+//        Collections.addAll(allList,AllCHALLEL);
+//        //全部频道转换为拼音
+//        allpyList=new ArrayList<>();
+//        Collections.addAll(allpyList,ALL_CHALLEL_PY);
+//        for (int i = 0; i < allList.size(); i++) {
+//            allmap.put(allList.get(i),allpyList.get(i));
+//        }
 
 
     }
@@ -109,9 +112,27 @@ public class RecommendFragment extends Fragment {
     private void initView(View view) {
         initFragment(view);
         mViewPager=(ViewPager)view.findViewById(R.id.viewpager_recommendfragment);
+        mViewPager.setOffscreenPageLimit(3);
         mainadapter2=new Mainadapter2(getChildFragmentManager(),refragmentList,tabList);
         mViewPager.setAdapter(mainadapter2);
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
         mTabLayout=(TabLayout)view.findViewById(R.id.tablayout_recommendfragment);
         mTabLayout.setupWithViewPager(mViewPager);
         Btn_PD=(Button)view.findViewById(R.id.btn_recomm_pindap);
@@ -131,22 +152,17 @@ public class RecommendFragment extends Fragment {
         refragmentList.add(recomFirstFragment);
         for (int i = 1; i < tabList.size(); i++) {
         recommendFragmentList=new RecommendFragmentList();
-                 //refragmentList.clear();
+
+
                Bundle bundle=new Bundle();
                bundle.putString(Constant.KEY_RECOMMEND_URL_KEY,tabList.get(i));
             Log.e(TAG, "initFragment: "+tabList.get(i) );
                 recommendFragmentList.setArguments(bundle);
                 refragmentList.add(recommendFragmentList);
+
             }
         }
-    private void initUrl() {
-//        for (int i = 1; i < refragmentList.size()-1; i++) {
-//             Bundle bundle=new Bundle();
-//             bundle.putString(Constant.KEY_RECOMMEND_URL_KEY,normalList.get(i));
-//            recommendFragmentList.setArguments(bundle);
-//        }
 
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
