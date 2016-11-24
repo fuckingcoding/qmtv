@@ -82,7 +82,6 @@ public class RecommendFragment extends Fragment {
         return view;
     }
 
-   
 
     private void initTabData() {
         normallist=new ArrayList<>();
@@ -91,11 +90,6 @@ public class RecommendFragment extends Fragment {
         tabList=new ArrayList<>();
         Collections.addAll(tabList,TABS);
         tabList.addAll(normallist);
-
-
-
-//
-//
 //        //全部频道转成list
 //        allList=new ArrayList<>();
 //        Collections.addAll(allList,AllCHALLEL);
@@ -105,8 +99,6 @@ public class RecommendFragment extends Fragment {
 //        for (int i = 0; i < allList.size(); i++) {
 //            allmap.put(allList.get(i),allpyList.get(i));
 //        }
-
-
     }
 
     private void initView(View view) {
@@ -134,7 +126,7 @@ public class RecommendFragment extends Fragment {
 
 
         mTabLayout=(TabLayout)view.findViewById(R.id.tablayout_recommendfragment);
-        mTabLayout.setupWithViewPager(mViewPager);
+      //  mTabLayout.setupWithViewPager(mViewPager);
         Btn_PD=(Button)view.findViewById(R.id.btn_recomm_pindap);
         Btn_PD.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,25 +135,21 @@ public class RecommendFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
     }
 
     private void initFragment(View view) {
         RecomFirstFragment recomFirstFragment=new RecomFirstFragment();
         refragmentList.add(recomFirstFragment);
-        for (int i = 1; i < tabList.size(); i++) {
-        recommendFragmentList=new RecommendFragmentList();
-
-
+        for (int i = 0; i < tabList.size(); i++) {
+               recommendFragmentList=new RecommendFragmentList();
                Bundle bundle=new Bundle();
                bundle.putString(Constant.KEY_RECOMMEND_URL_KEY,tabList.get(i));
-            Log.e(TAG, "initFragment: "+tabList.get(i) );
+              Log.e(TAG, "initFragment: "+tabList.get(i) );
                 recommendFragmentList.setArguments(bundle);
                 refragmentList.add(recommendFragmentList);
-
             }
-        }
+            }
+
 
 
     @Override

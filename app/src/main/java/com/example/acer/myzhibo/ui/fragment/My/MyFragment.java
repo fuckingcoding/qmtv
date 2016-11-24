@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.acer.myzhibo.R;
+import com.example.acer.myzhibo.utils.ToastHelper;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +49,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+
 
     }
 
@@ -79,6 +85,33 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.linear1_mine:
+                try {
+                    EMClient.getInstance().createAccount("aaa123546sdfsf", "ccc");
+                    ToastHelper.showToast(mContext,"aaaaaaaaa");
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                    Log.e("TAG", "onClick: "+e );
+                }
+                EMClient.getInstance().login("aaa123546sdfsf","ccc",new EMCallBack() {//回调
+                    @Override
+                    public void onSuccess() {
+                        EMClient.getInstance().groupManager().loadAllGroups();
+                        EMClient.getInstance().chatManager().loadAllConversations();
+                        Log.d("main", "登录聊天服务器成功！");
+                    }
+
+                    @Override
+                    public void onProgress(int progress, String status) {
+                        ToastHelper.showToast(mContext,"aaaaaannnnnvdfgeaaa");
+                    }
+
+                    @Override
+                    public void onError(int code, String message) {
+                        Log.d("main", "登录聊天服务器失败！");
+                    }
+                });
+
+
                 break;
             case R.id.linear2_mine:
                 break;
@@ -91,6 +124,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
             case R.id.linear6_mine:
                 break;
             case R.id.linear_center_mine:
+
                 break;
             case  R.id.iv_mine_left:
                 break;

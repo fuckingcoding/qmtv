@@ -51,6 +51,10 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        if (!LibsChecker.checkVitamioLibs(this))
+//            return;
+
         setContentView(R.layout.activity_play);
         initURL();
         initTabLayout();

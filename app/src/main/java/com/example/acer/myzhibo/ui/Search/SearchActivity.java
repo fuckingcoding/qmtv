@@ -43,6 +43,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         list = new ArrayList<>();
         initView();
         initAdapter();
+
     }
 
     private void initAdapter() {
