@@ -3,7 +3,9 @@ package com.example.acer.myzhibo.utils;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.ui.MainActivity;
+import com.example.acer.myzhibo.ui.PlayActivity;
 
 
 /**
@@ -23,25 +25,18 @@ public class UIManager {
         context.startActivity(intent);
     }
 
-//    public static void startSelectCity(Context context,
-//                                 String cityname){
-//        Intent intent=new Intent();
-//        intent.setClass(context,SelectCityActivity.class);
-//        intent.putExtra("name",cityname);
-//        context.startActivity(intent);
-//    }
+   public static void startPlayActivity(Context context,String avatar,String title,String nick,String view,String uid){
 
-//    public static void startWebActivity(Context context ,String urlstring,@Nullable String title){
-//        Intent intent=new Intent();
-//
-//        intent.setClass(context,WebActivity.class);
-//        intent.putExtra(Constant.WEB_URL,urlstring);
-//        if(title!=null){
-//            intent.putExtra(Constant.WEB_TITLE,title);
-//        }
-//        context.startActivity(intent);
-//    }
+       Intent intent = new Intent();
+       intent.setClass(context, PlayActivity.class);
+       intent.putExtra(Constant.AVATAR,avatar);
+       intent.putExtra(Constant.VIEW,view);
+       intent.putExtra(Constant.TITLE,title);
+       intent.putExtra(Constant.NICK,nick);
+       intent.putExtra(Constant.UID,uid);
+       context.startActivity(intent);
 
+   }
 
 
 }

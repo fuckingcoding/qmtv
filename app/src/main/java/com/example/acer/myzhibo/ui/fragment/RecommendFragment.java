@@ -126,7 +126,7 @@ public class RecommendFragment extends Fragment {
 
 
         mTabLayout=(TabLayout)view.findViewById(R.id.tablayout_recommendfragment);
-      //  mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setupWithViewPager(mViewPager);
         Btn_PD=(Button)view.findViewById(R.id.btn_recomm_pindap);
         Btn_PD.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +140,7 @@ public class RecommendFragment extends Fragment {
     private void initFragment(View view) {
         RecomFirstFragment recomFirstFragment=new RecomFirstFragment();
         refragmentList.add(recomFirstFragment);
-        for (int i = 0; i < tabList.size(); i++) {
+        for (int i = 1; i < tabList.size(); i++) {
                recommendFragmentList=new RecommendFragmentList();
                Bundle bundle=new Bundle();
                bundle.putString(Constant.KEY_RECOMMEND_URL_KEY,tabList.get(i));

@@ -1,9 +1,12 @@
 package com.example.acer.myzhibo.ui.fragment.My;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,8 +27,15 @@ import com.hyphenate.exceptions.HyphenateException;
  */
 public class MyFragment extends Fragment implements MineContract.IMineView,View.OnClickListener{
    private Context mContext ;
+
    private LinearLayout linear1,linear2,linear3,linear4,linear5,linear6,linear_center;
     private ImageView iv_left, iv_right;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
    // private
     public MyFragment() {
         // Required empty public constructor
@@ -35,6 +45,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext =context;
+
     }
 
     @Override
@@ -85,24 +96,20 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.linear1_mine:
-                try {
-                    EMClient.getInstance().createAccount("aaa123546sdfsf", "ccc");
-                    ToastHelper.showToast(mContext,"aaaaaaaaa");
-                } catch (HyphenateException e) {
-                    e.printStackTrace();
-                    Log.e("TAG", "onClick: "+e );
-                }
-                EMClient.getInstance().login("aaa123546sdfsf","ccc",new EMCallBack() {//回调
+
+                EMClient.getInstance().login("jhksljalsdfasf","123456",new EMCallBack() {//回调
                     @Override
                     public void onSuccess() {
                         EMClient.getInstance().groupManager().loadAllGroups();
                         EMClient.getInstance().chatManager().loadAllConversations();
-                        Log.d("main", "登录聊天服务器成功！");
+                        Log.e("main", "登录聊天服务器成功！");
+
+
                     }
 
                     @Override
                     public void onProgress(int progress, String status) {
-                        ToastHelper.showToast(mContext,"aaaaaannnnnvdfgeaaa");
+
                     }
 
                     @Override
@@ -114,6 +121,27 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
 
                 break;
             case R.id.linear2_mine:
+             new Thread(new Runnable() {
+                 @Override
+                 public void run() {
+                     try {
+                         EMClient.getInstance().createAccount("aaa123546sdfsf", "ccc");
+
+                     } catch (HyphenateException e) {
+                         e.printStackTrace();
+
+                         Log.e("TAG", "run: "+e );
+                         if(e.toString().equals("com.hyphenate.exceptions.HyphenateException: User already exist")){
+                             Log.e("TAG", "run: "+"lalalalalalalala" );
+                         }
+
+                     }
+
+                 }
+
+
+             }).start();
+
                 break;
             case R.id.linear3_mine:
                 break;

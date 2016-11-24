@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,10 @@ import android.widget.TextView;
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.LiveAdapter;
 import com.example.acer.myzhibo.bean.LiveBean;
+import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.config.UrlConfig;
 import com.example.acer.myzhibo.ui.Search.SearchActivity;
+import com.example.acer.myzhibo.utils.UIManager;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -102,5 +105,8 @@ public class LiveFragment extends Fragment  implements LiveContract.ILiveView,Li
     @Override
     public void onClick(int position) {
 
+        LiveBean.DataBeanX beanX = list.get(position);
+        Log.e("TAG", "onClick: "+beanX.getUid() );
+        UIManager.startPlayActivity(mContext,beanX.getAvatar(),beanX.getTitle(),beanX.getNick(),beanX.getView(),beanX.getUid());
     }
 }
