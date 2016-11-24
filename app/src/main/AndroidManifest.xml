@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".base.MyApplication"
@@ -22,6 +24,12 @@
         </activity>
         <activity android:name=".ui.zbactivity.ReusedActivity" />
         <activity android:name=".ui.Search.SearchActivity"></activity>
+
+        <activity android:name=".ui.PlayActivity"></activity>
+
+
+        <activity android:name=".ui.fragment.recommend.demochannel.ChannelActivity"/>
+
     </application>
 
 </manifest>

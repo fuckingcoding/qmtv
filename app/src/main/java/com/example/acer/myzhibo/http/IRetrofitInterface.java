@@ -1,6 +1,7 @@
 package com.example.acer.myzhibo.http;
 
 import com.example.acer.myzhibo.bean.QMBean;
+
 import com.example.acer.myzhibo.bean.LiveBean;
 import com.example.acer.myzhibo.bean.LanmuBean;
 import com.example.acer.myzhibo.bean.SearchBean;
@@ -8,6 +9,7 @@ import com.example.acer.myzhibo.config.UrlConfig;
 import com.google.gson.JsonObject;
 
 import java.util.List;
+
 
 
 import retrofit2.Response;

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -12,6 +13,8 @@ import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.Mainadapter;
 import com.example.acer.myzhibo.ui.fragment.ColumnFragment;
 import com.example.acer.myzhibo.ui.fragment.live.LiveFragment;
+import com.example.acer.myzhibo.ui.fragment.MyFragment;
+import com.example.acer.myzhibo.ui.fragment.RecommendFragment;
 import com.example.acer.myzhibo.ui.fragment.My.MyFragment;
 import com.example.acer.myzhibo.ui.fragment.recommend.RecommendFragment;
 import com.example.acer.myzhibo.widget.NoScrollViewPager;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             R.mipmap.ic_main_my2};
     private List<Fragment> fragmentList = new ArrayList<>();
     private Mainadapter mainadapter;
+    private Toolbar toolbar;
 
 
 
@@ -43,14 +47,24 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initFragment();
+        initToolbar();
         initView();
     }
+
+    private void initToolbar() {
+        toolbar=(Toolbar)findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("全民直播");
+        toolbar.setLogo(R.mipmap.ic_launcher);
+    }
+
     //初始化radiobutton，viewpager
     private void initView() {
         mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         mViewPager = (NoScrollViewPager) findViewById(R.id.noscrollviewPager_main);
         mRadioGroup.setOnCheckedChangeListener(this);
-        mViewPager.setOnPageChangeListener(this);
+
+        mViewPager.addOnPageChangeListener(this);
     }
     //初始化fragment
     private void initFragment() {
@@ -64,9 +78,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         fragmentList.add(liveFragment);
         fragmentList.add(myFragment);
 
-        mainadapter = new Mainadapter(getSupportFragmentManager(), fragmentList);
+        mainadapter = new Mainadapter(getSupportFragmentManager(),fragmentList);
         mViewPager = (NoScrollViewPager) findViewById(R.id.noscrollviewPager_main);
+
         mViewPager.setAdapter(mainadapter);
+        mViewPager.setOffscreenPageLimit(3);
 
     }
     //选中对应radiobutton时的颜色及图片变化
