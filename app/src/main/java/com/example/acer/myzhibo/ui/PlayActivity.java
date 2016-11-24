@@ -2,6 +2,7 @@ package com.example.acer.myzhibo.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -47,7 +48,6 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     private List<String> list_title;
     private Fragment chatFragment,rankFragment,protectFragment;
     private MyPlayTablayoutAdapter mptAdapter;
-//    private String path = "http://flv.quanmin.tv/live/3043295.flv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +133,24 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
                 }
             }
         });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+                videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
+            }
+        });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+//        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//            videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_ZOOM,0);
+//        }
     }
 
     private void initURL() {
@@ -158,12 +176,12 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         videoView.setVideoPath(playurl);
         mMediaController = new MediaController(this);
         mMediaController.show(5000);
-        videoView.setMediaController(mMediaController);
         videoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_MEDIUM);
         videoView.requestFocus();
         videoView.start();
 
     }
+
 
     @Override
     public void run() {
