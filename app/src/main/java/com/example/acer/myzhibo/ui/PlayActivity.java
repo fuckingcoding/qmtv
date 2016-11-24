@@ -2,11 +2,11 @@ package com.example.acer.myzhibo.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
@@ -52,11 +53,14 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        Vitamio.isInitialized(PlayActivity.this);
         initURL();
         initTabLayout();
         initTabData();
         initView();
         initData();
+
+
     }
 
     private void initTabData() {
