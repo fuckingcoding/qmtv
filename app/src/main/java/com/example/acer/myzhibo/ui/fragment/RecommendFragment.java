@@ -112,7 +112,7 @@ public class RecommendFragment extends Fragment {
     private void initView(View view) {
         initFragment(view);
         mViewPager=(ViewPager)view.findViewById(R.id.viewpager_recommendfragment);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(2);
         mainadapter2=new Mainadapter2(getChildFragmentManager(),refragmentList,tabList);
         mViewPager.setAdapter(mainadapter2);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
