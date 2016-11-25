@@ -18,16 +18,24 @@ import android.widget.LinearLayout;
 
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.utils.ToastHelper;
+import com.facebook.imagepipeline.producers.LocalExifThumbnailProducer;
 import com.hyphenate.EMCallBack;
+import com.hyphenate.EMGroupChangeListener;
+import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMGroupManager;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.exceptions.HyphenateException;
 
+import java.util.List;
+//加群退群监听  上线后不主动发消息 收不到群组消息 离线消息
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MyFragment extends Fragment implements MineContract.IMineView,View.OnClickListener{
    private Context mContext ;
-
+ private  EMMessageListener msgListener;
    private LinearLayout linear1,linear2,linear3,linear4,linear5,linear6,linear_center;
     private ImageView iv_left, iv_right;
     private Handler handler = new Handler(){
@@ -97,7 +105,13 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
         switch (view.getId()){
             case R.id.linear1_mine:
 
-                EMClient.getInstance().login("jhksljalsdfasf","123456",new EMCallBack() {//回调
+                break;
+            case R.id.linear2_mine:
+
+                break;
+            case R.id.linear3_mine:
+
+                EMClient.getInstance().login("aaa123546sdfsf","ccc",new EMCallBack() {//回调
                     @Override
                     public void onSuccess() {
                         EMClient.getInstance().groupManager().loadAllGroups();
@@ -120,36 +134,14 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
 
 
                 break;
-            case R.id.linear2_mine:
-             new Thread(new Runnable() {
-                 @Override
-                 public void run() {
-                     try {
-                         EMClient.getInstance().createAccount("aaa123546sdfsf", "ccc");
-
-                     } catch (HyphenateException e) {
-                         e.printStackTrace();
-
-                         Log.e("TAG", "run: "+e );
-                         if(e.toString().equals("com.hyphenate.exceptions.HyphenateException: User already exist")){
-                             Log.e("TAG", "run: "+"lalalalalalalala" );
-                         }
-
-                     }
-
-                 }
-
-
-             }).start();
-
-                break;
-            case R.id.linear3_mine:
-                break;
             case R.id.linear4_mine:
+
                 break;
             case R.id.linear5_mine:
+
                 break;
             case R.id.linear6_mine:
+
                 break;
             case R.id.linear_center_mine:
 
@@ -160,5 +152,21 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
                 break;
 
         }
+    }
+
+
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 }

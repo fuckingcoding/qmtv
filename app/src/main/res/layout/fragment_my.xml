@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textColor="@android:color/black"
-                android:text="sjlkjlkjsdlflf"/>
+                android:text="1111111"/>
             <ImageView
                 android:src="@mipmap/ic_launcher"
                 android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textColor="@android:color/black"
-                android:text="sjlkjlkjsdlflf"/>
+                android:text="222222222"/>
             <ImageView
                 android:src="@mipmap/ic_launcher"
                 android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textColor="@android:color/black"
-                android:text="sjlkjlkjsdlflf"/>
+                android:text="3333333333"/>
             <ImageView
                 android:src="@mipmap/ic_launcher"
                 android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textColor="@android:color/black"
-                android:text="sjlkjlkjsdlflf"/>
+                android:text="4444444444"/>
             <ImageView
                 android:src="@mipmap/ic_launcher"
                 android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textColor="@android:color/black"
-                android:text="sjlkjlkjsdlflf"
+                android:text="55555555555"
                 android:id="@+id/textView" />
 
             <ImageView
@@ -185,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textColor="@android:color/black"
-                android:text="sjlkjlkjsdlflf"/>
+                android:text="6666666666666"/>
             <ImageView
                 android:src="@mipmap/ic_launcher"
                 android:layout_width="wrap_content"
