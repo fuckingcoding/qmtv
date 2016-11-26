@@ -9,51 +9,47 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.acer.myzhibo.R;
-import com.example.acer.myzhibo.bean.DataBean;
+import com.example.acer.myzhibo.bean.RecomBean;
 import com.example.acer.myzhibo.utils.BitmapCircleTransformation;
 import com.example.acer.myzhibo.utils.RecyclerViewAdapterHelper;
 
 import java.util.List;
 
-
-
 /**
- * Created by apple on 16/11/23.
+ * Created by apple on 16/11/24.
  * Eemil:635727195@qq.com
  */
 
-public class ReRecycleViewAdapter extends RecyclerViewAdapterHelper<DataBean> {
+public class InRecycleAdapter extends RecyclerViewAdapterHelper<RecomBean.RoomBean.ListBean> {
     public interface IOnItemClickListener{
         void onclick(int position);
     }
     private Context context;
-
     private IOnItemClickListener itemClickListener;
-    public ReRecycleViewAdapter(Context context, List<DataBean> list,IOnItemClickListener itemClickListener) {
+    public InRecycleAdapter(Context context, List<RecomBean.RoomBean.ListBean> list) {
         super(context,list);
         this.context=context;
-        this.itemClickListener=itemClickListener;
-    }
-    public ReRecycleViewAdapter(Context context, List<DataBean> list) {
-        super(context,list);
-        this.context=context;
-
+       // this.itemClickListener=itemClickListener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateMyViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.layout_item_live,parent,false);
-        return new MyViewHolder(view);
+        return new ViewHolder1(view);
     }
+
 
     @Override
     public void onBindMyViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-            Glide.with(mContext).load(mList.get(position).getThumb()).into(((MyViewHolder) holder).iv_cover);
-            Glide.with(mContext).load(mList.get(position).getAvatar()).transform(new BitmapCircleTransformation(mContext)).into(((MyViewHolder) holder).iv_head);
-            ((MyViewHolder) holder).tv_view.setText(mList.get(position).getView());
-            ((MyViewHolder) holder).tv_title.setText(mList.get(position).getTitle());
-            ((MyViewHolder) holder).tv_name.setText(mList.get(position).getNick());
+
+
+        ((ViewHolder1)holder).tv_title.setText(mList.get(position).getTitle());
+        ((ViewHolder1)holder).tv_name.setText(mList.get(position).getNick());
+        ((ViewHolder1)holder).tv_view.setText(mList.get(position).getView());
+        Glide.with(mContext).load(mList.get(position).getThumb()).into(((ViewHolder1)holder).iv_cover);
+        Glide.with(mContext).load(mList.get(position).getAvatar()).transform(new BitmapCircleTransformation(mContext)).into(((ViewHolder1) holder).iv_head);
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,10 +59,10 @@ public class ReRecycleViewAdapter extends RecyclerViewAdapterHelper<DataBean> {
         });
 
     }
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder1 extends RecyclerView.ViewHolder{
         ImageView iv_cover,iv_head;
         TextView tv_view,tv_name,tv_title;
-        public MyViewHolder(View itemView) {
+        public ViewHolder1(View itemView) {
             super(itemView);
             iv_cover = (ImageView) itemView.findViewById(R.id.iv_item_cover);
             iv_head = (ImageView) itemView.findViewById(R.id.iv_item_head);
