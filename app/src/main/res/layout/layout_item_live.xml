@@ -20,6 +20,16 @@
            android:background="@color/colorGray"
            android:layout_margin="5dp"
            android:paddingBottom="5dp" />
+       <TextView
+           android:id="@+id/tv_item_right"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@color/mygreen"
+           android:textColor="@color/colorWhite"
+           android:layout_alignParentRight="true"
+           android:text="正在直播"
+           android:visibility="gone"
+           />
    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

@@ -39,6 +39,7 @@ public class ReusedActivity extends AppCompatActivity {
     private List<DataBean> data = new ArrayList<>();
     private MyReusedAdapter mrAdapter;
     private int i;
+    private String str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,9 @@ public class ReusedActivity extends AppCompatActivity {
 
     private void initData() {
         Intent intent =getIntent();
-        i = intent.getIntExtra("1", 1);
+        i = intent.getIntExtra("position", 1);
+        String stringExtra = intent.getStringExtra("slug");
+        str = intent.getStringExtra("name");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlConfig.BASE_URL)
                 .client(new OkHttpClient())
@@ -66,7 +69,7 @@ public class ReusedActivity extends AppCompatActivity {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         IRetrofitInterface iRetrofitInterface = retrofit.create(IRetrofitInterface.class);
-        Observable<QMBean> qmBean = iRetrofitInterface.getQMBean(UrlConfig.URLSTRING[i]);
+        Observable<QMBean> qmBean = iRetrofitInterface.getQMBean(stringExtra);
         qmBean.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<QMBean>() {
@@ -95,7 +98,7 @@ public class ReusedActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.iv_toolbar_back);
         textView = (TextView) findViewById(R.id.tv_toolbar_title);
         recyclerView = (RecyclerView) findViewById(R.id.rv_reused);
-        textView.setText(UrlConfig.ColumnName[i]);
+        textView.setText(str);
         GridLayoutManager glm = new GridLayoutManager(mContext,2, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(glm);
         recyclerView.setAdapter(mrAdapter);

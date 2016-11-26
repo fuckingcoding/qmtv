@@ -13,8 +13,10 @@ import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.Mainadapter;
 import com.example.acer.myzhibo.ui.fragment.ColumnFragment;
 import com.example.acer.myzhibo.ui.fragment.live.LiveFragment;
-import com.example.acer.myzhibo.ui.fragment.MyFragment;
+
 import com.example.acer.myzhibo.ui.fragment.RecommendFragment;
+import com.example.acer.myzhibo.ui.fragment.My.MyFragment;
+
 import com.example.acer.myzhibo.widget.NoScrollViewPager;
 
 import java.util.ArrayList;

@@ -7,10 +7,56 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.acer.myzhibo.ui.PlayActivity">
-    <io.vov.vitamio.widget.VideoView
-        android:id="@+id/videoview_play"
+    <RelativeLayout
+        android:id="@+id/play_rl"
         android:layout_width="match_parent"
-        android:layout_height="240dp" />
+        android:layout_height="wrap_content">
+        <io.vov.vitamio.widget.VideoView
+            android:id="@+id/videoview_play"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/small_model_back"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/live_detail_unpressed"/>
+        <ImageView
+            android:id="@+id/small_model_more"
+            android:layout_margin="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/live_ver_more_normal"/>
+        <ImageView
+            android:id="@+id/small_model_gift"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="70dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/live_ver_gift_on"/>
+        <ImageView
+            android:id="@+id/small_model_pause"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="120dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/btn_live_pause"/>
+        <ImageView
+            android:id="@+id/small_model_screen"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="170dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/full_screen_unpressed"/>
+
+
+
+    </RelativeLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

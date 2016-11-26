@@ -132,8 +132,6 @@ public class RecommendFragment extends Fragment {
 //        for (int i = 0; i < allList.size(); i++) {
 //            allmap.put(allList.get(i),allpyList.get(i));
 //        }
-
-
     }
 
     private void initView(View view) {
@@ -202,6 +200,15 @@ public class RecommendFragment extends Fragment {
 
         }
     }
+               recommendFragmentList=new RecommendFragmentList();
+               Bundle bundle=new Bundle();
+               bundle.putString(Constant.KEY_RECOMMEND_URL_KEY,tabList.get(i));
+              Log.e(TAG, "initFragment: "+tabList.get(i) );
+                recommendFragmentList.setArguments(bundle);
+                refragmentList.add(recommendFragmentList);
+            }
+            }
+
 
 
     @Override
