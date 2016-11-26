@@ -35,6 +35,7 @@ import java.util.List;
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 
+import io.vov.vitamio.widget.CenterLayout;
 import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
@@ -119,30 +120,31 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
             @Override
             public void onClick(View view) {
                 if(screen){
+//                    changeOritation(-1);
 
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                    linearlayout.setVisibility(View.GONE);
-                    viewpaper.setVisibility(View.GONE);
-                    tablayout.setVisibility(View.GONE);
-                    WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
-                    int width = wm.getDefaultDisplay().getWidth();
-                    int height = wm.getDefaultDisplay().getHeight();
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
-                    Log.e("=======a========",">"+videoView.getWidth());
-                    Log.e("========a=======",">"+videoView.getHeight());
-                    mMediaController.setLayoutParams(params);
-                    videoView.setLayoutParams(params);
-                    videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
+//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+//////                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+//                    WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+//                    int width = wm.getDefaultDisplay().getWidth();
+//                    int height = wm.getDefaultDisplay().getHeight();
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
+//                    videoView.setLayoutParams(params);
+//                    videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
                     screen=false;
 
+
+
                 }else{
-//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //                    linearlayout.setVisibility(View.VISIBLE);
 //                    viewpaper.setVisibility(View.VISIBLE);
 //                    tablayout.setVisibility(View.VISIBLE);
 //                    WindowManager.LayoutParams params = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //                    videoView.setLayoutParams(params);
-//                    screen=true;
+                    screen=true;
+//                    changeOritation(1);
+
                 }
 
 
@@ -150,12 +152,46 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         });
     }
 
+//    private void changeOritation(int n) {
+//        if(n>0&&getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+//            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        else if(n<0&&getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+//            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//
+//    }
+
+    @Override
+    public int getRequestedOrientation() {
+        return super.getRequestedOrientation();
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if(videoView!=null){
-            videoView.start();
+        Log.e("TAG", "onConfigurationChanged: ");
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //隐藏下面的布局和标题
+            linearlayout.setVisibility(View.GONE);
+            viewpaper.setVisibility(View.GONE);
+            tablayout.setVisibility(View.GONE);
+            WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+            int width = wm.getDefaultDisplay().getWidth();
+            int height = wm.getDefaultDisplay().getHeight();
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
+            videoView.setLayoutParams(params);
+//            videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
+
+
         }
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            //显示下面的布局和标题
+            linearlayout.setVisibility(View.VISIBLE);
+            viewpaper.setVisibility(View.VISIBLE);
+            tablayout.setVisibility(View.VISIBLE);
+
+        }
+
+        super.onConfigurationChanged(newConfig);
+
     }
 
     private void initTabData() {

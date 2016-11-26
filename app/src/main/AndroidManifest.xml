@@ -43,7 +43,8 @@
         <activity android:name=".ui.zbactivity.ReusedActivity" />
         <activity android:name=".ui.Search.SearchActivity"></activity>
 
-        <activity android:name=".ui.PlayActivity" android:configChanges="screenSize|orientation|keyboardHidden">
+        <activity android:name=".ui.PlayActivity" android:configChanges="screenSize|orientation|keyboardHidden"
+            >
 
         </activity>
 
