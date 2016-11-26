@@ -19,10 +19,12 @@ import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.ChatAdapter;
 import com.example.acer.myzhibo.bean.ChatBean;
 import com.hyphenate.EMCallBack;
+import com.hyphenate.EMGroupChangeListener;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.exceptions.HyphenateException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +50,7 @@ public class ChatFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                     listView.setSelection(list.size()-1);
                     break;
-
             }
-
         }
     };
 
@@ -79,9 +79,9 @@ public class ChatFragment extends Fragment {
         initView(view);
         initAdapter();
         sendmsglistener();
+        grouplistener();
 
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -150,40 +150,25 @@ public class ChatFragment extends Fragment {
                                 Log.e("TAG", "onSuccess: " );
                                 ChatBean bean = new ChatBean(username,editText.getEditableText().toString());
                                 list.add(bean);
-
-//                                Message message = Message.obtain();
-//                                message.what =0;
                                 handler.sendEmptyMessage(0);
-
-
                             }
-
                             @Override
                             public void onError(int i, String s) {
-
                             }
-
                             @Override
                             public void onProgress(int i, String s) {
-
                             }
                         });
-
                     }
                 }).start();
-
-
             }
         });
     }
-
     private void initAdapter() {
         adapter = new ChatAdapter(mContext,list);
         listView.setDividerHeight(0);
         listView.setAdapter(adapter);
-
     }
-
     private void initView(View view) {
         listView = (ListView) view.findViewById(R.id.listview_chat);
         btn1 = (Button) view.findViewById(R.id.btn_1_chat);
@@ -191,8 +176,6 @@ public class ChatFragment extends Fragment {
         btn3 = (Button) view.findViewById(R.id.btn_3_chat);
         editText = (EditText) view.findViewById(R.id.edit_tv_chat);
     }
-
-
     void sendmsglistener(){
          msgListener = new EMMessageListener() {
             @Override
@@ -234,19 +217,87 @@ public class ChatFragment extends Fragment {
         //  记得在不需要的时候移除listener，如在activity的onDestroy()时
         // EMClient.getInstance().chatManager().removeMessageListener(msgListener);
     }
-
     @Override
     public void onStop() {
         super.onStop();
         EMClient.getInstance().chatManager().removeMessageListener(msgListener);
-
-
     }
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
+        leaveGroup();
         EMClient.getInstance().chatManager().removeMessageListener(msgListener);
     }
+    void leaveGroup(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    EMClient.getInstance().groupManager().leaveGroup("1480043615023");//需异步处理
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+
+    void joinGroup(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    EMClient.getInstance().groupManager().joinGroup("1480043615023");
+
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                    Log.e("TAG", "run: "+e);
+                    Log.e("TAG", "run: 失败");
+                    //com.hyphenate.exceptions.HyphenateException: User already joined the group
+                }
+            }
+        }).start();;
+    }
+
+
+    void grouplistener(){
+        EMClient.getInstance().groupManager().addGroupChangeListener(new EMGroupChangeListener() {
+            @Override
+            public void onUserRemoved(String groupId, String groupName) {
+                //当前用户被管理员移除出群组
+            }
+            @Override
+            public void onGroupDestroyed(String groupId, String groupName) {
+
+            }
+            @Override
+            public void onAutoAcceptInvitationFromGroup(String s, String s1, String s2) {
+
+            }
+            @Override
+            public void onInvitationReceived(String groupId, String groupName, String inviter, String reason) {
+                //收到加入群组的邀请
+            }
+            @Override
+            public void onInvitationDeclined(String groupId, String invitee, String reason) {
+                //群组邀请被拒绝
+            }
+            @Override
+            public void onApplicationReceived(String groupId, String groupName, String applyer, String reason) {
+                //收到加群申请
+            }
+            @Override
+            public void onApplicationAccept(String groupId, String groupName, String accepter) {
+                //加群申请被同意
+            }
+            @Override
+            public void onApplicationDeclined(String groupId, String groupName, String decliner, String reason) {
+                // 加群申请被拒绝
+            }
+            @Override
+            public void onInvitationAccepted(String groupId, String inviter, String reason) {
+            }
+        });
+    }
+
 }
