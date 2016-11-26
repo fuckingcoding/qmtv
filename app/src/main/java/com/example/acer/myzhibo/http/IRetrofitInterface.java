@@ -11,11 +11,9 @@ import com.google.gson.JsonObject;
 import java.util.List;
 
 
-
-import retrofit2.Response;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
@@ -58,4 +56,6 @@ public interface IRetrofitInterface {
 
     @POST(UrlConfig.SEARCH_URL)
     Observable<SearchBean> getSearchReponse(@Body JsonObject jsonObject);
+
+
 }

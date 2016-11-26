@@ -113,7 +113,7 @@ public class HuanXinUtils {
 
                     }
                 });
-                sendmsg();
+                sendmsglistener();
             }
         }).start();
     }
@@ -176,7 +176,7 @@ public class HuanXinUtils {
     }
 
 
-    void sendmsg(){
+    void sendmsglistener(){
         EMMessageListener msgListener = new EMMessageListener() {
             @Override
             public void onMessageReceived(List<EMMessage> messages) {
