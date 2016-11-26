@@ -46,7 +46,9 @@ public class MyColumnAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, ReusedActivity.class);
-                intent.putExtra("1",position);
+                intent.putExtra("position",position);
+                intent.putExtra("slug",list.get(position).getSlug());
+                intent.putExtra("name",list.get(position).getName());
                 mContext.startActivity(intent);
 
             }

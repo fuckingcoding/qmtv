@@ -3,13 +3,20 @@ package com.example.acer.myzhibo.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,6 +34,8 @@ import java.util.List;
 
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
+
+import io.vov.vitamio.widget.CenterLayout;
 import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
@@ -35,6 +44,7 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     private VideoView videoView;
     private MediaController mMediaController;
     private ImageView imageView,iv_guanzhu,iv_tixing;
+    private ImageView iv_back,iv_more,iv_gift,iv_pause,iv_screen;
     private TextView textView_name;
     private TextView textView_content;
     private TextView textgz,texttixing;
@@ -42,12 +52,16 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     private String pic,head,content,view;
     private boolean flag=true;
     private boolean kg=true;
+    private boolean pause=true;
+    private boolean screen=true;
     private TabLayout tablayout;
     private ViewPager viewpaper;
     private List<Fragment> list_fragment;         //fragment的数据集合
     private List<String> list_title;
     private Fragment chatFragment,rankFragment,protectFragment;
     private MyPlayTablayoutAdapter mptAdapter;
+    private LinearLayout linearlayout;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +77,120 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         initTabData();
         initView();
         initData();
+        initControl();
 
+
+    }
+
+    private void initControl() {
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        iv_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        iv_gift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        iv_pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(pause){
+                    videoView.pause();
+                    iv_pause.setImageResource(R.mipmap.btn_live_play);
+                    pause=false;
+                }else{
+                    videoView.start();
+                    iv_pause.setImageResource(R.mipmap.btn_live_pause);
+                    pause=true;
+                }
+
+            }
+        });
+        iv_screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(screen){
+//                    changeOritation(-1);
+
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+//////                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+//                    WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+//                    int width = wm.getDefaultDisplay().getWidth();
+//                    int height = wm.getDefaultDisplay().getHeight();
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
+//                    videoView.setLayoutParams(params);
+//                    videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
+                    screen=false;
+
+
+
+                }else{
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//                    linearlayout.setVisibility(View.VISIBLE);
+//                    viewpaper.setVisibility(View.VISIBLE);
+//                    tablayout.setVisibility(View.VISIBLE);
+//                    WindowManager.LayoutParams params = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                    videoView.setLayoutParams(params);
+                    screen=true;
+//                    changeOritation(1);
+
+                }
+
+
+            }
+        });
+    }
+
+//    private void changeOritation(int n) {
+//        if(n>0&&getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+//            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        else if(n<0&&getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+//            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//
+//    }
+
+    @Override
+    public int getRequestedOrientation() {
+        return super.getRequestedOrientation();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        Log.e("TAG", "onConfigurationChanged: ");
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //隐藏下面的布局和标题
+            linearlayout.setVisibility(View.GONE);
+            viewpaper.setVisibility(View.GONE);
+            tablayout.setVisibility(View.GONE);
+            WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+            int width = wm.getDefaultDisplay().getWidth();
+            int height = wm.getDefaultDisplay().getHeight();
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
+            videoView.setLayoutParams(params);
+//            videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
+
+
+        }
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            //显示下面的布局和标题
+            linearlayout.setVisibility(View.VISIBLE);
+            viewpaper.setVisibility(View.VISIBLE);
+            tablayout.setVisibility(View.VISIBLE);
+
+        }
+
+        super.onConfigurationChanged(newConfig);
 
     }
 
@@ -137,14 +264,6 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
                 }
             }
         });
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
-                videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
-            }
-        });
 
     }
 
@@ -168,7 +287,13 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     }
 
     private void initView() {
-
+        relativeLayout = (RelativeLayout) findViewById(R.id.play_rl);
+        linearlayout = (LinearLayout) findViewById(R.id.ll_play);
+        iv_back = (ImageView) findViewById(R.id.small_model_back);
+        iv_more = (ImageView) findViewById(R.id.small_model_more);
+        iv_gift = (ImageView) findViewById(R.id.small_model_gift);
+        iv_pause = (ImageView) findViewById(R.id.small_model_pause);
+        iv_screen = (ImageView) findViewById(R.id.small_model_screen);
         textgz = (TextView) findViewById(R.id.tv_play_guanzhu);
         texttixing = (TextView) findViewById(R.id.tv_play_tixing);
         imageView = (ImageView) findViewById(R.id.iv_play_icon);
@@ -180,6 +305,7 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         videoView.setVideoPath(playurl);
         mMediaController = new MediaController(this);
         mMediaController.show(5000);
+        mMediaController.setVisibility(View.INVISIBLE);
         videoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_MEDIUM);
         videoView.requestFocus();
         videoView.start();
