@@ -19,6 +19,7 @@ import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.bean.LoginBean;
 import com.example.acer.myzhibo.http.HttpUtils;
 import com.example.acer.myzhibo.http.IRetrofitInterface;
+import com.example.acer.myzhibo.ui.TulingActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -131,6 +132,9 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
 
                 break;
             case  R.id.iv_mine_left:
+
+                intent.setClass(mContext, TulingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.iv_mine_right:
                 break;

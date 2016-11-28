@@ -24,6 +24,7 @@ public class ChatAdapter extends BaseAdapterHelper<ChatBean> {
         super(context, list);
     }
 
+
     @Override
     public View getItemView(int position, View convertView, ViewGroup parent) {
         BaseViewHolder vh = null;

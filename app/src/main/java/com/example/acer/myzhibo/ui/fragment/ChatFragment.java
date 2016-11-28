@@ -139,7 +139,7 @@ public class ChatFragment extends Fragment {
                     @Override
                     public void run() {
                         //创建一条文本消息，content为消息文字内容，toChatUsername为对方用户或者群聊的id，后文皆是如此
-                        EMMessage message = EMMessage.createTxtSendMessage(editText.getEditableText().toString(), "1480043615023");
+                        EMMessage message = EMMessage.createTxtSendMessage(editText.getEditableText()+"", "1480043615023");
                         //如果是群聊，设置chattype，默认是单聊
                         //if (chatType == CHATTYPE_GROUP)
                         message.setChatType(EMMessage.ChatType.GroupChat);
@@ -148,7 +148,7 @@ public class ChatFragment extends Fragment {
                             @Override
                             public void onSuccess() {
                                 Log.e("TAG", "onSuccess: " );
-                                ChatBean bean = new ChatBean(username,editText.getEditableText().toString());
+                                ChatBean bean = new ChatBean(username,editText.getEditableText()+"");
                                 list.add(bean);
                                 handler.sendEmptyMessage(0);
                             }

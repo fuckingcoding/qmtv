@@ -19,13 +19,15 @@
             android:layout_centerInParent="true">
         <ImageView
             android:id="@+id/iv_mine_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/img_profile_touxiang_default_logged"
 
             />
         <TextView
-            android:text="login"
+            android:text="点击登录"
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/iv_mine_fragment"
@@ -34,14 +36,17 @@
 
         <ImageView
             android:id="@+id/iv_mine_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/duihua"/>
         <ImageView
             android:id="@+id/iv_mine_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/setting"
+            android:layout_margin="10dp"
+            android:padding="2dp"
             android:layout_alignParentRight="true"
             />
 
@@ -70,7 +75,7 @@
                 android:textColor="@android:color/black"
                 android:text="1111111"/>
             <ImageView
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -92,7 +97,7 @@
                 android:textColor="@android:color/black"
                 android:text="222222222"/>
             <ImageView
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -115,7 +120,7 @@
                 android:textColor="@android:color/black"
                 android:text="3333333333"/>
             <ImageView
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -138,7 +143,7 @@
                 android:textColor="@android:color/black"
                 android:text="4444444444"/>
             <ImageView
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -164,7 +169,7 @@
                 android:id="@+id/textView" />
 
             <ImageView
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -187,7 +192,7 @@
                 android:textColor="@android:color/black"
                 android:text="6666666666666"/>
             <ImageView
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

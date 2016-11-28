@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_tuling"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.acer.myzhibo.ui.TulingActivity">
+
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/recyclerview_tuling"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <Button
+            android:id="@+id/btn_tuling_left"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+        <EditText
+            android:id="@+id/edit_tuling"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/btn_tuling_right"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="发送"
+            android:background="@color/colorWhite"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
