@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.acer.myzhibo.R;
+import com.example.acer.myzhibo.ui.login.LoginActivity;
 import com.example.acer.myzhibo.bean.LoginBean;
 import com.example.acer.myzhibo.http.HttpUtils;
 import com.example.acer.myzhibo.http.IRetrofitInterface;
@@ -25,15 +25,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
-import com.hyphenate.chat.EMClient;
-
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 //加群退群监听  上线后不主动发消息 收不到群组消息 离线消息
 /**
  * A simple {@link Fragment} subclass.
@@ -109,6 +100,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.linear1_mine:
+
                 break;
             case R.id.linear2_mine:
 
@@ -129,7 +121,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
 
                 break;
             case R.id.linear_center_mine:
-
+                intent.setClass(mContext, LoginActivity.class);
                 break;
             case  R.id.iv_mine_left:
 
@@ -140,6 +132,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
                 break;
 
         }
+        startActivity(intent);
     }
 
 

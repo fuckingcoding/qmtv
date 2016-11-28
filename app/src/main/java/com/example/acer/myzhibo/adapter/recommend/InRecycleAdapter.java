@@ -26,10 +26,11 @@ public class InRecycleAdapter extends RecyclerViewAdapterHelper<RecomBean.RoomBe
     }
     private Context context;
     private IOnItemClickListener itemClickListener;
-    public InRecycleAdapter(Context context, List<RecomBean.RoomBean.ListBean> list) {
+    public InRecycleAdapter(Context context, List<RecomBean.RoomBean.ListBean> list,IOnItemClickListener itemClickListener) {
         super(context,list);
         this.context=context;
-       // this.itemClickListener=itemClickListener;
+        this.itemClickListener=itemClickListener;
+
     }
 
     @Override

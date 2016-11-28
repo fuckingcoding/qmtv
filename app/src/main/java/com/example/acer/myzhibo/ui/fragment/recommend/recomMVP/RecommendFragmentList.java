@@ -18,7 +18,7 @@ import com.example.acer.myzhibo.bean.DataBean;
 import com.example.acer.myzhibo.bean.QMBean;
 import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.config.UrlConfig;
-import com.example.acer.myzhibo.utils.ToastHelper;
+import com.example.acer.myzhibo.utils.UIManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -139,6 +139,9 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
 
     @Override
     public void onclick(int position) {
-        ToastHelper.showToast(mContext,"点击的是"+data.get(position).getTitle());
+       // ToastHelper.showToast(mContext,"点击的是"+data.get(position).getTitle());
+        DataBean dataBean = data.get(position);
+        UIManager.startPlayActivity(mContext,dataBean.getAvatar(),dataBean.getTitle(),dataBean.getNick(),dataBean.getView(),dataBean.getUid());
+
     }
 }

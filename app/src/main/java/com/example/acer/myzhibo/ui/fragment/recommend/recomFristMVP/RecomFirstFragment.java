@@ -17,9 +17,11 @@ import android.widget.LinearLayout;
 
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.MyVpInfiniteAdapter;
+import com.example.acer.myzhibo.adapter.recommend.InRecycleAdapter;
 import com.example.acer.myzhibo.adapter.recommend.XRxcycleViewAdapter;
 import com.example.acer.myzhibo.bean.RecomBean;
 import com.example.acer.myzhibo.config.UrlConfig;
+import com.example.acer.myzhibo.utils.UIManager;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecomFirstFragment extends Fragment implements RecomFirstContract.IRoomView{
+public class RecomFirstFragment extends Fragment implements RecomFirstContract.IRoomView,InRecycleAdapter.IOnItemClickListener{
     private static final String TAG = "RecomFirstFragment";
     private Context mContext;
     //上方View的集合
@@ -81,7 +83,7 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
        layout=new LinearLayoutManager(mContext);
        mxRecyclerView.setLayoutManager(layout);
        // View header = LayoutInflater.from(mContext).inflate(R.layout.ad_viewpager_recommed, (ViewGroup) view.findViewById(android.R.id.content), false);
-        xrecycleviewadapter=new XRxcycleViewAdapter(mContext,data);
+        xrecycleviewadapter=new XRxcycleViewAdapter(mContext,data,this);
         mxRecyclerView.setHasFixedSize(true);
         mxRecyclerView.setAdapter(xrecycleviewadapter);
       //  mxRecyclerView.addHeaderView(header);
@@ -195,6 +197,14 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
         data.clear();
         data.addAll(bean.getRoom());
         xrecycleviewadapter.reloadRecyclerView(data,false);
+    }
+
+    @Override
+    public void onclick(int position) {
+        RecomBean.RoomBean.ListBean listBean = data.get(position).getList().get(position);
+
+        UIManager.startPlayActivity(mContext,listBean.getAvatar(),listBean.getTitle(),listBean.getNick(),listBean.getView(), String.valueOf(listBean.getUid()));
+
     }
 
 

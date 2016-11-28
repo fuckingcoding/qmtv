@@ -198,23 +198,16 @@ public class RecommendFragment extends Fragment {
             recommendFragmentList.setArguments(bundle);
             refragmentList.add(recommendFragmentList);
 
+
         }
+
+
     }
-               recommendFragmentList=new RecommendFragmentList();
-               Bundle bundle=new Bundle();
-               bundle.putString(Constant.KEY_RECOMMEND_URL_KEY,tabList.get(i));
-              Log.e(TAG, "initFragment: "+tabList.get(i) );
-                recommendFragmentList.setArguments(bundle);
-                refragmentList.add(recommendFragmentList);
-            }
-            }
-
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-    }
+
 //
 //    public void notifyRefreshAdapter(List<String> tabList) {
 //        if (mainadapter2 != null) {
@@ -224,5 +217,7 @@ public class RecommendFragment extends Fragment {
 //        mainadapter2 = new Mainadapter2(getChildFragmentManager(), refragmentList, tabList);
 //        mViewPager.setAdapter(mainadapter2);
 //    }
+
+}
 
 }

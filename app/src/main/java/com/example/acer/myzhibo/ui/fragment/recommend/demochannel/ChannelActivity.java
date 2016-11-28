@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.database.PreUtils;
-import com.example.acer.myzhibo.ui.fragment.RecommendFragment;
 import com.example.acer.myzhibo.ui.fragment.recommend.helper.ItemDragHelperCallback;
 
 import java.util.ArrayList;
@@ -125,7 +124,7 @@ public class ChannelActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 
-            RecommendFragment recommend=new RecommendFragment();
+
 
 
 

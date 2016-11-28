@@ -53,11 +53,9 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".ui.Search.SearchActivity" />
-        <activity
-            android:name=".ui.PlayActivity"
-            android:configChanges="screenSize|orientation|keyboardHidden"></activity>
-        <activity android:name=".ui.fragment.recommend.demochannel.ChannelActivity" />
+        <activity android:name=".ui.login.LoginActivity"/>
+        <activity android:name=".ui.login.RegisterActivity"></activity>
+
 
         <!-- 设置环信应用的AppKey -->
         <meta-data
