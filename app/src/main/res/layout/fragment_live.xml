@@ -23,7 +23,7 @@
                android:id="@+id/iv_search_livefragment"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:src="@mipmap/find"
+               android:src="@drawable/search_selector"
                android:layout_margin="5dp"
                android:layout_centerVertical="true"
                android:layout_alignParentRight="true"/>

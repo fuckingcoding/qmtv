@@ -48,4 +48,7 @@ public class UrlConfig {
 
     //推荐页广告轮播
     public static final String ADURL="http://www.quanmin.tv/json/page/app-data/info.json?v=2.2.4&os=1&ver=4";
+
+    public  static  final  String  TULING_url ="http://op.juhe.cn/robot/index?info=%s&key=17a3559a221b1bad9a5922390f3ef5d6";
+
 }

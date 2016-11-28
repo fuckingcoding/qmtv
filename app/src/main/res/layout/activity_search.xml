@@ -33,16 +33,13 @@
         </android.support.v7.widget.SearchView>
         <ImageView
             android:id="@+id/iv_search_activity"
-            android:src="@mipmap/find"
+            android:src="@drawable/search_selector"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
-
-
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/recycler_search"
         android:layout_width="match_parent"

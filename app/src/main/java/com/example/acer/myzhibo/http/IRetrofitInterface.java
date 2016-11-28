@@ -5,6 +5,7 @@ import com.example.acer.myzhibo.bean.LiveBean;
 import com.example.acer.myzhibo.bean.QMBean;
 import com.example.acer.myzhibo.bean.RecomBean;
 import com.example.acer.myzhibo.bean.SearchBean;
+import com.example.acer.myzhibo.bean.TulingResponseBean;
 import com.example.acer.myzhibo.config.UrlConfig;
 import com.google.gson.JsonObject;
 
@@ -61,4 +62,6 @@ public interface IRetrofitInterface {
     Observable<SearchBean> getSearchReponse(@Body JsonObject jsonObject);
 
 
+    @GET
+    Observable<TulingResponseBean> getTulingData(@Url String string );
 }
