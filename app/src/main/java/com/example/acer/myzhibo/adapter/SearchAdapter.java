@@ -55,7 +55,7 @@ public class SearchAdapter extends RecyclerViewAdapterHelper<SearchBean.DataBean
         Glide.with(mContext).load(avatar).asBitmap().placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher) .transform(new BitmapCircleTransformation(mContext))
                 .into(((MyViewHolder)holder).iv_head);
-        Glide.with(mContext).load(thumb).asBitmap().placeholder(R.mipmap.ic_launcher)//TODO 给一个默认头像
+        Glide.with(mContext).load(thumb).asBitmap().placeholder(R.drawable.img_touxiang_default)//TODO 给一个默认头像
                 .error(R.mipmap.ic_launcher) .into(((MyViewHolder)holder).iv_cover);
 
         if(mList.get(position).isPlay_status()){
