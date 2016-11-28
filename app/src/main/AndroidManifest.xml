@@ -31,19 +31,31 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity"  >
+
+        </activity>
+        <activity android:name=".ui.zbactivity.ReusedActivity" />
+        <activity android:name=".ui.Search.SearchActivity"></activity>
+
+        <activity android:name=".ui.PlayActivity" android:configChanges="screenSize|orientation|keyboardHidden"
+            >
+
+        </activity>
+
+
+        <activity android:name=".ui.fragment.recommend.demochannel.ChannelActivity" android:launchMode="singleTask"/>
+
+        <activity android:name=".ui.flush.FlushActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".ui.zbactivity.ReusedActivity" />
-        <activity android:name=".ui.Search.SearchActivity" />
-        <activity
-            android:name=".ui.PlayActivity"
-            android:configChanges="screenSize|orientation|keyboardHidden"></activity>
-        <activity android:name=".ui.fragment.recommend.demochannel.ChannelActivity" />
+        <activity android:name=".ui.login.LoginActivity"/>
+        <activity android:name=".ui.login.RegisterActivity"></activity>
+
 
         <!-- 设置环信应用的AppKey -->
         <meta-data

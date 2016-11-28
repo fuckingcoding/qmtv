@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.acer.myzhibo.R;
-import com.example.acer.myzhibo.config.UrlConfig;
+import com.example.acer.myzhibo.database.PreUtils;
 import com.example.acer.myzhibo.ui.fragment.recommend.helper.OnDragVHListener;
 import com.example.acer.myzhibo.ui.fragment.recommend.helper.OnItemMoveListener;
 import com.example.acer.myzhibo.utils.ToastHelper;
@@ -36,10 +36,22 @@ import java.util.List;
  */
 public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnItemMoveListener {
     private static final String TAG = "ChannelAdapter";
-    public static final String []OtherName= UrlConfig.OtherName;
+//    public static final String []OtherName= UrlConfig.OtherName;
+//    private List<String> allList;
+//    public static final String []DefultName=UrlConfig.DefultName;
+//    private List<String> defultlist;
+
     private List<String> allList;
-    public static final String []DefultName=UrlConfig.DefultName;
+    //    public static final String []DefultName=UrlConfig.DefultName;
     private List<String> defultlist;
+
+    private String other;
+    private String defult;
+    private String[] othername;
+    private String[] defultname;
+    private String defult2;
+    private String allist2;
+    private boolean isChanged;
 
 
     // 我的频道 标题部分
@@ -98,12 +110,17 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        other = PreUtils.readStrting(mContext, "other");
+        othername = other.split(",");
+
+        defult = PreUtils.readStrting(mContext, "defult");
+        defultname = defult.split(",");
         //全部频道转成list
         allList=new ArrayList<>();
-        Collections.addAll(allList,OtherName);
+        Collections.addAll(allList,othername);
         //默认频道转成list
         defultlist=new ArrayList<>();
-        Collections.addAll(defultlist,DefultName);
+        Collections.addAll(defultlist,defultname);
 
         final View view;
         switch (viewType) {
@@ -116,9 +133,18 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         if (!isEditMode) {
                             startEditMode((RecyclerView) parent);
                             holder.tvBtnEdit.setText(R.string.finish);
+
+
                         } else {
                             cancelEditMode((RecyclerView) parent);
                             holder.tvBtnEdit.setText(R.string.edit);
+                            if(isChanged=true){
+                                PreUtils.writeString(mContext,"defult",defult2);
+                                PreUtils.writeString(mContext,"other",allist2);
+                            }
+
+
+
                         }
                     }
                 });
@@ -317,6 +343,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             MyChannelHeaderViewHolder headerHolder = (MyChannelHeaderViewHolder) holder;
             if (isEditMode) {
                 headerHolder.tvBtnEdit.setText(R.string.finish);
+
             } else {
                 headerHolder.tvBtnEdit.setText(R.string.edit);
             }
@@ -333,6 +360,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * 开始增删动画
      */
     private void startAnimation(RecyclerView recyclerView, final View currentView, float targetX, float targetY) {
+
         final ViewGroup viewGroup = (ViewGroup) recyclerView.getParent();
         final ImageView mirrorView = addMirrorView(viewGroup, recyclerView, currentView);
 
@@ -367,6 +395,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * @param myHolder
      */
     private void moveMyToOther(MyViewHolder myHolder) {
+        isChanged=true;
         int position = myHolder.getAdapterPosition();
 
         int startPosition = position - COUNT_PRE_MY_HEADER;
@@ -376,8 +405,10 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ChannelEntity item = mMyChannelItems.get(startPosition);
         mMyChannelItems.remove(startPosition);
         mOtherChannelItems.add(0, item);
-        ToastHelper.showToast(mContext,position+"");
-        Log.i("TAG", "moveMyToOther: "+"1111111111");
+
+       // String defult2 = mMyChannelItems.toString();
+
+
 //        if(position>=0&&position<=5){
 //            //ToastHelper.showToast(mContext,"前六为默认栏目，无法删除");
 //        }else{
@@ -385,10 +416,22 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //
 //
 //        }
+        defultlist.remove(startPosition);
+//        String s = defultlist.toString();
+//         defult2 = s.substring(1,s.length()-1);
+        defult2=defultlist.toString().substring(1,defultlist.toString().indexOf("]"));
+         //  defult2=defultlist.toString();
 
-        notifyDataSetChanged();
+
+        allList.add(0,item.getName());
+       // String s1 = allList.toString();
+        allist2 = allList.toString().substring(1,allList.toString().indexOf("]"));
+        //allist2=allList.toString();
+
+
         notifyItemMoved(position, mMyChannelItems.size() + COUNT_PRE_OTHER_HEADER);
     }
+
 
     /**
      * 其他频道 移动到 我的频道
@@ -396,6 +439,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * @param otherHolder
      */
     private void moveOtherToMy(OtherViewHolder otherHolder) {
+        isChanged=true;
         int position = processItemRemoveAdd(otherHolder);
 
         if (position == -1) {
@@ -404,9 +448,16 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Log.i(TAG, "moveOtherToMy: "+"222222222222222");
 //        mMyChannelItems.add(mMyChannelItems.size()+1,mOtherChannelItems.get(position));
 //        notifyDataSetChanged();
+
         notifyItemMoved(position, mMyChannelItems.size() - 1 + COUNT_PRE_MY_HEADER);
 
-        Log.i(TAG, "moveOtherToMy: "+mMyChannelItems.size());
+//        Log.i(TAG, "moveOtherToMy: "+mMyChannelItems.size());
+//        allList.remove(position);
+//        allist2 = allList.toString().substring(1,allList.toString().indexOf("]")-1);
+//
+//
+//        defultlist.add(defultlist.size(),mMyChannelItems.get(position).getName());
+//        defult2=defultlist.toString().substring(1,defultlist.toString().indexOf("]")-1);
 
     }
 
@@ -416,6 +467,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * @param otherHolder
      */
     private void moveOtherToMyWithDelay(OtherViewHolder otherHolder) {
+        isChanged=true;
         final int position = processItemRemoveAdd(otherHolder);
         if (position == -1) {
             return;
@@ -442,6 +494,19 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ChannelEntity item = mOtherChannelItems.get(startPosition);
         mOtherChannelItems.remove(startPosition);
         mMyChannelItems.add(item);
+
+//        allList.remove(startPosition);
+//        allist2 = allList.toString();
+//
+//        defultlist.add(defultlist.size(),item.getName());
+//        defult2 = defultlist.toString();
+        allList.remove(startPosition);
+        allist2 = allList.toString().substring(1,allList.toString().indexOf("]"));
+
+
+        defultlist.add(defultlist.size(),item.getName());
+        defult2=defultlist.toString().substring(1,defultlist.toString().indexOf("]"));
+
         return position;
     }
 
@@ -489,6 +554,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private void startEditMode(RecyclerView parent) {
         isEditMode = true;
 
+
         int visibleChildCount = parent.getChildCount();
         for (int i = 0; i < visibleChildCount; i++) {
             View view = parent.getChildAt(i);
@@ -506,6 +572,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      */
     private void cancelEditMode(RecyclerView parent) {
         isEditMode = false;
+
 
         int visibleChildCount = parent.getChildCount();
         for (int i = 0; i < visibleChildCount; i++) {

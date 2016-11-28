@@ -18,7 +18,7 @@ import com.example.acer.myzhibo.bean.DataBean;
 import com.example.acer.myzhibo.bean.QMBean;
 import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.config.UrlConfig;
-import com.example.acer.myzhibo.utils.ToastHelper;
+import com.example.acer.myzhibo.utils.UIManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,6 +54,22 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
         super.onAttach(context);
         mContext=context;
 
+
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initData();
+
+        Log.e("123", "onCreate: "+allmap.size() );
+        Log.e("123", "onCreate: "+title );
+        Log.e("123", "onCreate: "+pinyin );
+
+    }
+
+    private void initData() {
         //全部频道转成list
         allList=new ArrayList<>();
         Collections.addAll(allList,AllCHALLEL);
@@ -64,11 +80,6 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
             allmap.put(allList.get(i),allpyList.get(i));
         }
 
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         title = arguments.getString(Constant.KEY_RECOMMEND_URL_KEY);
         pinyin = allmap.get(title);
@@ -83,8 +94,7 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
         initRecycleView(view);
 
 
-            presenter = new RecommendPresenter(this);
-            presenter.getQMBean(pinyin);
+
 
 
         return view;
@@ -110,24 +120,28 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
         super.onResume();
 
 
-
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        presenter = new RecommendPresenter(this);
+        presenter.getQMBean(pinyin);
     }
 
     @Override
     public void getQMData(QMBean bean) {
-        data.addAll(bean.getData());
-        Log.i(TAG, "getQMData: "+data.size());
+
+        this.data.addAll(bean.getData());
+        Log.i(TAG, "getQMData: "+ this.data.size());
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onclick(int position) {
-        ToastHelper.showToast(mContext,"点击的是"+data.get(position).getTitle());
+       // ToastHelper.showToast(mContext,"点击的是"+data.get(position).getTitle());
+        DataBean dataBean = data.get(position);
+        UIManager.startPlayActivity(mContext,dataBean.getAvatar(),dataBean.getTitle(),dataBean.getNick(),dataBean.getView(),dataBean.getUid());
+
     }
 }

@@ -6,4 +6,6 @@ package com.example.acer.myzhibo.base;
 
 public class BaseActivity {
 
+
+
 }

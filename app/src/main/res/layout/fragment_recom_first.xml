@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/backgroundcolor"
-    tools:context="com.example.acer.myzhibo.ui.fragment.recommend.RecomFirstFragment">
+
+    tools:context="com.example.acer.myzhibo.ui.fragment.recommend.recomFristMVP.RecomFirstFragment">
+
 <com.jcodecraeer.xrecyclerview.XRecyclerView
     android:id="@+id/xRecycleview_first_fragment_ad"
     android:layout_width="match_parent"

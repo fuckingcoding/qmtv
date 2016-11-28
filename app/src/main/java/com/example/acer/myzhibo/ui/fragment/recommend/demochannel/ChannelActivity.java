@@ -1,15 +1,19 @@
 package com.example.acer.myzhibo.ui.fragment.recommend.demochannel;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.acer.myzhibo.R;
-import com.example.acer.myzhibo.config.UrlConfig;
+import com.example.acer.myzhibo.database.PreUtils;
 import com.example.acer.myzhibo.ui.fragment.recommend.helper.ItemDragHelperCallback;
 
 import java.util.ArrayList;
@@ -25,36 +29,64 @@ public class ChannelActivity extends AppCompatActivity {
 
     private RecyclerView mRecy;
 
-    public static final String []OtherName= UrlConfig.OtherName;
+    private Context mContext = this;
+
+    //    public static final String []OtherName= UrlConfig.OtherName;
     private List<String> allList;
-    public static final String []DefultName=UrlConfig.DefultName;
+    //    public static final String []DefultName=UrlConfig.DefultName;
     private List<String> defultlist;
 
+    private String other;
+    private String defult;
+    private String[] othername;
+    private String[] defultname;
+
+    private ImageView image_back;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
+
+        other = PreUtils.readStrting(mContext, "other");
+        othername = other.split(",");
+
+        defult = PreUtils.readStrting(mContext, "defult");
+        defultname = defult.split(",");
+        Log.e("wwww", "onCreate: " + defultname.length);
+
         //全部频道转成list
-        allList=new ArrayList<>();
-        Collections.addAll(allList,OtherName);
+
+        allList = new ArrayList<>();
+        Collections.addAll(allList, othername);
         //默认频道转成list
-        defultlist=new ArrayList<>();
-        Collections.addAll(defultlist,DefultName);
+        defultlist = new ArrayList<>();
+        Collections.addAll(defultlist, defultname);
+
+
         mRecy = (RecyclerView) findViewById(R.id.recy);
         init();
+
+//        image_back=(ImageView)findViewById(R.id.image_ahannel_back);
+//        image_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(ChannelActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void init() {
         final List<ChannelEntity> items = new ArrayList<>();
-        for (int i = 0; i <defultlist.size() ; i++) {
+        for (int i = 0; i < defultlist.size(); i++) {
             ChannelEntity entity = new ChannelEntity();
             entity.setName(defultlist.get(i));
             items.add(entity);
         }
         final List<ChannelEntity> otherItems = new ArrayList<>();
-        for (int i = 0; i <allList.size() ; i++) {
+        for (int i = 0; i < allList.size(); i++) {
             ChannelEntity entity = new ChannelEntity();
             entity.setName(allList.get(i));
             otherItems.add(entity);
@@ -84,6 +116,22 @@ public class ChannelActivity extends AppCompatActivity {
                 Toast.makeText(ChannelActivity.this, items.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
+
+
+
+
+
+
+        finish();
+        return true;
 
     }
 }
