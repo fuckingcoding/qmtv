@@ -141,7 +141,7 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
     @Override
     public void getZhiBoData(LiveBean bean) {
         this.data1.addAll(bean.getData());
-        adapter.notifyDataSetChanged();
+        adapter1.notifyDataSetChanged();
     }
 
     @Override
