@@ -15,5 +15,7 @@ public  final static  String KEY_RECOMMEND_URL_KEY="KEY_RECOMMEND_URL_KEY";
      public  static  final  String NICK ="Nick";
 
 
+     public static final String WIFIALERT ="WIFIALERT";
+
 
 }

@@ -7,17 +7,23 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.SearchAdapter;
 import com.example.acer.myzhibo.bean.PostSearchBean;
 import com.example.acer.myzhibo.bean.SearchBean;
+import com.example.acer.myzhibo.config.Constant;
+import com.example.acer.myzhibo.database.PreUtils;
+import com.example.acer.myzhibo.utils.NetworkHelper;
 import com.example.acer.myzhibo.utils.ToastHelper;
 import com.example.acer.myzhibo.utils.UIManager;
 import com.google.gson.Gson;
@@ -38,6 +44,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     private XRecyclerView recyclerView;
     private SearchAdapter adapter ;
     ArrayAdapter<String> Arrayadapter;
+    private ViewStub viewStub;
     private int page =0;
     private List<SearchBean.DataBean.ItemsBean> list;
 
@@ -47,9 +54,28 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        boolean b = PreUtils.readBoolean(this, Constant.WIFIALERT);
+        if(b){
+
+            boolean wifiConnected = NetworkHelper.isWifiConnected(this);
+            if(!wifiConnected){
+                NetworkHelper.alertSetNetwork(this);
+            }
+        }
         list = new ArrayList<>();
         initView();
         initAdapter();
+        boolean networkConnected = NetworkHelper.isNetworkConnected(this);
+        boolean networkAvailable = NetworkHelper.isNetworkAvailable(this);
+        boolean mobileConnected = NetworkHelper.isMobileConnected(this);
+        Log.e("TAG", "networkConnected: "+networkConnected );
+        Log.e("TAG", "networkAvailable: "+networkAvailable );
+        Log.e("TAG", "mobileConnected: "+mobileConnected );
+//        if(networkConnected){
+//            viewStub.inflate();
+//            recyclerView.setVisibility(View.GONE);
+//        }
+
     }
 
     private void initAdapter() {
@@ -63,7 +89,9 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         searchView = (SearchView) findViewById(R.id.searchView);
         iv_search = (ImageView) findViewById(R.id.iv_search_activity);
         iv_back = (ImageView) findViewById(R.id.iv_back_search);
+        viewStub = (ViewStub) findViewById(R.id.viewstub_search);
         searchView.setIconifiedByDefault(false);
+
         //searchView.setSubmitButtonEnabled(true);
         //clearfocus
         searchView.onActionViewExpanded();
@@ -80,12 +108,31 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
                 city);
         editText = (SearchView.SearchAutoComplete) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         editText.setAdapter(Arrayadapter);
+        editText.clearFocus();
         editText.setThreshold(2);
+        editText.setImeActionLabel("搜索",1);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i ==1){
+                    ToastHelper.showToast(mContext,"dosomething");
+                    return  true;
+                }else{
 
+                    return false;
+                }
+            }
+        });
+
+       // editText.setCompletionHint("历史记录");
         editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                editText.setText(city[i]);
+
+                CharSequence text = ((TextView) view).getText();
+                editText.setText(text);
+                editText.setSelection(text.length());
+
             }
         });
         iv_back.setOnClickListener(new View.OnClickListener() {
@@ -139,10 +186,16 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         if(size ==0){
             ToastHelper.showToast(mContext,"找不到相关信息");
         }
+//        if(recyclerView.getVisibility()== View.GONE){
+//            recyclerView.setVisibility(View.VISIBLE);
+//            viewStub.setVisibility(View.GONE);
+//        }else{
+//            recyclerView.setVisibility(View.GONE);
+//            viewStub.setVisibility(View.VISIBLE);
+//        }
          list.clear();
          list.addAll(bean.getData().getItems());
          adapter.notifyDataSetChanged();
-
     }
 
     @Override

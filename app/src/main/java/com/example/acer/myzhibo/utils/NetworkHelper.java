@@ -106,7 +106,7 @@ public class NetworkHelper {
 	 */
 	public static void alertSetNetwork(final Context context) {
 		Builder builder = new Builder(context);
-		builder.setTitle("提示：网络异常").setMessage("是否对网络进行设置?");
+		builder.setTitle("提示：检测到wifi未开启").setMessage("是否对网络进行设置?");
 
 		builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
 			@Override

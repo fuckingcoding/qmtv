@@ -47,4 +47,16 @@
 
     </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
+    <ViewStub
+        android:id="@+id/viewstub_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/layout_netnotfound"/>
+
+
+
+
+
+
+
 </LinearLayout>

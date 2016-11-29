@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.acer.myzhibo.R;
+import com.example.acer.myzhibo.ui.SettingActivity;
 import com.example.acer.myzhibo.ui.login.LoginActivity;
 import com.example.acer.myzhibo.bean.LoginBean;
 import com.example.acer.myzhibo.http.HttpUtils;
@@ -129,10 +130,12 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
                 startActivity(intent);
                 break;
             case R.id.iv_mine_right:
+                intent.setClass(mContext, SettingActivity.class);
+                startActivity(intent);
                 break;
 
         }
-        startActivity(intent);
+
     }
 
 
