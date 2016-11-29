@@ -7,17 +7,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.acer.myzhibo.R;
+import com.example.acer.myzhibo.adapter.LiveAdapter;
 import com.example.acer.myzhibo.adapter.recommend.ReRecycleViewAdapter;
 import com.example.acer.myzhibo.bean.DataBean;
+import com.example.acer.myzhibo.bean.LiveBean;
 import com.example.acer.myzhibo.bean.QMBean;
 import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.config.UrlConfig;
+import com.example.acer.myzhibo.ui.fragment.live.LiveContract;
+import com.example.acer.myzhibo.ui.fragment.live.LivePresenter;
 import com.example.acer.myzhibo.utils.UIManager;
 
 import java.util.ArrayList;
@@ -29,7 +32,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecommendFragmentList extends Fragment implements RecommendContract.IRecommendView,ReRecycleViewAdapter.IOnItemClickListener{
+public class RecommendFragmentList extends Fragment implements RecommendContract.IRecommendView,ReRecycleViewAdapter.IOnItemClickListener,LiveContract.ILiveView,LiveAdapter.LiveOnClickListener{
     private static final String TAG = "RecommendFragmentList";
     private Context mContext;
     private RecyclerView mRecycleView;
@@ -49,24 +52,19 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
 
     private List<DataBean> data=new ArrayList<>();
 
+    private LivePresenter presenter1 ;
+    private List<LiveBean.DataBeanX> data1=new ArrayList<>();
+    private LiveAdapter adapter1 ;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext=context;
-
-
-
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
-
-        Log.e("123", "onCreate: "+allmap.size() );
-        Log.e("123", "onCreate: "+title );
-        Log.e("123", "onCreate: "+pinyin );
-
     }
 
     private void initData() {
@@ -79,24 +77,20 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
         for (int i = 0; i < allList.size(); i++) {
             allmap.put(allList.get(i),allpyList.get(i));
         }
-
         Bundle arguments = getArguments();
         title = arguments.getString(Constant.KEY_RECOMMEND_URL_KEY);
-        pinyin = allmap.get(title);
+        if(!title.equals("全部")){
+            pinyin = allmap.get(title);
+        }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view=inflater.inflate(R.layout.fragment_recommend_fragment_list, container, false);
-
         initRecycleView(view);
-
-
-
-
-
         return view;
     }
 
@@ -106,42 +100,54 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
         //设置布局为竖直
         mlayoutManager=new GridLayoutManager(mContext,2);
         mRecycleView.setLayoutManager(mlayoutManager);
-        adapter=new ReRecycleViewAdapter(mContext,data,this);
-        mRecycleView.setAdapter(adapter);
-
-
-
-
+        if(title=="全部"){
+            adapter1=new LiveAdapter(mContext,data1,this);
+            mRecycleView.setAdapter(adapter1);
+        }else{
+            adapter=new ReRecycleViewAdapter(mContext,data,this);
+            mRecycleView.setAdapter(adapter);
+        }
     }
-
 
     @Override
     public void onResume() {
         super.onResume();
-
-
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter = new RecommendPresenter(this);
-        presenter.getQMBean(pinyin);
+        if(title=="全部"){
+            presenter1 = new LivePresenter(this);
+            presenter1.getZhiBoBean(UrlConfig.TOTALURL);
+        }else {
+            presenter = new RecommendPresenter(this);
+            presenter.getQMBean(pinyin);
+        }
     }
 
     @Override
     public void getQMData(QMBean bean) {
-
         this.data.addAll(bean.getData());
-        Log.i(TAG, "getQMData: "+ this.data.size());
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onclick(int position) {
-       // ToastHelper.showToast(mContext,"点击的是"+data.get(position).getTitle());
         DataBean dataBean = data.get(position);
-        UIManager.startPlayActivity(mContext,dataBean.getAvatar(),dataBean.getTitle(),dataBean.getNick(),dataBean.getView(),dataBean.getUid());
+        UIManager.startPlayActivity(mContext, dataBean.getAvatar(), dataBean.getTitle(), dataBean.getNick(), dataBean.getView(), dataBean.getUid());
+    }
 
+    @Override
+    public void getZhiBoData(LiveBean bean) {
+        this.data1.addAll(bean.getData());
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(int position) {
+
+        LiveBean.DataBeanX beanX = data1.get(position);
+        UIManager.startPlayActivity(mContext,beanX.getAvatar(),beanX.getTitle(),beanX.getNick(),beanX.getView(),beanX.getUid());
     }
 }
