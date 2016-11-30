@@ -1,24 +1,22 @@
 package com.example.acer.myzhibo.ui;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.zycadapter.MyPlayTablayoutAdapter;
@@ -28,14 +26,10 @@ import com.example.acer.myzhibo.ui.fragment.ProtectFragment;
 import com.example.acer.myzhibo.ui.fragment.RankFragment;
 import com.example.acer.myzhibo.utils.BitmapCircleTransformation;
 import com.example.acer.myzhibo.utils.ToastHelper;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
-
-import io.vov.vitamio.widget.CenterLayout;
 import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
@@ -53,7 +47,6 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     private boolean flag=true;
     private boolean kg=true;
     private boolean pause=true;
-    private boolean screen=true;
     private TabLayout tablayout;
     private ViewPager viewpaper;
     private List<Fragment> list_fragment;         //fragment的数据集合
@@ -62,14 +55,10 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     private MyPlayTablayoutAdapter mptAdapter;
     private LinearLayout linearlayout;
     private RelativeLayout relativeLayout;
-
+    private String stringExtra;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        if (!LibsChecker.checkVitamioLibs(this))
-//            return;
-
         setContentView(R.layout.activity_play);
         Vitamio.isInitialized(PlayActivity.this);
         initURL();
@@ -79,8 +68,9 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         initData();
         initControl();
 
-
     }
+
+
 
     private void initControl() {
         iv_back.setOnClickListener(new View.OnClickListener() {
@@ -119,55 +109,29 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         iv_screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(screen){
-//                    changeOritation(-1);
-
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-//////                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-//                    WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
-//                    int width = wm.getDefaultDisplay().getWidth();
-//                    int height = wm.getDefaultDisplay().getHeight();
-//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
-//                    videoView.setLayoutParams(params);
-//                    videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
-                    screen=false;
-
-
-
-                }else{
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//                    linearlayout.setVisibility(View.VISIBLE);
-//                    viewpaper.setVisibility(View.VISIBLE);
-//                    tablayout.setVisibility(View.VISIBLE);
-//                    WindowManager.LayoutParams params = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                    videoView.setLayoutParams(params);
-                    screen=true;
-//                    changeOritation(1);
-
-                }
-
-
+                videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                    @Override
+                    public boolean onError(MediaPlayer mp, int what, int extra) {
+                        mp.reset();mp.release();mp = null; videoView = null;
+                        return false;
+                    }
+                });
+                Intent intent = new Intent(PlayActivity.this,LandscapeActivity.class);
+                intent.putExtra("1",stringExtra);
+                startActivity(intent);
+                finish();
             }
         });
     }
-
-//    private void changeOritation(int n) {
-//        if(n>0&&getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
-//            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//        else if(n<0&&getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-//            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//
-//    }
-
     @Override
     public int getRequestedOrientation() {
         return super.getRequestedOrientation();
     }
 
+
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        Log.e("TAG", "onConfigurationChanged: ");
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             //隐藏下面的布局和标题
             linearlayout.setVisibility(View.GONE);
@@ -178,7 +142,7 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
             int height = wm.getDefaultDisplay().getHeight();
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
             videoView.setLayoutParams(params);
-//            videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
+            videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_FIT_PARENT,0);
 
 
         }
@@ -222,9 +186,7 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     private void initTabLayout() {
         tablayout = (TabLayout) findViewById(R.id.tablayout_play);
         viewpaper = (ViewPager) findViewById(R.id.viewpager_play);
-        chatFragment = new ChatFragment();
-        rankFragment = new RankFragment();
-        protectFragment = new ProtectFragment();
+
         list_fragment = new ArrayList<>();
         list_title = new ArrayList<>();
 
@@ -277,13 +239,21 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     }
 
     private void initURL() {
+        chatFragment = new ChatFragment();
+        rankFragment = new RankFragment();
+
+        protectFragment = new ProtectFragment();
         Intent intent = getIntent();
-        String stringExtra = intent.getStringExtra(Constant.UID);
+        stringExtra = intent.getStringExtra(Constant.UID);
+        Bundle bundle = new Bundle();
+        bundle.putString("room",stringExtra);
+        rankFragment.setArguments(bundle);
         pic = intent.getStringExtra(Constant.AVATAR);
         view = intent.getStringExtra(Constant.VIEW);
         content = intent.getStringExtra(Constant.TITLE);
         head = intent.getStringExtra(Constant.NICK);
         playurl = String.format(Constant.PLAYERURL, stringExtra);
+
     }
 
     private void initView() {
@@ -317,4 +287,5 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     public void run() {
 
     }
+
 }
