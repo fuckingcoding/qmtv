@@ -11,7 +11,7 @@ public class LoginBean {
     public  int os =1;
     public  String v = "2.2.4";
     public p p ;
-    public class p{
+    public static class p{
 
 
         public String device ;

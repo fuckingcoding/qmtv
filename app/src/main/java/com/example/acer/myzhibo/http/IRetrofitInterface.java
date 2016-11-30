@@ -1,22 +1,21 @@
 package com.example.acer.myzhibo.http;
 
-import com.example.acer.myzhibo.bean.QMBean;
-
-import com.example.acer.myzhibo.bean.LiveBean;
 import com.example.acer.myzhibo.bean.LanmuBean;
+import com.example.acer.myzhibo.bean.LiveBean;
+import com.example.acer.myzhibo.bean.QMBean;
+import com.example.acer.myzhibo.bean.RecomBean;
 import com.example.acer.myzhibo.bean.RankBean;
 import com.example.acer.myzhibo.bean.SearchBean;
+import com.example.acer.myzhibo.bean.TulingResponseBean;
 import com.example.acer.myzhibo.config.UrlConfig;
 import com.google.gson.JsonObject;
 
 import java.util.List;
 
 
-
-import retrofit2.Response;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
@@ -49,6 +48,9 @@ public interface IRetrofitInterface {
     @GET
     Observable<List<LanmuBean>> getColumn(@Url String url);
 
+    @GET
+    Observable<RecomBean> getRoom(@Url String url);
+
 
 //    @Headers({"Content-Type: application/json","Accept: application/json"})//需要添加头
 //    @POST("api/FlyRoute/Add")
@@ -62,4 +64,8 @@ public interface IRetrofitInterface {
 
     @POST(UrlConfig.SEARCH_URL)
     Observable<SearchBean> getSearchReponse(@Body JsonObject jsonObject);
+
+
+    @GET
+    Observable<TulingResponseBean> getTulingData(@Url String string );
 }

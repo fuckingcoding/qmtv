@@ -49,4 +49,8 @@ dependencies {
     compile 'com.android.support:support-v4:25.0.1'
     compile 'com.jcodecraeer:xrecyclerview:1.2.7'
     testCompile 'junit:junit:4.12'
+    compile 'com.github.ctiao:DanmakuFlameMaster:0.6.1'
+    compile 'com.github.ctiao:ndkbitmap-armv7a:0.6.1'
+    compile 'com.jakewharton:butterknife:5.1.1'
+    compile files('libs/hyphenatechat_3.2.1.jar')
 }

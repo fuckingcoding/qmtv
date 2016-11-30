@@ -34,6 +34,11 @@ public class ReRecycleViewAdapter extends RecyclerViewAdapterHelper<DataBean> {
         this.context=context;
         this.itemClickListener=itemClickListener;
     }
+    public ReRecycleViewAdapter(Context context, List<DataBean> list) {
+        super(context,list);
+        this.context=context;
+
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateMyViewHolder(ViewGroup parent, int viewType) {

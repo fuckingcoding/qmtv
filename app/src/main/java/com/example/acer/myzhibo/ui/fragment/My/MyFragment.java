@@ -1,7 +1,6 @@
 package com.example.acer.myzhibo.ui.fragment.My;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,26 +15,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.acer.myzhibo.R;
-import com.example.acer.myzhibo.utils.ToastHelper;
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.exceptions.HyphenateException;
+import com.example.acer.myzhibo.ui.TulingActivity;
+import com.example.acer.myzhibo.ui.login.LoginActivity;
+import com.hyphenate.EMMessageListener;
+
+import static com.example.acer.myzhibo.R.id.kaibo_normal;
+
+
+//加群退群监听  上线后不主动发消息 收不到群组消息 离线消息
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyFragment extends Fragment implements MineContract.IMineView,View.OnClickListener{
-   private Context mContext ;
-
-   private LinearLayout linear1,linear2,linear3,linear4,linear5,linear6,linear_center;
-    private ImageView iv_left, iv_right;
-    private Handler handler = new Handler(){
+public class MyFragment extends Fragment implements MineContract.IMineView, View.OnClickListener {
+    private Context mContext;
+    private EMMessageListener msgListener;
+    private LinearLayout linear1, linear2, linear3, linear4, linear5, linear6, linear_center;
+    private ImageView iv_left, iv_right,kaibo;
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
         }
     };
-   // private
+
+    // private
     public MyFragment() {
         // Required empty public constructor
     }
@@ -44,7 +47,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mContext =context;
+        mContext = context;
 
     }
 
@@ -76,6 +79,8 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
         linear_center.setOnClickListener(this);
         iv_left.setOnClickListener(this);
         iv_right.setOnClickListener(this);
+        kaibo.setOnClickListener(this);
+
     }
 
     private void initView(View view) {
@@ -88,77 +93,64 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
         linear_center = (LinearLayout) view.findViewById(R.id.linear_center_mine);
         iv_left = (ImageView) view.findViewById(R.id.iv_mine_left);
         iv_right = (ImageView) view.findViewById(R.id.iv_mine_right);
+        kaibo=(ImageView)view.findViewById(R.id.kaibo_normal);
+
 
     }
 
     @Override
     public void onClick(View view) {
         Intent intent = new Intent();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.linear1_mine:
-
-                EMClient.getInstance().login("jhksljalsdfasf","123456",new EMCallBack() {//回调
-                    @Override
-                    public void onSuccess() {
-                        EMClient.getInstance().groupManager().loadAllGroups();
-                        EMClient.getInstance().chatManager().loadAllConversations();
-                        Log.e("main", "登录聊天服务器成功！");
-
-
-                    }
-
-                    @Override
-                    public void onProgress(int progress, String status) {
-
-                    }
-
-                    @Override
-                    public void onError(int code, String message) {
-                        Log.d("main", "登录聊天服务器失败！");
-                    }
-                });
-
 
                 break;
             case R.id.linear2_mine:
-             new Thread(new Runnable() {
-                 @Override
-                 public void run() {
-                     try {
-                         EMClient.getInstance().createAccount("aaa123546sdfsf", "ccc");
-
-                     } catch (HyphenateException e) {
-                         e.printStackTrace();
-
-                         Log.e("TAG", "run: "+e );
-                         if(e.toString().equals("com.hyphenate.exceptions.HyphenateException: User already exist")){
-                             Log.e("TAG", "run: "+"lalalalalalalala" );
-                         }
-
-                     }
-
-                 }
-
-
-             }).start();
 
                 break;
             case R.id.linear3_mine:
-                break;
-            case R.id.linear4_mine:
-                break;
-            case R.id.linear5_mine:
-                break;
-            case R.id.linear6_mine:
-                break;
-            case R.id.linear_center_mine:
+
 
                 break;
-            case  R.id.iv_mine_left:
+            case R.id.linear4_mine:
+
+                break;
+            case R.id.linear5_mine:
+
+                break;
+            case R.id.linear6_mine:
+
+                break;
+            case R.id.linear_center_mine:
+                intent.setClass(mContext, LoginActivity.class);
+                break;
+            case R.id.iv_mine_left:
+
+                intent.setClass(mContext, TulingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.iv_mine_right:
                 break;
+            case kaibo_normal:
+
+                intent.setClass(mContext,LoginActivity.class);
+
+                break;
 
         }
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 }

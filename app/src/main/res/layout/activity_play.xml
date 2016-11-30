@@ -15,6 +15,12 @@
             android:id="@+id/videoview_play"
             android:layout_width="match_parent"
             android:layout_height="240dp" />
+            android:layout_height="wrap_content" />
+        <master.flame.danmaku.ui.widget.DanmakuView
+            android:id="@+id/danmaku_view"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="240dp" />
         <ImageView
             android:id="@+id/small_model_back"
             android:layout_margin="20dp"
@@ -87,8 +93,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
                 android:textColor="@color/gray"/>
-
-
         </LinearLayout>
         <LinearLayout
             android:layout_gravity="center"
@@ -106,7 +110,7 @@
                 android:id="@+id/tv_play_guanzhu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="关 注"
+                android:text="关注"
                 android:textSize="10sp"
                 android:textColor="@color/gray"/>
 

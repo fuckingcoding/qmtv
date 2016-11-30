@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -49,8 +50,6 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         list = new ArrayList<>();
         initView();
         initAdapter();
-
-
     }
 
     private void initAdapter() {
@@ -83,6 +82,12 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         editText.setAdapter(Arrayadapter);
         editText.setThreshold(2);
 
+        editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                editText.setText(city[i]);
+            }
+        });
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
