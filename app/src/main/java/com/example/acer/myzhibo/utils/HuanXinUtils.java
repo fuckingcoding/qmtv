@@ -19,6 +19,13 @@ import java.util.List;
 
 public class HuanXinUtils {
 
+
+     public static void HuanxinLogin(String name,EMCallBack callBack) {
+
+        EMClient.getInstance().login(name, "123456", callBack);
+    }
+
+
     void HxLogin() {
 
         EMClient.getInstance().login("jhksljalsdfasf", "123456", new EMCallBack() {
@@ -32,16 +39,23 @@ public class HuanXinUtils {
 
             @Override
             public void onError(int i, String s) {
-
+                Log.d("main", "登录聊天服务器失败！");
             }
 
             @Override
             public void onProgress(int i, String s) {
-                Log.d("main", "登录聊天服务器失败！");
-            }//回调
+
+            }
         });
     }
 
+
+   public static  void Huanxinregister(  String name ,  String psw) throws HyphenateException {
+                   //需要开线程处理
+                    EMClient.getInstance().createAccount(name, psw);
+
+
+    }
      void register(){
          new Thread(new Runnable() {
              @Override

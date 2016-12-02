@@ -29,8 +29,11 @@ import com.example.acer.myzhibo.bean.Users;
 import com.example.acer.myzhibo.database.PreUtils;
 import com.example.acer.myzhibo.ui.MainActivity;
 import com.example.acer.myzhibo.utils.EncryptUtils;
+import com.example.acer.myzhibo.utils.HuanXinUtils;
+import com.hyphenate.EMCallBack;
 
 import java.util.List;
+import java.util.concurrent.ThreadFactory;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -210,7 +213,7 @@ private EditText phoneEdt, pswEdt;
     private void loginlow() {
 
         pssw = pswEdt.getEditableText().toString();
-        String name1 = phoneEdt.getEditableText().toString();
+        final String name1 = phoneEdt.getEditableText().toString();
 
         String pswRegEx = "^\\d{8}$";
         Pattern pattern = Pattern.compile(pswRegEx);
@@ -226,7 +229,31 @@ private EditText phoneEdt, pswEdt;
                 public void done(List<Users> list, BmobException e) {
                     if (e == null) {
                         if (list.get(0).getPassword().equals(EncryptUtils.md5(pssw))) {
-                            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                            Log.e("TAG", "done: "+ Thread.currentThread());
+                           // new Thread(new Runnable() {
+                             //  @Override
+                             //  public void run() {
+
+                                   HuanXinUtils.HuanxinLogin(EncryptUtils.md5(name1), new EMCallBack() {
+                                       @Override
+                                       public void onSuccess() {
+                                           Log.e("TAG", "onSuccesslogin: " );
+                                           //Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                       }
+
+                                       @Override
+                                       public void onError(int i, String s) {
+                                           //Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                                       }
+
+                                       @Override
+                                       public void onProgress(int i, String s) {
+                                          // Toast.makeText(LoginActivity.this, "登录中", Toast.LENGTH_SHORT).show();
+                                       }
+                                   });
+
+                              // }
+                          // }).start();
                             PreUtils.writeBoolean(LoginActivity.this, "login", true);
                             String username=list.get(0).getName();
                             PreUtils.writeString(LoginActivity.this, "username", username);
@@ -303,7 +330,24 @@ private EditText phoneEdt, pswEdt;
                 public void done(List<Users> list, BmobException e) {
                     if (e == null) {
                         if (list.get(0).getPassword().equals(EncryptUtils.md5(pssw21))) {
-                            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+
+                            HuanXinUtils.HuanxinLogin(EncryptUtils.md5(name21), new EMCallBack() {
+                                @Override
+                                public void onSuccess() {
+                                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onError(int i, String s) {
+                                    Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onProgress(int i, String s) {
+                                    Toast.makeText(LoginActivity.this, "登录中", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                             PreUtils.writeBoolean(LoginActivity.this, "login", true);
                             String username=list.get(0).getName();
                             PreUtils.writeString(LoginActivity.this, "username", username);

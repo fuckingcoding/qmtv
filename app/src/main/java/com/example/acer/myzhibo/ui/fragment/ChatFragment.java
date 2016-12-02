@@ -78,6 +78,7 @@ public class ChatFragment extends Fragment {
         list = new ArrayList<>();
         initView(view);
         initAdapter();
+        joinGroup();
         sendmsglistener();
         grouplistener();
 
@@ -248,12 +249,13 @@ public class ChatFragment extends Fragment {
             public void run() {
                 try {
                     EMClient.getInstance().groupManager().joinGroup("1480043615023");
-
                 } catch (HyphenateException e) {
                     e.printStackTrace();
-                    Log.e("TAG", "run: "+e);
-                    Log.e("TAG", "run: 失败");
-                    //com.hyphenate.exceptions.HyphenateException: User already joined the group
+                    if(e.toString().equals("com.hyphenate.exceptions.HyphenateException: User already joined the group")){
+                        Log.e("TAG", "run: "+e);
+                        Log.e("TAG", "run: 失败");
+                    }
+
                 }
             }
         }).start();;

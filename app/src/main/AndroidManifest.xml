@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <!-- Required -->
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -74,7 +75,15 @@
 
         <activity android:name=".ui.TulingActivity" />
         <activity android:name=".ui.SettingActivity" />
-        <activity android:name=".ui.AboutUsActivity"></activity>
+        <activity android:name=".ui.AboutUsActivity" />
+
+        <service android:name=".service.MyService" />
+
+        <activity android:name=".ui.HeadpicActivity" />
+        <activity
+            android:name=".ui.HeadCropActivity"
+            android:label="@string/title_activity_head_crop"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -20,7 +20,10 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-
+    <ImageView
+        android:id="@+id/iv_headcrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <include layout="@layout/content_head_crop" />
 
     <android.support.design.widget.FloatingActionButton

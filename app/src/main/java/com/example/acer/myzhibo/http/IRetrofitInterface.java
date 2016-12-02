@@ -6,6 +6,7 @@ import com.example.acer.myzhibo.bean.QMBean;
 import com.example.acer.myzhibo.bean.RecomBean;
 import com.example.acer.myzhibo.bean.SearchBean;
 import com.example.acer.myzhibo.bean.TulingResponseBean;
+import com.example.acer.myzhibo.bean.VersionBean;
 import com.example.acer.myzhibo.config.UrlConfig;
 import com.google.gson.JsonObject;
 
@@ -64,4 +65,10 @@ public interface IRetrofitInterface {
 
     @GET
     Observable<TulingResponseBean> getTulingData(@Url String string );
+
+    @GET
+    Observable<VersionBean> getVersionbean(@Url String string);
+
+    @GET
+    Observable<ResponseBody> getAPK(@Url String string);
 }
