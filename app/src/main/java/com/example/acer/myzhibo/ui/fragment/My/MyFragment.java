@@ -21,27 +21,30 @@ import com.example.acer.myzhibo.bean.LoginBean;
 import com.example.acer.myzhibo.http.HttpUtils;
 import com.example.acer.myzhibo.http.IRetrofitInterface;
 import com.example.acer.myzhibo.ui.TulingActivity;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.hyphenate.EMCallBack;
+import com.example.acer.myzhibo.ui.login.LoginActivity;
 import com.hyphenate.EMMessageListener;
+
+import static com.example.acer.myzhibo.R.id.kaibo_normal;
+
+
 //加群退群监听  上线后不主动发消息 收不到群组消息 离线消息
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyFragment extends Fragment implements MineContract.IMineView,View.OnClickListener{
-   private Context mContext ;
- private  EMMessageListener msgListener;
-   private LinearLayout linear1,linear2,linear3,linear4,linear5,linear6,linear_center;
-    private ImageView iv_left, iv_right;
-    private Handler handler = new Handler(){
+public class MyFragment extends Fragment implements MineContract.IMineView, View.OnClickListener {
+    private Context mContext;
+    private EMMessageListener msgListener;
+    private LinearLayout linear1, linear2, linear3, linear4, linear5, linear6, linear_center;
+    private ImageView iv_left, iv_right,kaibo;
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
         }
     };
-   // private
+
+    // private
     public MyFragment() {
         // Required empty public constructor
     }
@@ -49,7 +52,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mContext =context;
+        mContext = context;
 
     }
 
@@ -81,6 +84,8 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
         linear_center.setOnClickListener(this);
         iv_left.setOnClickListener(this);
         iv_right.setOnClickListener(this);
+        kaibo.setOnClickListener(this);
+
     }
 
     private void initView(View view) {
@@ -93,13 +98,15 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
         linear_center = (LinearLayout) view.findViewById(R.id.linear_center_mine);
         iv_left = (ImageView) view.findViewById(R.id.iv_mine_left);
         iv_right = (ImageView) view.findViewById(R.id.iv_mine_right);
+        kaibo=(ImageView)view.findViewById(R.id.kaibo_normal);
+
 
     }
 
     @Override
     public void onClick(View view) {
         Intent intent = new Intent();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.linear1_mine:
 
                 break;
@@ -107,8 +114,6 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
 
                 break;
             case R.id.linear3_mine:
-
-
 
 
                 break;
@@ -124,12 +129,21 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
             case R.id.linear_center_mine:
                 intent.setClass(mContext, LoginActivity.class);
                 break;
-            case  R.id.iv_mine_left:
+            case R.id.iv_mine_left:
 
                 intent.setClass(mContext, TulingActivity.class);
                 startActivity(intent);
                 break;
             case R.id.iv_mine_right:
+                break;
+            case kaibo_normal:
+
+                intent.setClass(mContext,LoginActivity.class);
+
+                break;
+
+        }
+        startActivity(intent);
                 intent.setClass(mContext, SettingActivity.class);
                 startActivity(intent);
                 break;
@@ -137,9 +151,6 @@ public class MyFragment extends Fragment implements MineContract.IMineView,View.
         }
 
     }
-
-
-
 
 
     @Override

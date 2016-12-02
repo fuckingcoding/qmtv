@@ -2,8 +2,6 @@ package com.example.acer.myzhibo.ui.fragment.live;
 
 import com.example.acer.myzhibo.bean.LiveBean;
 
-import retrofit2.http.GET;
-import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -21,7 +19,7 @@ public class LiveContract {
        void getZhiBoBean(String url);
     }
 
-    interface  ILiveView{
+    public interface  ILiveView{
          void getZhiBoData(LiveBean bean);
     }
 }

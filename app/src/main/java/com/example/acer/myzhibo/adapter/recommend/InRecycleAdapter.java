@@ -12,6 +12,7 @@ import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.bean.RecomBean;
 import com.example.acer.myzhibo.utils.BitmapCircleTransformation;
 import com.example.acer.myzhibo.utils.RecyclerViewAdapterHelper;
+import com.example.acer.myzhibo.utils.UIManager;
 
 import java.util.List;
 
@@ -26,10 +27,10 @@ public class InRecycleAdapter extends RecyclerViewAdapterHelper<RecomBean.RoomBe
     }
     private Context context;
     private IOnItemClickListener itemClickListener;
-    public InRecycleAdapter(Context context, List<RecomBean.RoomBean.ListBean> list,IOnItemClickListener itemClickListener) {
+    public InRecycleAdapter(Context context, List<RecomBean.RoomBean.ListBean> list) {
         super(context,list);
         this.context=context;
-        this.itemClickListener=itemClickListener;
+
 
     }
 
@@ -43,7 +44,7 @@ public class InRecycleAdapter extends RecyclerViewAdapterHelper<RecomBean.RoomBe
     @Override
     public void onBindMyViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-
+        final RecomBean.RoomBean.ListBean listBean = mList.get(position);
 
         ((ViewHolder1)holder).tv_title.setText(mList.get(position).getTitle());
         ((ViewHolder1)holder).tv_name.setText(mList.get(position).getNick());
@@ -55,7 +56,8 @@ public class InRecycleAdapter extends RecyclerViewAdapterHelper<RecomBean.RoomBe
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemClickListener.onclick(position);
+                UIManager.startPlayActivity(mContext,listBean.getAvatar(),listBean.getTitle(),listBean.getNick(),listBean.getView(), String.valueOf(listBean.getUid()));
+
             }
         });
 

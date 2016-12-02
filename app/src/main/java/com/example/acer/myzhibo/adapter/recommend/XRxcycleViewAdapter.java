@@ -23,13 +23,13 @@ import java.util.List;
 
 public class XRxcycleViewAdapter extends RecyclerViewAdapterHelper<RecomBean.RoomBean> {
     private Context mContext;
-    private InRecycleAdapter.IOnItemClickListener iOnItemClickListener;
 
 
-    public XRxcycleViewAdapter(Context context, List<RecomBean.RoomBean> list, InRecycleAdapter.IOnItemClickListener iOnItemClickListener) {
+
+    public XRxcycleViewAdapter(Context context, List<RecomBean.RoomBean> list) {
         super(context, list);
         mContext = context;
-        this.iOnItemClickListener = iOnItemClickListener;
+
     }
 
     @Override
@@ -37,7 +37,7 @@ public class XRxcycleViewAdapter extends RecyclerViewAdapterHelper<RecomBean.Roo
         View view = mInflater.inflate(R.layout.item_xrecycleview_out, parent, false);
 
 
-        return new ViewHolder(view, iOnItemClickListener);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class XRxcycleViewAdapter extends RecyclerViewAdapterHelper<RecomBean.Roo
         List<RecomBean.RoomBean.ListBean> mlist = new ArrayList<>();
 
 
-        public ViewHolder(View itemView, InRecycleAdapter.IOnItemClickListener iOnItemClickListener) {
+        public ViewHolder(View itemView) {
             super(itemView);
 
 
@@ -78,7 +78,7 @@ public class XRxcycleViewAdapter extends RecyclerViewAdapterHelper<RecomBean.Roo
             GridLayoutManager layoutManager = new GridLayoutManager(itemView.getContext(), 2);
             recycleview_in.setLayoutManager(layoutManager);
 
-            adapter = new InRecycleAdapter(itemView.getContext(), mlist, iOnItemClickListener);
+            adapter = new InRecycleAdapter(itemView.getContext(), mlist);
             recycleview_in.setAdapter(adapter);
         }
 
