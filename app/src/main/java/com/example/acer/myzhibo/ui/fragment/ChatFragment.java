@@ -7,7 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +17,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.ChatAdapter;
+import com.example.acer.myzhibo.adapter.zycadapter.HotEvent;
+import com.example.acer.myzhibo.adapter.zycadapter.MyListViewHotAdapter;
 import com.example.acer.myzhibo.bean.ChatBean;
+import com.example.acer.myzhibo.ui.Listener;
+import com.example.acer.myzhibo.utils.ToastHelper;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMGroupChangeListener;
 import com.hyphenate.EMMessageListener;
@@ -26,6 +33,9 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.exceptions.HyphenateException;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +47,15 @@ public class ChatFragment extends Fragment {
     private Context mContext ;
     private ListView listView ;
     private ChatAdapter adapter;
+    private ImageView iv_hot;
     private List<ChatBean> list ;
     private ImageView iv_3;
     private EditText editText;
     private String username ;
+    private ListView pop_listView;
+    private PopupWindow pw_qxd;
+    private MyListViewHotAdapter mlvha;
+    private List<String> strings=new ArrayList<>();
     private  EMMessageListener msgListener;
     private Handler handler = new Handler(){
         @Override
@@ -54,6 +69,12 @@ public class ChatFragment extends Fragment {
             }
         }
     };
+    private Listener listener =new Listener() {
+        @Override
+        public void send(String str) {
+            editText.setText(str);
+        }
+    };
 
     public ChatFragment() {
         // Required empty public constructor
@@ -63,6 +84,10 @@ public class ChatFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+    }
+    @Subscribe
+    public void onEventMainThread(HotEvent event){
+        strings = event.getmHot_List();
     }
 
     @Override
@@ -75,7 +100,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        EventBus.getDefault().register(this);
         list = new ArrayList<>();
         initView(view);
         initAdapter();
@@ -83,6 +108,19 @@ public class ChatFragment extends Fragment {
         grouplistener();
 
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -117,6 +155,22 @@ public class ChatFragment extends Fragment {
                 }).start();
             }
         });
+        iv_hot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mlvha = new MyListViewHotAdapter(mContext,strings,listener);
+                View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_hot, null);
+                pop_listView = (ListView) inflate.findViewById(R.id.lv_hot);
+                pop_listView.setAdapter(mlvha);
+                mlvha.notifyDataSetChanged();
+                pw_qxd = new PopupWindow(inflate,
+                        ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT, true);
+                pw_qxd.setTouchable(true);
+                pw_qxd.showAtLocation(inflate, Gravity.BOTTOM|Gravity.LEFT,0,0);
+
+            }
+        });
+
     }
     private void initAdapter() {
         adapter = new ChatAdapter(mContext,list);
@@ -126,7 +180,11 @@ public class ChatFragment extends Fragment {
     private void initView(View view) {
         listView = (ListView) view.findViewById(R.id.listview_chat);
         iv_3 = (ImageView) view.findViewById(R.id.btn_3_chat);
+        iv_hot = (ImageView) view.findViewById(R.id.iv_chat_hot);
         editText = (EditText) view.findViewById(R.id.edit_tv_chat);
+
+
+
     }
     void sendmsglistener(){
          msgListener = new EMMessageListener() {
@@ -208,7 +266,7 @@ public class ChatFragment extends Fragment {
                     //com.hyphenate.exceptions.HyphenateException: User already joined the group
                 }
             }
-        }).start();;
+        }).start();
     }
 
 

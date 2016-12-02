@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.acer.myzhibo.R;
@@ -22,7 +23,12 @@ public class MyListViewHotAdapter extends BaseAdapter {
     private List<String> hot;
     private Listener lis;
 
-    public MyListViewHotAdapter(Context mContext, List<String> hot,Listener lis) {
+    public MyListViewHotAdapter(Context mContext, List<String> hot) {
+        this.mContext = mContext;
+        this.hot = hot;
+    }
+
+    public MyListViewHotAdapter(Context mContext, List<String> hot, Listener lis) {
         this.mContext = mContext;
         this.hot = hot;
         this.lis=lis;

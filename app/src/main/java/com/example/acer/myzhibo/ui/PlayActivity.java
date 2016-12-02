@@ -94,7 +94,7 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     private ViewPager viewpaper;
     private List<Fragment> list_fragment;         //fragment的数据集合
     private List<String> list_title;
-    private Fragment chatFragment,rankFragment,protectFragment;
+    private Fragment chatFragment,rankFragment;
     private MyPlayTablayoutAdapter mptAdapter;
     private LinearLayout linearlayout;
     private RelativeLayout relativeLayout;
@@ -172,6 +172,7 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
                         hot.addAll(rankBean.hotWord);
                         hot.add("666666");hot.add("233333");hot.add("呀,6的不行");hot.add("老哥稳");
                         hot.add("二营长,老子的意大利炮呢");
+                        EventBus.getDefault().post(new HotEvent(hot));
                     }
                 });
 
@@ -346,18 +347,15 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         //往Fragment数组中装入数据
         list_fragment.add(chatFragment);
         list_fragment.add(rankFragment);
-        list_fragment.add(protectFragment);
 
         //往TabLayout数组中放入名称
         list_title.add("聊天");
         list_title.add("排行");
-        list_title.add("守护");
         //设置TabLayout的模式
         tablayout.setTabMode(TabLayout.MODE_FIXED);
         //为TabLayout添加tab名称
         tablayout.addTab(tablayout.newTab().setText(list_title.get(0)));
         tablayout.addTab(tablayout.newTab().setText(list_title.get(1)));
-        tablayout.addTab(tablayout.newTab().setText(list_title.get(2)));
         mptAdapter = new MyPlayTablayoutAdapter(getSupportFragmentManager(),list_fragment,list_title);
         viewpaper.setAdapter(mptAdapter);
         tablayout.setupWithViewPager(viewpaper);
@@ -555,8 +553,6 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
     private void initURL() {
         chatFragment = new ChatFragment();
         rankFragment = new RankFragment();
-
-        protectFragment = new ProtectFragment();
         Intent intent = getIntent();
         stringExtra = intent.getStringExtra(Constant.UID);
         Bundle bundle = new Bundle();
