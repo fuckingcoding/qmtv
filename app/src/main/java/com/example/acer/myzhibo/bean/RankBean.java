@@ -124,7 +124,7 @@ public class RankBean {
     @com.google.gson.annotations.SerializedName("rank_curr")
     public List<RankCurrBean> rankCurr;
     @com.google.gson.annotations.SerializedName("hot_word")
-    public List<?> hotWord;
+    public List<String> hotWord;
     @com.google.gson.annotations.SerializedName("notice")
     public List<?> notice;
     @com.google.gson.annotations.SerializedName("tab")

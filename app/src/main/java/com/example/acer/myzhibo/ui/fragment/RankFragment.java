@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.acer.myzhibo.R;
+import com.example.acer.myzhibo.adapter.zycadapter.HotEvent;
 import com.example.acer.myzhibo.adapter.zycadapter.MyRankAdapter;
 import com.example.acer.myzhibo.adapter.zycadapter.MyRankRightAdapter;
 import com.example.acer.myzhibo.bean.RankBean;
@@ -25,6 +26,8 @@ import com.example.acer.myzhibo.bean.RankWeekBean;
 import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.http.HttpUtils;
 import com.example.acer.myzhibo.http.IRetrofitInterface;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,7 @@ public class RankFragment extends Fragment {
     private List<RankCurrBean> rankCurr = new ArrayList<>();
     private List<RankWeekBean> rankWeek = new ArrayList<>();
     private List<RankTotalBean> rankTotal = new ArrayList<>();
+    private List<String> str = new ArrayList<>();
     private MyRankAdapter mra;
     private MyRankRightAdapter mrra;
     private String s;
@@ -92,6 +96,8 @@ public class RankFragment extends Fragment {
                         rankWeek.addAll(rankBean.rankWeek);
                         rankTotal.addAll(rankBean.rankTotal);
                         rankCurr.addAll(rankBean.rankCurr);
+                        str.addAll(rankBean.hotWord);
+                        EventBus.getDefault().post(new HotEvent(str));
                         mra.notifyDataSetChanged();
                         mrra.notifyDataSetChanged();
                     }

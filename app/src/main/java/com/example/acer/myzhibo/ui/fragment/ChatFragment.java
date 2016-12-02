@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.acer.myzhibo.R;
@@ -37,7 +38,7 @@ public class ChatFragment extends Fragment {
     private ListView listView ;
     private ChatAdapter adapter;
     private List<ChatBean> list ;
-    private Button btn1,btn2,btn3;
+    private ImageView iv_3;
     private EditText editText;
     private String username ;
     private  EMMessageListener msgListener;
@@ -85,54 +86,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                username ="jhksljalsdfasf";
-                EMClient.getInstance().login("lalala", "123123", new EMCallBack() {
-                    @Override
-                    public void onSuccess() {
-                        EMClient.getInstance().groupManager().loadAllGroups();
-                        EMClient.getInstance().chatManager().loadAllConversations();
-                        Log.e("main", "登录聊天服务器成功！");
-                    }
-                    @Override
-                    public void onError(int i, String s) {
-                    }
-                    @Override
-                    public void onProgress(int i, String s) {
-                        Log.d("main", "登录聊天服务器失败！");
-                    }//回调
-                });
-            }
-        });
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                username = "aaa123546sdfsf";
-                EMClient.getInstance().login("aaa123546sdfsf","ccc",new EMCallBack() {//回调
-                    @Override
-                    public void onSuccess() {
-                        EMClient.getInstance().groupManager().loadAllGroups();
-                        EMClient.getInstance().chatManager().loadAllConversations();
-                        Log.e("main", "登录聊天服务器成功！");
-
-
-                    }
-                    @Override
-                    public void onProgress(int progress, String status) {
-                    }
-                    @Override
-                    public void onError(int code, String message) {
-                        Log.d("main", "登录聊天服务器失败！");
-                    }
-                });
-            }
-        });
-
-        btn3.setOnClickListener(new View.OnClickListener() {
+        iv_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new Thread(new Runnable() {
@@ -171,9 +125,7 @@ public class ChatFragment extends Fragment {
     }
     private void initView(View view) {
         listView = (ListView) view.findViewById(R.id.listview_chat);
-        btn1 = (Button) view.findViewById(R.id.btn_1_chat);
-        btn2 = (Button) view.findViewById(R.id.btn_2_chat);
-        btn3 = (Button) view.findViewById(R.id.btn_3_chat);
+        iv_3 = (ImageView) view.findViewById(R.id.btn_3_chat);
         editText = (EditText) view.findViewById(R.id.edit_tv_chat);
     }
     void sendmsglistener(){

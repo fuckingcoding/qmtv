@@ -55,12 +55,6 @@
         </activity>
         <activity android:name=".ui.login.LoginActivity"/>
         <activity android:name=".ui.login.RegisterActivity"></activity>
-        <activity android:name=".ui.Search.SearchActivity" />
-        <activity
-            android:name=".ui.PlayActivity"
-            android:configChanges="screenSize|orientation|keyboardHidden"
-            ></activity>
-        <activity android:name=".ui.fragment.recommend.demochannel.ChannelActivity" />
 
         <!-- 设置环信应用的AppKey -->
         <meta-data
@@ -87,8 +81,6 @@
         </receiver>
 
         <activity android:name=".ui.TulingActivity"></activity>
-        <activity android:name=".ui.LandscapeActivity"
-            android:screenOrientation="sensorLandscape"></activity>
     </application>
 
 </manifest>
