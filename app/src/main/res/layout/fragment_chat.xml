@@ -12,37 +12,51 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         ></ListView>
-
-
     <LinearLayout
+        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <EditText
-        android:id="@+id/edit_tv_chat"
-        android:layout_width="0dp"
-        android:layout_weight="6"
-        android:layout_height="50dp" />
+        android:layout_height="40dp"
+        android:background="@drawable/edit_bottom"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/iv_landscape_refresh"
+        android:layout_toLeftOf="@id/iv_landscape_commenting">
 
-        <Button
-            android:id="@+id/btn_1_chat"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="login1"
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/iv_chat_hot"
+            android:src="@mipmap/live_hotword_pressed"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/btn_2_chat"
-            android:layout_width="0dp"
+        <View
+            android:layout_marginLeft="10dp"
+            android:background="@color/thinGray"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"/>
+        <EditText
             android:layout_weight="1"
-            android:text="login2"
-            android:layout_height="wrap_content" />
-        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/edit_tv_chat"
+            android:hint="弹幕走一走,活到九十九"
+            android:textSize="15sp"
+            android:background="@null"
+            android:textColorHint="@color/touchcolor"/>
+        <ImageView
+            android:layout_marginRight="10dp"
             android:id="@+id/btn_3_chat"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="commit"
-            android:layout_height="wrap_content" />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/live_send_black"/>
 
     </LinearLayout>
+
+
+
 </LinearLayout>

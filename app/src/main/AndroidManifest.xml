@@ -51,6 +51,9 @@
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.login.RegisterActivity" />
 
+        <activity android:name=".ui.login.LoginActivity"/>
+        <activity android:name=".ui.login.RegisterActivity"></activity>
+
         <!-- 设置环信应用的AppKey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
@@ -64,6 +67,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
 
+
+                <data android:scheme="package" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
                 <data android:scheme="package" />
             </intent-filter>
             <!-- 可选filter -->

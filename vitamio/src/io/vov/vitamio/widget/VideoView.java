@@ -131,10 +131,20 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
       }
     }
   };
+
+    public  void reSize(int with,int height){
+        mSHCallback.surfaceChanged(mSurfaceHolder,0,with,height);
+    }
+
   SurfaceHolder.Callback mSHCallback = new SurfaceHolder.Callback() {
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+
+        android.util.Log.e("=====================","w"+w);
+        android.util.Log.e("=====================","h"+h);
+
       mSurfaceWidth = w;
       mSurfaceHeight = h;
+        getHolder().setFixedSize(mSurfaceWidth, mSurfaceHeight);
       boolean isValidState = (mTargetState == STATE_PLAYING);
       boolean hasValidSize = (mVideoWidth == w && mVideoHeight == h);
       if (mMediaPlayer != null && isValidState && hasValidSize) {
@@ -147,6 +157,7 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
           mMediaController.show();
         }
       }
+
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
@@ -353,8 +364,6 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
 			lp.width = (full || windowRatio < videoRatio) ? windowWidth : (int) (videoRatio * windowHeight);
 			lp.height = (full || windowRatio > videoRatio) ? windowHeight : (int) (windowWidth / videoRatio);
 		}
-        Log.e("==============="+">"+lp.width);
-        Log.e("==============="+">"+lp.height);
 		setLayoutParams(lp);
 
         getHolder().setFixedSize(mSurfaceWidth, mSurfaceHeight);

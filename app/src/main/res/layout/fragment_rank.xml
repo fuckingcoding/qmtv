@@ -1,13 +1,40 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.acer.myzhibo.ui.fragment.RankFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="?attr/actionBarSize">
+        <TextView
+            android:id="@+id/tv_rank_left"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="贡献场榜"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/textview_left" />
+        <TextView
+            android:id="@+id/tv_rank_right"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="贡献周榜"
+            android:textColor="@color/colorRed"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/textview_right"/>
 
-</FrameLayout>
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_rank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
