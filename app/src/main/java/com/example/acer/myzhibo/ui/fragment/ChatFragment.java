@@ -73,6 +73,7 @@ public class ChatFragment extends Fragment {
         @Override
         public void send(String str) {
             editText.setText(str);
+            pw_qxd.dismiss();
         }
     };
 
@@ -167,6 +168,7 @@ public class ChatFragment extends Fragment {
                 pw_qxd = new PopupWindow(inflate,
                         ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT, true);
                 pw_qxd.setTouchable(true);
+                pw_qxd.setOutsideTouchable(true);
                 pw_qxd.showAtLocation(inflate, Gravity.BOTTOM|Gravity.LEFT,0,0);
 
             }
