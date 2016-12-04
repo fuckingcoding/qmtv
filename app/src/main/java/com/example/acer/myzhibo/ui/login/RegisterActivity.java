@@ -202,7 +202,7 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try {
-                                    EMClient.getInstance().createAccount(EncryptUtils.md5(username), "123456");
+                                    EMClient.getInstance().createAccount(username, "123456");
                                 } catch (HyphenateException e) {
                                     e.printStackTrace();
                                     Log.e("TAG", "run: "+e );
@@ -268,7 +268,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         try {
-                                            EMClient.getInstance().createAccount(EncryptUtils.md5(username21), "123456");
+                                            EMClient.getInstance().createAccount(username21, "123456");
                                         } catch (HyphenateException e) {
                                             e.printStackTrace();
                                             Log.e("TAG", "run: "+e );

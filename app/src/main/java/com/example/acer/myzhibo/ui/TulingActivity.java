@@ -83,6 +83,7 @@ public class TulingActivity extends AppCompatActivity {
                 popupWindow.setBackgroundDrawable(new BitmapDrawable());
                 setBackgroundAlpha(0.5f);
                 popupWindow.setOutsideTouchable(true);
+                popupWindow.showAsDropDown(btn_left,0,20);
                 View id = rootview.findViewById(R.id.tv_poptuling1);
                 popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                     @Override
@@ -90,7 +91,7 @@ public class TulingActivity extends AppCompatActivity {
                         setBackgroundAlpha(1.0f);
                     }
                 });
-                popupWindow.showAsDropDown(btn_left,0,10);
+
                 final TextView tv1 = (TextView) rootview.findViewById(R.id.tv_poptuling1);
                 final TextView tv2 = (TextView) rootview.findViewById(R.id.tv_poptuling2);
                 final TextView tv3 = (TextView) rootview.findViewById(R.id.tv_poptuling3);

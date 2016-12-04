@@ -234,10 +234,11 @@ private EditText phoneEdt, pswEdt;
                              //  @Override
                              //  public void run() {
 
-                                   HuanXinUtils.HuanxinLogin(EncryptUtils.md5(name1), new EMCallBack() {
+                                   HuanXinUtils.HuanxinLogin(name1, new EMCallBack() {
                                        @Override
                                        public void onSuccess() {
                                            Log.e("TAG", "onSuccesslogin: " );
+                                           PreUtils.writeString(LoginActivity.this,"loginname",name1);
                                            //Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                                        }
 
@@ -331,10 +332,11 @@ private EditText phoneEdt, pswEdt;
                     if (e == null) {
                         if (list.get(0).getPassword().equals(EncryptUtils.md5(pssw21))) {
 
-                            HuanXinUtils.HuanxinLogin(EncryptUtils.md5(name21), new EMCallBack() {
+                            HuanXinUtils.HuanxinLogin(name21, new EMCallBack() {
                                 @Override
                                 public void onSuccess() {
                                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                    PreUtils.writeString(LoginActivity.this,"loginname",name21);
                                 }
 
                                 @Override

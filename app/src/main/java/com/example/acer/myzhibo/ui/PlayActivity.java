@@ -35,6 +35,7 @@ import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.zycadapter.HotEvent;
 import com.example.acer.myzhibo.adapter.zycadapter.MyListViewHotAdapter;
 import com.example.acer.myzhibo.adapter.zycadapter.MyPlayTablayoutAdapter;
+import com.example.acer.myzhibo.bean.ChatBean;
 import com.example.acer.myzhibo.bean.RankBean;
 import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.http.HttpUtils;
@@ -46,6 +47,12 @@ import com.example.acer.myzhibo.utils.BitmapCircleTransformation;
 import com.example.acer.myzhibo.utils.DensityUtil;
 import com.example.acer.myzhibo.utils.DialogHelper;
 import com.example.acer.myzhibo.utils.ToastHelper;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.EMMessageListener;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.exceptions.HyphenateException;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -117,11 +124,12 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
             editText.setText(str);
         }
     };
-
+    private  EMMessageListener msgListener;
     //弹幕相关
     private DanmakuView danmakuView;
     private boolean showDanmaku;
     private DanmakuContext danmakuContext;
+    private  String s;
 
     private BaseDanmakuParser parser = new BaseDanmakuParser() {
         @Override
@@ -146,6 +154,7 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         initHotData();
         initData();
         initControl();
+
 
 
     }
@@ -540,8 +549,13 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         iv_full_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String s = editText.getEditableText() + "";
-                addDanmaku(s,true);editText.setText("");
+                if (editText.getEditableText()!=null) {
+
+                     s = editText.getEditableText() + "";
+                    ((ChatFragment)chatFragment).getEditMsg(s);
+                    ToastHelper.showToast(mContext,s);
+                }
+
             }
         });
 
@@ -727,6 +741,13 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
             danmakuView.resume();
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -736,6 +757,16 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
             danmakuView.release();
             danmakuView = null;
         }
+    }
+
+    public void getfragmentMsg(String string,boolean b){
+        if(b){
+            addDanmaku(editText.getEditableText()+"",b);
+            editText.setText("");
+        }else {
+            addDanmaku(string,b);
+        }
+
     }
 
 

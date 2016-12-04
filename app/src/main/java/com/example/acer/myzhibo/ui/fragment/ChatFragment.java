@@ -1,6 +1,7 @@
 package com.example.acer.myzhibo.ui.fragment;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +9,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,7 +26,9 @@ import com.example.acer.myzhibo.adapter.ChatAdapter;
 import com.example.acer.myzhibo.adapter.zycadapter.HotEvent;
 import com.example.acer.myzhibo.adapter.zycadapter.MyListViewHotAdapter;
 import com.example.acer.myzhibo.bean.ChatBean;
+import com.example.acer.myzhibo.database.PreUtils;
 import com.example.acer.myzhibo.ui.Listener;
+import com.example.acer.myzhibo.ui.PlayActivity;
 import com.example.acer.myzhibo.utils.ToastHelper;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMGroupChangeListener;
@@ -32,6 +36,7 @@ import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.chat.adapter.message.EMAMessage;
 import com.hyphenate.exceptions.HyphenateException;
 
 import org.greenrobot.eventbus.EventBus;
@@ -57,6 +62,9 @@ public class ChatFragment extends Fragment {
     private MyListViewHotAdapter mlvha;
     private List<String> strings=new ArrayList<>();
     private  EMMessageListener msgListener;
+    private Activity mActivity;
+    private EMMessage message;
+    private String danmuString;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -65,6 +73,10 @@ public class ChatFragment extends Fragment {
                 case 0 :
                     adapter.notifyDataSetChanged();
                     listView.setSelection(list.size()-1);
+                    editText.setText("");
+                    break;
+                case 1 :
+                    ((PlayActivity)mActivity).getfragmentMsg("",true);
                     break;
             }
         }
@@ -85,6 +97,7 @@ public class ChatFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+        mActivity = (Activity) context;
     }
     @Subscribe
     public void onEventMainThread(HotEvent event){
@@ -101,13 +114,12 @@ public class ChatFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        username = PreUtils.readStrting(mContext,"loginname");
         EventBus.getDefault().register(this);
         list = new ArrayList<>();
         initView(view);
         initAdapter();
-        joinGroup();
-        sendmsglistener();
-        grouplistener();
+
 
     }
 
@@ -115,6 +127,14 @@ public class ChatFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        joinGroup();
+        sendmsglistener();
+        grouplistener();
     }
 
     @Override
@@ -129,32 +149,47 @@ public class ChatFragment extends Fragment {
         iv_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(editText.getEditableText()!=null){
+
+
+                Log.e("TAG", "onClick: chatfragment -------------" );
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+
                         //创建一条文本消息，content为消息文字内容，toChatUsername为对方用户或者群聊的id，后文皆是如此
-                        EMMessage message = EMMessage.createTxtSendMessage(editText.getEditableText()+"", "1480043615023");
+                         message = EMMessage.createTxtSendMessage(editText.getEditableText()+"", "1480043615023");
                         //如果是群聊，设置chattype，默认是单聊
                         //if (chatType == CHATTYPE_GROUP)
                         message.setChatType(EMMessage.ChatType.GroupChat);
                         EMClient.getInstance().chatManager().sendMessage(message);
+                        Log.e("TAG", "onClickrunnnnn------ chatfragment -" );
                         message.setMessageStatusCallback(new EMCallBack(){
+
                             @Override
                             public void onSuccess() {
                                 Log.e("TAG", "onSuccess: " );
-                                ChatBean bean = new ChatBean(username,editText.getEditableText()+"");
-                                list.add(bean);
-                                handler.sendEmptyMessage(0);
+                                if(editText.getEditableText()!=null){
+
+                                    ChatBean bean = new ChatBean(username,editText.getEditableText()+"");
+                                    list.add(bean);
+                                    handler.sendEmptyMessage(0);
+
+                                }
                             }
                             @Override
                             public void onError(int i, String s) {
+                                Log.e("TAG", "onError: "+s);
                             }
                             @Override
                             public void onProgress(int i, String s) {
+                                Log.e("TAG", "onProgress: "+s );
                             }
                         });
+
                     }
                 }).start();
+                }
             }
         });
         iv_hot.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +208,8 @@ public class ChatFragment extends Fragment {
 
             }
         });
+
+
 
     }
     private void initAdapter() {
@@ -206,6 +243,7 @@ public class ChatFragment extends Fragment {
                         ChatBean bean = new ChatBean(message.getUserName(),body.getMessage());
                         list.add(bean);
                         handler.sendEmptyMessage(0);
+                       // ((PlayActivity)mActivity).getfragmentMsg(body.getMessage(),false);
                     }
                 }
             }
@@ -314,4 +352,45 @@ public class ChatFragment extends Fragment {
         });
     }
 
+
+     public  void getEditMsg( String string){
+         if(!TextUtils.isEmpty(string)){
+
+
+         danmuString =string;
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+
+                 //创建一条文本消息，content为消息文字内容，toChatUsername为对方用户或者群聊的id，后文皆是如此
+                 EMMessage message = EMMessage.createTxtSendMessage(danmuString, "1480043615023");
+                 //如果是群聊，设置chattype，默认是单聊
+                 //if (chatType == CHATTYPE_GROUP)
+                 message.setChatType(EMMessage.ChatType.GroupChat);
+                 EMClient.getInstance().chatManager().sendMessage(message);
+                 message.setMessageStatusCallback(new EMCallBack(){
+                     @Override
+                     public void onSuccess() {
+                         Log.e("TAG", "onSuccess: " );
+                         if(editText.getEditableText()!=null){
+                             ChatBean bean = new ChatBean(username,danmuString);
+                             list.add(bean);
+                             handler.sendEmptyMessage(0);
+                             handler.sendEmptyMessage(1);
+                         }
+                     }
+                     @Override
+                     public void onError(int i, String s) {
+                         Log.e("TAG", "onError: "+s);
+                     }
+                     @Override
+                     public void onProgress(int i, String s) {
+                         Log.e("TAG", "onProgress: "+s );
+                     }
+                 });
+             }
+         }).start();
+
+     }
+     }
 }
