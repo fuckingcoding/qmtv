@@ -5,8 +5,10 @@ import com.example.acer.myzhibo.bean.LanmuBean;
 import com.example.acer.myzhibo.bean.LiveBean;
 import com.example.acer.myzhibo.bean.QMBean;
 import com.example.acer.myzhibo.bean.RecomBean;
+import com.example.acer.myzhibo.bean.RankBean;
 import com.example.acer.myzhibo.bean.SearchBean;
 import com.example.acer.myzhibo.bean.TulingResponseBean;
+import com.example.acer.myzhibo.bean.VersionBean;
 import com.example.acer.myzhibo.config.UrlConfig;
 import com.google.gson.JsonObject;
 
@@ -29,6 +31,9 @@ public interface IRetrofitInterface {
 
      @GET("json/categories/{type}/list.json?11212123&v=2.2.4&os=1&ver=4")
     Observable<QMBean> getQMBean(@Path("type") String type);
+
+    @GET
+    Observable<RankBean>  getRankBean(@Url String room);
 
     @GET("{path}")
     Observable<QMBean> getMoreQMbean(@Path("path")String path);
@@ -66,4 +71,10 @@ public interface IRetrofitInterface {
 
     @GET
     Observable<AdBean> getAdData(@Url String string);
+
+    @GET
+    Observable<VersionBean> getVersionbean(@Url String string);
+
+    @GET
+    Observable<ResponseBody> getAPK(@Url String string);
 }

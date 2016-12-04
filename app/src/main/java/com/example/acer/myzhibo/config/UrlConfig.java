@@ -51,4 +51,7 @@ public class UrlConfig {
 
     public  static  final  String  TULING_url ="http://op.juhe.cn/robot/index?info=%s&key=17a3559a221b1bad9a5922390f3ef5d6";
 
+    public static final String VERSION_CHECK="http://oh0vbg8a6.bkt.clouddn.com/versioncheck.json";
+
+
 }

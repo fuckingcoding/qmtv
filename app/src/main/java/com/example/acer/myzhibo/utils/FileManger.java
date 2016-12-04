@@ -22,6 +22,7 @@ public class FileManger {
                 .equals(Environment.MEDIA_MOUNTED)){
             return MyApplication.getInstance().getExternalCacheDir();
         }else {
+
             return MyApplication.getInstance().getCacheDir();
         }
     }

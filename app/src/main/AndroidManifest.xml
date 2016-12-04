@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <!-- Required -->
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -34,6 +35,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:launchMode="singleTask" />
+
         <activity android:name=".ui.zbactivity.ReusedActivity" />
         <activity android:name=".ui.Search.SearchActivity" />
         <activity
@@ -52,6 +54,8 @@
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.login.RegisterActivity" />
 
+
+
         <!-- 设置环信应用的AppKey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
@@ -65,7 +69,11 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
 
+
+
                 <data android:scheme="package" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
             </intent-filter>
             <!-- 可选filter -->
             <intent-filter>
@@ -79,6 +87,17 @@
         <activity android:name=".ui.fragment.My.activity.HistoryActivity" />
         <activity android:name=".ui.fragment.My.activity.SubActivity" />
         <activity android:name=".ui.fragment.My.activity.SheZhiActivity"></activity>
+        <activity android:name=".ui.TulingActivity" />
+        <activity android:name=".ui.SettingActivity" />
+        <activity android:name=".ui.AboutUsActivity" />
+
+        <service android:name=".service.MyService" />
+
+        <activity android:name=".ui.HeadpicActivity" />
+        <activity
+            android:name=".ui.HeadCropActivity"
+            android:label="@string/title_activity_head_crop"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

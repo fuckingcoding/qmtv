@@ -2,6 +2,7 @@ package com.example.acer.myzhibo.ui.login;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -30,6 +31,8 @@ import android.widget.Toast;
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.bean.Users;
 import com.example.acer.myzhibo.utils.EncryptUtils;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -176,7 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void loginlow() {
 
         String psw = pswEdt.getEditableText().toString();
-        String username = phoneEdt.getEditableText().toString();
+        final String username = phoneEdt.getEditableText().toString();
 
         String pswRegEx="^\\d{8}$";
         Pattern pattern = Pattern.compile(pswRegEx);
@@ -194,7 +197,22 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void done(String objectId, BmobException e) {
                     if (e == null) {
-                        Toast.makeText(RegisterActivity.this, "添加数据成功，返回objectId为：" + objectId, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(RegisterActivity.this, "添加数据成功，返回objectId为：" + objectId, Toast.LENGTH_SHORT).show();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    EMClient.getInstance().createAccount(username, "123456");
+                                } catch (HyphenateException e) {
+                                    e.printStackTrace();
+                                    Log.e("TAG", "run: "+e );
+                                    if(e.toString().equals("com.hyphenate.exceptions.HyphenateException: User already exist")){
+                                        Log.e("TAG", "huanxin: "+"用户已经存在" );
+                                    }
+                                }
+                            }
+                        }).start();
+
                     } else {
                         Toast.makeText(RegisterActivity.this, "用户名已存在" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -223,7 +241,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void login() {
-        String username21=mUserNameEditText.getEditableText().toString();
+        final String username21=mUserNameEditText.getEditableText().toString();
         Log.e("q", "login: "+username21 );
         String userpsw21=mPassWordEditText.getEditableText().toString();
         Log.e("q", "login: "+userpsw21 );
@@ -246,6 +264,20 @@ public class RegisterActivity extends AppCompatActivity {
                         public void done(String objectId, BmobException e) {
                             if (e == null) {
                                 Toast.makeText(RegisterActivity.this, "添加数据成功，返回objectId为：" + objectId, Toast.LENGTH_SHORT).show();
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            EMClient.getInstance().createAccount(username21, "123456");
+                                        } catch (HyphenateException e) {
+                                            e.printStackTrace();
+                                            Log.e("TAG", "run: "+e );
+                                            if(e.toString().equals("com.hyphenate.exceptions.HyphenateException: User already exist")){
+                                                Log.e("TAG", "huanxin: "+"用户已经存在" );
+                                            }
+                                        }
+                                    }
+                                }).start();
                             } else {
                                 Toast.makeText(RegisterActivity.this, "用户名已存在" + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -257,7 +289,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
 
-
+    @TargetApi(19)
     private void ShowEnterAnimation() {
         Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.fabtransition);
         if(Build.VERSION.SDK_INT>=21) {

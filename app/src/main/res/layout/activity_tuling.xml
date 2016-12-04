@@ -7,31 +7,38 @@
     android:orientation="vertical"
     tools:context="com.example.acer.myzhibo.ui.TulingActivity">
 
-   <android.support.v7.widget.RecyclerView
-       android:id="@+id/recyclerview_tuling"
-       android:layout_width="match_parent"
-       android:layout_height="0dp"
-       android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_tuling"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <Button
+
             android:id="@+id/btn_tuling_left"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/live_hotword_pressed"/>
         <EditText
             android:id="@+id/edit_tuling"
             android:layout_width="0dp"
             android:layout_weight="4"
-            android:layout_height="match_parent" />
+            android:background="@null"
+            android:textCursorDrawable="@null"
+
+            android:layout_height="match_parent" >
+
+        </EditText>
         <Button
             android:id="@+id/btn_tuling_right"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="发送"
-            android:background="@color/colorWhite"
+            android:layout_margin="5dp"
+            android:background="@drawable/send_selector"
             android:layout_height="match_parent" />
 
 

@@ -17,6 +17,12 @@ import android.widget.TextView;
 
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.database.PreUtils;
+import com.example.acer.myzhibo.ui.HeadCropActivity;
+import com.example.acer.myzhibo.ui.SettingActivity;
+import com.example.acer.myzhibo.ui.login.LoginActivity;
+import com.example.acer.myzhibo.bean.LoginBean;
+import com.example.acer.myzhibo.http.HttpUtils;
+import com.example.acer.myzhibo.http.IRetrofitInterface;
 import com.example.acer.myzhibo.ui.TulingActivity;
 import com.example.acer.myzhibo.ui.fragment.My.activity.ConcernActivity;
 import com.example.acer.myzhibo.ui.fragment.My.activity.HistoryActivity;
@@ -28,8 +34,7 @@ import com.hyphenate.EMMessageListener;
 import static com.example.acer.myzhibo.R.id.kaibo_normal;
 
 
-//加群退群监听  上线后不主动发消息 收不到群组消息 离线消息
-
+//注册回调 加群退群监听
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -138,7 +143,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView, View
 
                 break;
             case R.id.linear6_mine:
-
+                 intent.setClass(mContext, HeadCropActivity.class);
                 break;
             case R.id.linear_center_mine:
 
@@ -151,9 +156,12 @@ public class MyFragment extends Fragment implements MineContract.IMineView, View
             case R.id.iv_mine_left:
 
                 intent.setClass(mContext, TulingActivity.class);
-                startActivity(intent);
+
                 break;
             case R.id.iv_mine_right:
+
+                intent.setClass(mContext, SettingActivity.class);
+
                 break;
             case kaibo_normal:
 
@@ -163,7 +171,11 @@ public class MyFragment extends Fragment implements MineContract.IMineView, View
 
         }
         startActivity(intent);
-    }
+
+
+        }
+
+
 
 
     @Override
