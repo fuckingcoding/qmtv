@@ -149,7 +149,7 @@ public class ChatFragment extends Fragment {
         iv_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(editText.getEditableText()!=null){
+                if(!TextUtils.isEmpty(editText.getEditableText()+"")){
 
 
                 Log.e("TAG", "onClick: chatfragment -------------" );
@@ -169,13 +169,13 @@ public class ChatFragment extends Fragment {
                             @Override
                             public void onSuccess() {
                                 Log.e("TAG", "onSuccess: " );
-                                if(editText.getEditableText()!=null){
+
 
                                     ChatBean bean = new ChatBean(username,editText.getEditableText()+"");
                                     list.add(bean);
                                     handler.sendEmptyMessage(0);
 
-                                }
+
                             }
                             @Override
                             public void onError(int i, String s) {

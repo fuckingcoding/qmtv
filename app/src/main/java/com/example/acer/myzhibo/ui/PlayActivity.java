@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -549,9 +550,10 @@ public class PlayActivity extends AppCompatActivity implements Runnable{
         iv_full_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (editText.getEditableText()!=null) {
+                s = editText.getEditableText() + "";
+                if (!TextUtils.isEmpty(s)) {
 
-                     s = editText.getEditableText() + "";
+
                     ((ChatFragment)chatFragment).getEditMsg(s);
                     ToastHelper.showToast(mContext,s);
                 }
