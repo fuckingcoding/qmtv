@@ -1,6 +1,7 @@
 package com.example.acer.myzhibo.ui.fragment.recommend.demochannel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v4.view.MotionEventCompat;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.database.PreUtils;
+import com.example.acer.myzhibo.ui.MainActivity;
 import com.example.acer.myzhibo.ui.fragment.recommend.helper.OnDragVHListener;
 import com.example.acer.myzhibo.ui.fragment.recommend.helper.OnItemMoveListener;
 import com.example.acer.myzhibo.utils.ToastHelper;
@@ -141,6 +143,8 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             if(isChanged=true){
                                 PreUtils.writeString(mContext,"defult",defult2);
                                 PreUtils.writeString(mContext,"other",allist2);
+                                Intent intent=new Intent(mContext, MainActivity.class);
+                                mContext.startActivity(intent);
                             }
 
 

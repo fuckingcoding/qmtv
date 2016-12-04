@@ -25,6 +25,10 @@ public class XRxcycleViewAdapter extends RecyclerViewAdapterHelper<RecomBean.Roo
     private Context mContext;
 
 
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
 
     public XRxcycleViewAdapter(Context context, List<RecomBean.RoomBean> list) {
         super(context, list);

@@ -25,7 +25,8 @@
 
             />
         <TextView
-            android:text="点击登录"
+            android:id="@+id/text_dianji_myfragment"
+
             android:textSize="18sp"
             android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"

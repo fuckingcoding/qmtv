@@ -13,9 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.acer.myzhibo.R;
+import com.example.acer.myzhibo.database.PreUtils;
 import com.example.acer.myzhibo.ui.TulingActivity;
+import com.example.acer.myzhibo.ui.fragment.My.activity.ConcernActivity;
+import com.example.acer.myzhibo.ui.fragment.My.activity.HistoryActivity;
+import com.example.acer.myzhibo.ui.fragment.My.activity.SheZhiActivity;
+import com.example.acer.myzhibo.ui.fragment.My.activity.SubActivity;
 import com.example.acer.myzhibo.ui.login.LoginActivity;
 import com.hyphenate.EMMessageListener;
 
@@ -38,7 +44,8 @@ public class MyFragment extends Fragment implements MineContract.IMineView, View
             super.handleMessage(msg);
         }
     };
-
+    private boolean login;
+    private TextView mTextView;
     // private
     public MyFragment() {
         // Required empty public constructor
@@ -62,6 +69,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView, View
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         initView(view);
 
 
@@ -94,8 +102,20 @@ public class MyFragment extends Fragment implements MineContract.IMineView, View
         iv_left = (ImageView) view.findViewById(R.id.iv_mine_left);
         iv_right = (ImageView) view.findViewById(R.id.iv_mine_right);
         kaibo=(ImageView)view.findViewById(R.id.kaibo_normal);
+        mTextView=(TextView)view.findViewById(R.id.text_dianji_myfragment);
 
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        login= PreUtils.readBoolean(mContext,"login");
+        if(login){
+            String username=PreUtils.readStrting(mContext,"username");
+            mTextView.setText(username);
+        }else {
+            mTextView.setText("请点击登录");
+        }
     }
 
     @Override
@@ -106,14 +126,13 @@ public class MyFragment extends Fragment implements MineContract.IMineView, View
 
                 break;
             case R.id.linear2_mine:
-
+                intent.setClass(mContext,ConcernActivity.class);
                 break;
             case R.id.linear3_mine:
-
-
+                intent.setClass(mContext, HistoryActivity.class);
                 break;
-            case R.id.linear4_mine:
-
+           case R.id.linear4_mine:
+                intent.setClass(mContext, SubActivity.class);
                 break;
             case R.id.linear5_mine:
 
@@ -122,7 +141,12 @@ public class MyFragment extends Fragment implements MineContract.IMineView, View
 
                 break;
             case R.id.linear_center_mine:
-                intent.setClass(mContext, LoginActivity.class);
+
+                if(login){
+                intent.setClass(mContext, SheZhiActivity.class);
+                }else {
+                    intent.setClass(mContext, LoginActivity.class);
+                }
                 break;
             case R.id.iv_mine_left:
 

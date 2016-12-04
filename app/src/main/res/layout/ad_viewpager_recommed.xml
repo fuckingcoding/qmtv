@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
     android:id="@+id/relativelayout_header_ad">
     <android.support.v4.view.ViewPager
         android:id="@+id/recom_first_fragment_viewpager_ad"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="150dp"
+        android:background="@color/red">
     </android.support.v4.view.ViewPager>
     <TextView
         android:id="@+id/text_recom_first_ad"
@@ -17,12 +18,13 @@
         android:paddingBottom="10dp"
         android:layout_marginLeft="15dp"/>
     <LinearLayout
-        android:id="@+id/ad_dot_layout"
+        android:id="@+id/ad_dot_layout11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginRight="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:background="@color/yellow"
         android:paddingBottom="20dp"/>
 </RelativeLayout>

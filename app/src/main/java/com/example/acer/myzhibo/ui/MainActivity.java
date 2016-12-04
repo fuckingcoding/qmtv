@@ -1,22 +1,20 @@
 package com.example.acer.myzhibo.ui;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.Mainadapter;
 import com.example.acer.myzhibo.ui.fragment.ColumnFragment;
-import com.example.acer.myzhibo.ui.fragment.live.LiveFragment;
-
-import com.example.acer.myzhibo.ui.fragment.RecommendFragment;
 import com.example.acer.myzhibo.ui.fragment.My.MyFragment;
-
+import com.example.acer.myzhibo.ui.fragment.RecommendFragment;
+import com.example.acer.myzhibo.ui.fragment.live.LiveFragment;
 import com.example.acer.myzhibo.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -37,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             R.mipmap.ic_main_my2};
     private List<Fragment> fragmentList = new ArrayList<>();
     private Mainadapter mainadapter;
-    private Toolbar toolbar;
 
+    private  RecommendFragment recommendFragment;
 
 
 
@@ -47,16 +45,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initFragment();
-        initToolbar();
+
         initView();
     }
 
-    private void initToolbar() {
-        toolbar=(Toolbar)findViewById(R.id.toolbar_main);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("全民直播");
-        toolbar.setLogo(R.mipmap.ic_launcher);
-    }
+
 
     //初始化radiobutton，viewpager
     private void initView() {
@@ -68,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
     //初始化fragment
     private void initFragment() {
-        RecommendFragment recommendFragment = new RecommendFragment();
+      recommendFragment = new RecommendFragment();
         ColumnFragment columnFragment = new ColumnFragment();
         LiveFragment liveFragment = new LiveFragment();
         MyFragment myFragment = new MyFragment();
@@ -137,5 +130,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        recommendFragment.Refush();
     }
 }

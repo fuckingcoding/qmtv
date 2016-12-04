@@ -39,4 +39,21 @@ public class UIManager {
    }
 
 
+    public static void startPlayActivity(Context context,String avatar,String title,String nick,String view,String uid,String thumb){
+
+        Intent intent = new Intent();
+        intent.setClass(context, PlayActivity.class);
+        intent.putExtra(Constant.AVATAR,avatar);
+        intent.putExtra(Constant.VIEW,view);
+        intent.putExtra(Constant.TITLE,title);
+        intent.putExtra(Constant.NICK,nick);
+        intent.putExtra(Constant.UID,uid);
+        intent.putExtra(Constant.Thumb,thumb);
+
+        context.startActivity(intent);
+
+
+    }
+
+
 }

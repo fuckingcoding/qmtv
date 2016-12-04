@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,6 +102,7 @@ public class RecommendFragment extends Fragment {
             tabList.addAll(normallist);
         }
         mainadapter2.notifyDataSetChanged();
+        mTabLayout.setupWithViewPager(mViewPager);
 
     }
 
@@ -108,9 +110,6 @@ public class RecommendFragment extends Fragment {
 
         defult = PreUtils.readStrting(mContext, "defult");
         String[] defultname = defult.split(",");
-//        String  normal=PreUtils.readStrting(mContext,"other");
-//        String[] othername=normal.split(",");
-
 
         normallist = new ArrayList<>();
         Collections.addAll(normallist, defultname);
@@ -120,17 +119,7 @@ public class RecommendFragment extends Fragment {
         tabList.addAll(normallist);
 
 
-//
-//
-//        //全部频道转成list
-//        allList=new ArrayList<>();
-//        Collections.addAll(allList,AllCHALLEL);
-//        //全部频道转换为拼音
-//        allpyList=new ArrayList<>();
-//        Collections.addAll(allpyList,ALL_CHALLEL_PY);
-//        for (int i = 0; i < allList.size(); i++) {
-//            allmap.put(allList.get(i),allpyList.get(i));
-//        }
+
     }
 
     private void initView(View view) {
@@ -193,11 +182,7 @@ public class RecommendFragment extends Fragment {
             bundle.putString(Constant.KEY_RECOMMEND_URL_KEY, tabList.get(i));
             recommendFragmentList.setArguments(bundle);
             refragmentList.add(recommendFragmentList);
-
-
         }
-
-
     }
 
     @Override
@@ -215,5 +200,8 @@ public class RecommendFragment extends Fragment {
 //    }
 
 }
+    public void Refush(){
+        Log.e(TAG, "Refush: sssssss" );
 
+    }
 }

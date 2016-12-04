@@ -51,5 +51,6 @@ dependencies {
     compile 'com.github.ctiao:DanmakuFlameMaster:0.6.1'
     compile 'com.github.ctiao:ndkbitmap-armv7a:0.6.1'
     compile 'com.jakewharton:butterknife:5.1.1'
+    compile 'liji.library.dev:takephotolib:1.0.2'
     compile files('libs/hyphenatechat_3.2.1.jar')
 }

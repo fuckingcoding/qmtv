@@ -10,6 +10,25 @@ public class Users extends BmobObject {
     private String name;
     private String password;
 
+    private String nick;
+    private String touxiang;
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public String getTouxiang() {
+        return touxiang;
+    }
+
+    public void setTouxiang(String touxiang) {
+        this.touxiang = touxiang;
+    }
+
     public String getName() {
         return name;
     }

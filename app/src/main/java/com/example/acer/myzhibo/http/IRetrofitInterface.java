@@ -1,5 +1,6 @@
 package com.example.acer.myzhibo.http;
 
+import com.example.acer.myzhibo.bean.AdBean;
 import com.example.acer.myzhibo.bean.LanmuBean;
 import com.example.acer.myzhibo.bean.LiveBean;
 import com.example.acer.myzhibo.bean.QMBean;
@@ -11,8 +12,6 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
-
-import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -64,4 +63,7 @@ public interface IRetrofitInterface {
 
     @GET
     Observable<TulingResponseBean> getTulingData(@Url String string );
+
+    @GET
+    Observable<AdBean> getAdData(@Url String string);
 }

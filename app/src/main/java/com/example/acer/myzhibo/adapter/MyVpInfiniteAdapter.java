@@ -29,13 +29,19 @@ public class MyVpInfiniteAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = list.get(position%list.size());
+        View view;
+        if(list.size()!=0) {
+            view = list.get(position % list.size());
             container.addView(view);
-        return view;
+            return view;
+        }
+        return null;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-       container.removeView(list.get(position%list.size()));
+        if(list.size()!=0) {
+            container.removeView(list.get(position % list.size()));
+        }
     }
 }

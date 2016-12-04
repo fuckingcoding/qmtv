@@ -55,6 +55,8 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
     private LivePresenter presenter1 ;
     private List<LiveBean.DataBeanX> data1=new ArrayList<>();
     private LiveAdapter adapter1 ;
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -91,8 +93,10 @@ public class RecommendFragmentList extends Fragment implements RecommendContract
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_recommend_fragment_list, container, false);
         initRecycleView(view);
+
         return view;
     }
+
 
     private void initRecycleView(View view) {
         mRecycleView=(RecyclerView)view.findViewById(R.id.recycleview_recommendfragList);

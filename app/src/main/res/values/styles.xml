@@ -23,4 +23,8 @@
         <item name="colorControlActivated">#FFCC00</item>
     </style>
 
+    <style name="BiaoTi" >
+        <item name="android:textSize">22sp</item>
+
+    </style>
 </resources>

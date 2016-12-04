@@ -43,4 +43,8 @@ public class Mainadapter2 extends FragmentPagerAdapter {
         return list.get(position);
     }
 
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
 }
