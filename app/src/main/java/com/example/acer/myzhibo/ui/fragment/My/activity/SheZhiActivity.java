@@ -18,9 +18,10 @@ import com.liji.takephoto.TakePhoto;
 
 public class SheZhiActivity extends AppCompatActivity {
     private Context mContext=this;
-    private Button mButton;
+    private Button mButton,mOkButton;
     private RelativeLayout mRelativeLayout;
     private ImageView imageView;
+    private  TakePhoto takePhoto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +36,14 @@ public class SheZhiActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                  PreUtils.writeBoolean(mContext,"login",false);
-                Intent intent=new Intent(mContext, MainActivity.class);
-                startActivity(intent);
+
+               // PreUtils.getSharedPreferences(mContext).edit().clear().commit();
+
+                 Intent intent=new Intent(mContext, MainActivity.class);
+                 startActivity(intent);
             }
         });
+
     }
 
     private void initView() {
@@ -49,11 +54,10 @@ public class SheZhiActivity extends AppCompatActivity {
         mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TakePhoto takePhoto = new TakePhoto(SheZhiActivity.this);
+                takePhoto = new TakePhoto(SheZhiActivity.this);
                 takePhoto.setOnPictureSelected(new TakePhoto.onPictureSelected() {
                     @Override
                     public void select(String path) {
-
                         Glide.with(SheZhiActivity.this).load("file://" + path).transform(new BitmapCircleTransformation(mContext)).into(imageView);
                     }
                 });

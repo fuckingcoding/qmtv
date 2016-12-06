@@ -11,7 +11,9 @@ import java.util.List;
  */
 public class MyViewPagerAdapter extends PagerAdapter {
     private List<View> list;
-
+    public interface OnItemClickListener{
+        void onclick(int position);
+    }
     public MyViewPagerAdapter(List<View> list) {
         this.list = list;
     }

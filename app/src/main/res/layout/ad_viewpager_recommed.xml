@@ -6,8 +6,8 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/recom_first_fragment_viewpager_ad"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@color/red">
+        android:layout_height="180dp"
+        >
     </android.support.v4.view.ViewPager>
     <TextView
         android:id="@+id/text_recom_first_ad"
@@ -16,7 +16,10 @@
         android:text="这里是广告的文字"
         android:layout_alignParentBottom="true"
         android:paddingBottom="10dp"
-        android:layout_marginLeft="15dp"/>
+        android:layout_marginLeft="15dp"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
     <LinearLayout
         android:id="@+id/ad_dot_layout11"
         android:layout_width="wrap_content"
@@ -25,6 +28,5 @@
         android:layout_marginRight="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@color/yellow"
-        android:paddingBottom="20dp"/>
+        android:paddingBottom="10dp"/>
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.acer.myzhibo.ui.login;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,7 +34,6 @@ import com.example.acer.myzhibo.utils.HuanXinUtils;
 import com.hyphenate.EMCallBack;
 
 import java.util.List;
-import java.util.concurrent.ThreadFactory;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,6 +47,8 @@ import cn.bmob.v3.listener.FindListener;
 import static android.R.attr.name;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private Context mContext=this;
 
     @InjectView(R.id.et_username)
     EditText etUsername;
@@ -238,6 +240,7 @@ private EditText phoneEdt, pswEdt;
                                        @Override
                                        public void onSuccess() {
                                            Log.e("TAG", "onSuccesslogin: " );
+
                                            PreUtils.writeString(LoginActivity.this,"loginname",name1);
                                            //Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                                        }
@@ -336,6 +339,7 @@ private EditText phoneEdt, pswEdt;
                                 @Override
                                 public void onSuccess() {
                                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                    mContext.getMainLooper();
                                     PreUtils.writeString(LoginActivity.this,"loginname",name21);
                                 }
 

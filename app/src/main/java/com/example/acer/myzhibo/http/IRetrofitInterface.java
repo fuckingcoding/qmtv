@@ -4,8 +4,8 @@ import com.example.acer.myzhibo.bean.AdBean;
 import com.example.acer.myzhibo.bean.LanmuBean;
 import com.example.acer.myzhibo.bean.LiveBean;
 import com.example.acer.myzhibo.bean.QMBean;
-import com.example.acer.myzhibo.bean.RecomBean;
 import com.example.acer.myzhibo.bean.RankBean;
+import com.example.acer.myzhibo.bean.RecomBean;
 import com.example.acer.myzhibo.bean.SearchBean;
 import com.example.acer.myzhibo.bean.TulingResponseBean;
 import com.example.acer.myzhibo.bean.VersionBean;
@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;

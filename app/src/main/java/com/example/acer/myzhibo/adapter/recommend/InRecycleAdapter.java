@@ -22,6 +22,7 @@ import java.util.List;
  */
 
 public class InRecycleAdapter extends RecyclerViewAdapterHelper<RecomBean.RoomBean.ListBean> {
+
     public interface IOnItemClickListener{
         void onclick(int position);
     }

@@ -1,18 +1,17 @@
 package com.example.acer.myzhibo.ui;
 
-import android.Manifest;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -23,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +29,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.adapter.zycadapter.HotEvent;
@@ -39,32 +38,23 @@ import com.example.acer.myzhibo.adapter.zycadapter.MyPlayTablayoutAdapter;
 import com.example.acer.myzhibo.bean.Alert;
 import com.example.acer.myzhibo.bean.GuanZhu;
 import com.example.acer.myzhibo.bean.History;
-import com.example.acer.myzhibo.bean.ChatBean;
 import com.example.acer.myzhibo.bean.RankBean;
 import com.example.acer.myzhibo.config.Constant;
 import com.example.acer.myzhibo.database.PreUtils;
 import com.example.acer.myzhibo.http.HttpUtils;
 import com.example.acer.myzhibo.http.IRetrofitInterface;
 import com.example.acer.myzhibo.ui.fragment.ChatFragment;
-import com.example.acer.myzhibo.ui.fragment.ProtectFragment;
 import com.example.acer.myzhibo.ui.fragment.RankFragment;
 import com.example.acer.myzhibo.ui.login.LoginActivity;
 import com.example.acer.myzhibo.utils.BitmapCircleTransformation;
 import com.example.acer.myzhibo.utils.DensityUtil;
-import com.example.acer.myzhibo.utils.DialogHelper;
 import com.example.acer.myzhibo.utils.ToastHelper;
-import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMMessage;
-import com.hyphenate.chat.EMTextMessageBody;
-import com.hyphenate.exceptions.HyphenateException;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -92,25 +82,21 @@ public class PlayActivity extends AppCompatActivity implements Runnable {
     private Context mContext = this;
     private VideoView videoView;
     private MediaController mMediaController;
-    private ImageView imageView, iv_guanzhu, iv_tixing;
-    private ImageView iv_back, iv_more, iv_gift, iv_pause, iv_screen;
     private ImageView imageView,iv_guanzhu,iv_tixing;
     private ImageView iv_back,iv_more,iv_gift,iv_pause,iv_screen;
     private ImageView iv_landscape_back;
     private ImageView iv_loading;
     private TextView textView_name;
     private TextView textView_content;
-    private TextView textgz, texttixing;
-    private String playurl;
+
+
     private String pic, head, content, view1, thumb;
-    private boolean flag;
-    private boolean kg ;
-    private boolean pause = true;
+
     private boolean screen = true;
     private TextView textgz,texttixing;
     private TextView tv_full_title,tv_full_qxd,tv_full_gift;
     private String playurl ;
-    private String pic,head,content,view;
+
     private ImageView iv_full_pause,iv_full_refrsh,iv_full_hot,iv_full_send,iv_full_text;
     private boolean flag=true;
     private boolean kg=true;
@@ -122,12 +108,10 @@ public class PlayActivity extends AppCompatActivity implements Runnable {
     private List<Fragment> list_fragment;         //fragment的数据集合
     private List<String> list_title;
     private Fragment chatFragment, rankFragment, protectFragment;
-    private Fragment chatFragment,rankFragment;
+
     private MyPlayTablayoutAdapter mptAdapter;
     private LinearLayout linearlayout;
     private RelativeLayout relativeLayout;
-    private String stringExtra;
-
     private String stringExtra;
     private RelativeLayout rl_top,rl_bottom;
     private  TextView tv_bq,tv_cq,tv_gq;
@@ -500,7 +484,7 @@ public class PlayActivity extends AppCompatActivity implements Runnable {
         //为TabLayout添加tab名称
         tablayout.addTab(tablayout.newTab().setText(list_title.get(0)));
         tablayout.addTab(tablayout.newTab().setText(list_title.get(1)));
-        tablayout.addTab(tablayout.newTab().setText(list_title.get(2)));
+//        tablayout.addTab(tablayout.newTab().setText(list_title.get(2)));
         mptAdapter = new MyPlayTablayoutAdapter(getSupportFragmentManager(), list_fragment, list_title);
         mptAdapter = new MyPlayTablayoutAdapter(getSupportFragmentManager(),list_fragment,list_title);
         viewpaper.setAdapter(mptAdapter);

@@ -17,14 +17,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.acer.myzhibo.R;
-import com.example.acer.myzhibo.adapter.MyVpInfiniteAdapter;
+import com.example.acer.myzhibo.adapter.MyViewPagerAdapter;
 import com.example.acer.myzhibo.adapter.recommend.XRxcycleViewAdapter;
 import com.example.acer.myzhibo.bean.AdBean;
 import com.example.acer.myzhibo.bean.RecomBean;
 import com.example.acer.myzhibo.config.UrlConfig;
 import com.example.acer.myzhibo.ui.fragment.recommend.recomFristMVP.AdMVP.AdContract;
 import com.example.acer.myzhibo.ui.fragment.recommend.recomFristMVP.AdMVP.AdPresenter;
+import com.example.acer.myzhibo.utils.UIManager;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -33,14 +35,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecomFirstFragment extends Fragment implements RecomFirstContract.IRoomView,AdContract.IAdView{
+public class RecomFirstFragment extends Fragment implements RecomFirstContract.IRoomView, AdContract.IAdView {
     private static final String TAG = "RecomFirstFragment";
     private Context mContext;
 
     private XRecyclerView mxRecyclerView;
 
-    private List<ImageView> adViews;
-    private MyVpInfiniteAdapter adAdapter;
+    private List<View> adViews = new ArrayList<>();
+    private MyViewPagerAdapter adAdapter;
     private ViewPager mAdViewpager;
     private LinearLayout adlayout;
     private LinearLayoutManager layout;
@@ -48,13 +50,17 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
     private RecomFirstContract.IRoomPresenter presenter;
     private AdContract.IAdPresenter iAdPresenter;
     private List<RecomBean.RoomBean> data = new ArrayList<>();
-    private List<AdBean.focusBean> aDdata=new ArrayList<>();
+    private List<AdBean.focusBean> aDdata = new ArrayList<>();
     private Handler adHandler = new Handler();
     private ADRunnable adRunnable;
     private View header;
     private TextView madtextview;
     //
     private int currentPosition;
+
+    private ImageView adIv;
+
+    private int i;
 
     @Override
     public void onAttach(Context context) {
@@ -65,6 +71,10 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        iAdPresenter = new AdPresenter(this);
+        iAdPresenter.getAdBean(UrlConfig.ADURL);
+        presenter = new RecomFirstPresenter(this);
+        presenter.getBean(UrlConfig.RECOMMEND);
     }
 
     @Override
@@ -79,19 +89,7 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         initView(view);
-       initAd();
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        iAdPresenter=new AdPresenter(this);
-        iAdPresenter.getAdBean(UrlConfig.ADURL);
-        presenter = new RecomFirstPresenter(this);
-        presenter.getBean(UrlConfig.RECOMMEND);
 
     }
 
@@ -104,22 +102,20 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
         mxRecyclerView.setHasFixedSize(true);
         mxRecyclerView.setAdapter(xrecycleviewadapter);
         LayoutInflater systemService = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-         header = systemService.inflate(R.layout.ad_viewpager_recommed, null, false);
-
+        header = systemService.inflate(R.layout.ad_viewpager_recommed, null, false);
         mAdViewpager = (ViewPager) header.findViewById(R.id.recom_first_fragment_viewpager_ad);
         mxRecyclerView.addHeaderView(header);
     }
 
     private void initAd() {
         initAdItemView();
-        initDot();
         initViewPager();
+        initDot();
         adRunnable = new ADRunnable();
     }
 
     private void initAdItemView() {
-        adViews = new ArrayList<>();
-        for (int i = 0; i <aDdata.size(); i++) {
+        for (int i = 0; i < aDdata.size(); i++) {
             ImageView iv = new ImageView(mContext);
             iv.setLayoutParams(new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -131,11 +127,8 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
     }
 
     private void initViewPager() {
-
-        adAdapter = new MyVpInfiniteAdapter(adViews);
-        //mAdViewpager.setOffscreenPageLimit(3);
+        adAdapter = new MyViewPagerAdapter(adViews);
         mAdViewpager.setAdapter(adAdapter);
-
         //ViewPager滑动监听
         mAdViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -149,16 +142,17 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
 
             @Override
             public void onPageSelected(int position) {
-                for (int i = 0; i < adViews.size(); i++) {
-                    if (i == (position % adViews.size())) {
-                        //Log.e("TAG", "onPageSelected() returned: " + position%6);
-                      adlayout.getChildAt(i % (adViews.size())).setSelected(true);
+                //  处理圆点
+                int itemCount = adlayout.getChildCount(); //获得Layout中子View的数量
+                for (int i = 0; i < itemCount; i++) {
+                    View view = adlayout.getChildAt(i);//提取子View
+                    if (i == position) {
+                        view.setSelected(true);
                     } else {
-                       adlayout.getChildAt(i % (adViews.size())).setSelected(false);
+                        view.setSelected(false);
                     }
                 }
-                //处理文字
-              //  initADText(position);
+                initADText(position);
             }
         });
         //  触摸监听，按下的时候取消handler回调，松手的时候，重新开启
@@ -181,26 +175,25 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
     }
 
     private void initADText(int position) {
-        madtextview=(TextView)header.findViewById(R.id.text_recom_first_ad);
+        madtextview = (TextView) header.findViewById(R.id.text_recom_first_ad);
         String title = aDdata.get(position).getTitle();
-        if(title!=null){
+        if (title != null) {
             madtextview.setText(title);
-        }else{
+        } else {
             madtextview.setText("暂无标题");
         }
-
-
     }
 
 
     private void initDot() {
-        adlayout = (LinearLayout)header.findViewById(R.id.ad_dot_layout11);
+        adlayout = (LinearLayout) header.findViewById(R.id.ad_dot_layout11);
         for (int i = 0; i < adViews.size(); i++) {
             ImageView iv = new ImageView(getActivity());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.rightMargin = 10;
             iv.setLayoutParams(params);
             iv.setImageResource(R.drawable.ad_selector);
+            iv.setScaleType(ImageView.ScaleType.FIT_XY); //设置填充属性
             if (i == 0) {
                 iv.setSelected(true);
             }
@@ -223,11 +216,40 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
 
     @Override
     public void getAdData(AdBean bean) {
+
         aDdata.addAll(bean.getFocus());
         initADText(0);
-        Log.e("ooo", "getAdData: "+aDdata.size() );
+        Log.e("ooo", "getAdData: " + aDdata.size());
+        initAd();
+
+        initADImage();
+
+
     }
 
+    //加载广告图片
+    private void initADImage() {
+        for (i = 0; i < adViews.size(); i++) {
+            //获得广告的ImageView
+            adIv = (ImageView) adViews.get(i);
+            //TODO 使用Picasso加载资
+            Glide.with(this)
+                    .load(aDdata.get(i).getThumb())
+                    .centerCrop()
+                    .into(adIv);
+            adIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    UIManager.startPlayActivity(mContext,
+                            aDdata.get(i - 1).getLink_object().getAvatar(),
+                            aDdata.get(i - 1).getLink_object().getTitle(),
+                            aDdata.get(i - 1).getLink_object().getNick(),
+                            aDdata.get(i - 1).getLink_object().getView(),
+                            String.valueOf(aDdata.get(i - 1).getLink_object().getUid()));
+                }
+            });
+        }
+    }
 
     //广告轮播的任务
     class ADRunnable implements Runnable {
@@ -235,9 +257,9 @@ public class RecomFirstFragment extends Fragment implements RecomFirstContract.I
         public void run() {
             currentPosition = mAdViewpager.getCurrentItem(); //获得当前的位置
             currentPosition++;
-//            if (currentPosition > aDdata.size()) {
-//                currentPosition = 0;
-//            }
+            if (currentPosition > aDdata.size() - 1) {
+                currentPosition = 0;
+            }
             mAdViewpager.setCurrentItem(currentPosition);//重新设置位置
             adHandler.postDelayed(adRunnable, 2000);
         }

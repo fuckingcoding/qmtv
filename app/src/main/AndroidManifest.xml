@@ -87,13 +87,13 @@
         <activity android:name=".ui.fragment.My.activity.HistoryActivity" />
         <activity android:name=".ui.fragment.My.activity.SubActivity" />
         <activity android:name=".ui.fragment.My.activity.SheZhiActivity"></activity>
-        <activity android:name=".ui.TulingActivity" />
+
         <activity android:name=".ui.SettingActivity" />
         <activity android:name=".ui.AboutUsActivity" />
 
         <service android:name=".service.MyService" />
 
-        <activity android:name=".ui.HeadpicActivity" />
+
         <activity
             android:name=".ui.HeadCropActivity"
             android:label="@string/title_activity_head_crop"

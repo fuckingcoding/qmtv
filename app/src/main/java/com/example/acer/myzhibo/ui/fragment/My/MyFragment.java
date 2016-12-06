@@ -19,10 +19,6 @@ import com.example.acer.myzhibo.R;
 import com.example.acer.myzhibo.database.PreUtils;
 import com.example.acer.myzhibo.ui.HeadCropActivity;
 import com.example.acer.myzhibo.ui.SettingActivity;
-import com.example.acer.myzhibo.ui.login.LoginActivity;
-import com.example.acer.myzhibo.bean.LoginBean;
-import com.example.acer.myzhibo.http.HttpUtils;
-import com.example.acer.myzhibo.http.IRetrofitInterface;
 import com.example.acer.myzhibo.ui.TulingActivity;
 import com.example.acer.myzhibo.ui.fragment.My.activity.ConcernActivity;
 import com.example.acer.myzhibo.ui.fragment.My.activity.HistoryActivity;
@@ -107,6 +103,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView, View
         iv_left = (ImageView) view.findViewById(R.id.iv_mine_left);
         iv_right = (ImageView) view.findViewById(R.id.iv_mine_right);
         kaibo=(ImageView)view.findViewById(R.id.kaibo_normal);
+
         mTextView=(TextView)view.findViewById(R.id.text_dianji_myfragment);
 
     }
@@ -149,6 +146,7 @@ public class MyFragment extends Fragment implements MineContract.IMineView, View
 
                 if(login){
                 intent.setClass(mContext, SheZhiActivity.class);
+
                 }else {
                     intent.setClass(mContext, LoginActivity.class);
                 }
